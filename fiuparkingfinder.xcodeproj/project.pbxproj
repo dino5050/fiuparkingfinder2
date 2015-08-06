@@ -14,6 +14,7 @@
 		4B2923F11B692DED007A8456 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4B2923F01B692DED007A8456 /* Images.xcassets */; };
 		4B2923F41B692DED007A8456 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4B2923F21B692DED007A8456 /* LaunchScreen.xib */; };
 		4B2924001B692DEE007A8456 /* fiuparkingfinderTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B2923FF1B692DEE007A8456 /* fiuparkingfinderTests.m */; };
+		4B66F2161B6C168500E8C9FD /* DrawCircle.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B66F2151B6C168500E8C9FD /* DrawCircle.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -40,6 +41,8 @@
 		4B2923F91B692DEE007A8456 /* fiuparkingfinderTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = fiuparkingfinderTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		4B2923FE1B692DEE007A8456 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		4B2923FF1B692DEE007A8456 /* fiuparkingfinderTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = fiuparkingfinderTests.m; sourceTree = "<group>"; };
+		4B66F2141B6C168500E8C9FD /* DrawCircle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DrawCircle.h; sourceTree = "<group>"; };
+		4B66F2151B6C168500E8C9FD /* DrawCircle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DrawCircle.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -85,6 +88,8 @@
 				4B2923E81B692DEC007A8456 /* AppDelegate.m */,
 				4B2923EA1B692DEC007A8456 /* ViewController.h */,
 				4B2923EB1B692DEC007A8456 /* ViewController.m */,
+				4B66F2141B6C168500E8C9FD /* DrawCircle.h */,
+				4B66F2151B6C168500E8C9FD /* DrawCircle.m */,
 				4B2923ED1B692DED007A8456 /* Main.storyboard */,
 				4B2923F01B692DED007A8456 /* Images.xcassets */,
 				4B2923F21B692DED007A8456 /* LaunchScreen.xib */,
@@ -168,6 +173,7 @@
 				TargetAttributes = {
 					4B2923DF1B692DE9007A8456 = {
 						CreatedOnToolsVersion = 6.4;
+						DevelopmentTeam = 3A9E9253ZW;
 					};
 					4B2923F81B692DEE007A8456 = {
 						CreatedOnToolsVersion = 6.4;
@@ -222,6 +228,7 @@
 				4B2923EC1B692DEC007A8456 /* ViewController.m in Sources */,
 				4B2923E91B692DEC007A8456 /* AppDelegate.m in Sources */,
 				4B2923E61B692DEC007A8456 /* main.m in Sources */,
+				4B66F2161B6C168500E8C9FD /* DrawCircle.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -349,9 +356,13 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = fiuparkingfinder/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 			};
 			name = Debug;
 		};
@@ -359,9 +370,14 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = fiuparkingfinder/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
+				"IPHONEOS_DEPLOYMENT_TARGET[sdk=iphoneos7.1]" = 7.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 			};
 			name = Release;
 		};
@@ -418,6 +434,7 @@
 				4B2924051B692DEE007A8456 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		4B2924061B692DEE007A8456 /* Build configuration list for PBXNativeTarget "fiuparkingfinderTests" */ = {
 			isa = XCConfigurationList;
@@ -426,6 +443,7 @@
 				4B2924081B692DEE007A8456 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
