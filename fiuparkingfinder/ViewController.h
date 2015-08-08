@@ -15,9 +15,12 @@
 }
 @property(nonatomic, retain) DrawCircle *circle;
 @property(nonatomic, retain) UIImageView *map;
+@property(nonatomic, retain) UIImageView *sandlot;
 
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex;
 - (IBAction)handlePan:(UIPanGestureRecognizer *)recognizer;
 - (BOOL)shouldAutorotate;
+- (void)refreshView:(NSNotification *) notification;
 
 @end
 
