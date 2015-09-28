@@ -7,6 +7,9 @@
 //
 
 #import "DrawCircle.h"
+#import "ViewController.h"
+#define IDIOM UI_USER_INTERFACE_IDIOM()
+#define IPAD UIUserInterfaceIdiomPad
 
 @implementation DrawCircle
 
@@ -20,15 +23,15 @@
 /*if (next == 0) strcpy(lot, dirt); else if (next == 1) strcpy(lot, pg5); else if (next == 2) strcpy(lot, pg4); else if (next == 3) strcpy(lot, pg6);
 else if (next == 4) strcpy(lot, p9); else if (next == 5) strcpy(lot, pg3); else if (next == 6) strcpy(lot, p7); else if (next == 7) strcpy(lot, p5);
 else if (next == 8) strcpy(lot, pg2); else if (next == 9) strcpy(lot, pg1); else if (next == 10) strcpy(lot, p4); else if (next == 11) strcpy(lot, p3); */
-- (void)drawRect:(CGRect)rect
+-(void)drawRect:(CGRect)rect
 {
     //Sunday = 1
-    NSURLRequest *app_info = [NSURLRequest requestWithURL:[NSURL URLWithString:@"http://69.194.224.199/fiuparkingmonitor/offday.php"]];
+ /*   NSURLRequest *app_info = [NSURLRequest requestWithURL:[NSURL URLWithString:@"http://69.194.224.199/fiuparkingmonitor/offday.php"]];
     NSURLResponse * response2 = nil;
     NSError * error2 = nil;
     [NSURLConnection sendSynchronousRequest:app_info
                                             returningResponse:&response2
-                                                        error:&error2];
+                                                        error:&error2]; */
     NSCalendar *gregorian = [[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar];
     NSDateComponents *comps = [gregorian components:NSWeekdayCalendarUnit fromDate:[NSDate date]];
     NSInteger day = [comps weekday];
@@ -37,7 +40,7 @@ else if (next == 8) strcpy(lot, pg2); else if (next == 9) strcpy(lot, pg1); else
     NSCalendar *calendar = [NSCalendar currentCalendar];
     NSDateComponents *components = [calendar components:NSHourCalendarUnit fromDate:now];
     NSInteger hour = [components hour];
-    NSString *lots [] = {@"dirt",@"pg5",@"pg4",@"pg6",@"p9",@"pg3",@"p7",@"p5",@"pg2",@"pg1",@"p4",@"p3"};
+    NSString *lots [] = {@"dirt",@"pg5",@"pg4",@"pg6",@"pg3",@"p5",@"pg2",@"pg1",@"p9",@"p4",@"p3",@"p7"};
     //printf("%i", hour);
     NSString *dayofweek;
     if(day > 1 && day < 6)
@@ -48,9 +51,16 @@ else if (next == 8) strcpy(lot, pg2); else if (next == 9) strcpy(lot, pg1); else
     NSString *url = @"http://69.194.224.199/fiuparkingmonitor/get_color.php?lot_day=";
     
     int coor2[24];
-    int coor[] = { 115-20, 107-20, 119, 224, 116, 309, 111, 391, 194, 598, 215, 699, 572, 743, 594, 154, 517, 262, 454, 260, 533, 196, 420, 158 };
+    
     for(int i =0; i<24; i++){
-        coor2[i] = coor[i]*0.54;
+        if(IDIOM == IPAD) {
+            int coor[] = {98-25,134-30,94,224+20,90,336-3,93,410,203,726+3,571+1,193-5,499,274,433,273,179,623,508,213,403,196,563,758+5};
+            coor2[i] = coor[i]*1.2;
+        }
+        else {
+            int coor[] = {98-25,134-30,94,224+20,90,336-3,93,410,203,726+3,571+1,193-5,499,274,433,273,179,623,508,213,403,196,563,758};
+            coor2[i] = coor[i]*0.723;
+        }
     }
     //change hour to string!!!!!!!
     NSString *hour1;
@@ -71,9 +81,17 @@ else if (next == 8) strcpy(lot, pg2); else if (next == 9) strcpy(lot, pg1); else
     for(int k = 0; k<12; k++){
         CGContextRef context = UIGraphicsGetCurrentContext();
         if([hour1  isEqual: @"offhour"] || [dayofweek isEqual:@"offday"] || [status isEqualToString:@"off"]){
-            if (k == 0) radius = 90.0;
-            else radius = 50.0;
-            CGRect borderRect = CGRectMake((coor2[k*2]-20)*1.3, (coor2[k*2+1]-20)*1.3, radius, radius);
+            CGRect borderRect;
+            if(IDIOM == IPAD)
+            {
+                if (k == 0) radius = 120.0;
+                else radius = 80.0;
+                borderRect = CGRectMake((coor2[k*2]+50), (coor2[k*2+1]+100), radius, radius);
+            }else{
+                if (k == 0) radius = 90.0;
+                else radius = 50.0;
+                borderRect = CGRectMake((coor2[k*2]+65), (coor2[k*2+1]+125), radius, radius);
+            }
             CGContextSetRGBStrokeColor(context, 0.0, 1.0, 0.0, 1.0);
             CGContextSetRGBFillColor(context, 0.0, 1.0, 0.0, 0.25);
             CGContextSetLineWidth(context, 1.5);
@@ -100,13 +118,22 @@ else if (next == 8) strcpy(lot, pg2); else if (next == 9) strcpy(lot, pg1); else
             }
             int color2 = (int) (color1 - '0');
            
-            if([shutdown isEqual:@"1"] && color2 > 1 && ![hour1 isEqual:@"offhour"] && ![dayofweek isEqual:@"offday"] && (k == 9 || k == 10 || k == 11)) color2 = color2 - 1;
+            if([shutdown isEqual:@"1"] && color2 > 1 && ![hour1 isEqual:@"offhour"] && ![dayofweek isEqual:@"offday"] && ![status isEqualToString:@"off"] && (k == 9 || k == 10 || k == 11)) color2 = color2 - 1;
             if(k == 7 && [shutdown isEqual:@"1"]) color2 = 0;
            // printf("%c", color1);
             //printf("%d ", color1)
-            if (k == 0) radius = 90.0;
-            else radius = 50.0;
-            CGRect borderRect = CGRectMake((coor2[k*2]-20)*1.3, (coor2[k*2+1]-20)*1.3, radius, radius);
+            CGRect borderRect;
+           
+            if(IDIOM == IPAD)
+            {
+                if (k == 0) radius = 120.0;
+                else radius = 80.0;
+                borderRect = CGRectMake((coor2[k*2]+50), (coor2[k*2+1]+100), radius, radius);
+            }else{
+                if (k == 0) radius = 90.0;
+                else radius = 50.0;
+                borderRect = CGRectMake((coor2[k*2]+65), (coor2[k*2+1]+125), radius, radius);
+            }
             
             if(color2 == 4) {
                 CGContextSetRGBStrokeColor(context, 0.0, 1.0, 0.0, 1.0);
@@ -121,6 +148,7 @@ else if (next == 8) strcpy(lot, pg2); else if (next == 9) strcpy(lot, pg1); else
                 CGContextSetRGBFillColor(context, 1.0, 0.5, 0.0, 0.25);
             }
             if(color2 == 1) {
+                
                 CGContextSetRGBStrokeColor(context, 1.0, 0.0, 0.0, 1.0);
                 CGContextSetRGBFillColor(context, 1.0, 0.0, 0.0, 0.25);
             }

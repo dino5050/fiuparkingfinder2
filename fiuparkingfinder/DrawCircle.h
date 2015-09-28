@@ -8,8 +8,9 @@
 
 #import <UIKit/UIKit.h>
 
+
 @interface DrawCircle : UIView
 
-- (void)drawRect:(CGRect)rect;
+-(void)drawRect:(CGRect)rect;
 
 @end

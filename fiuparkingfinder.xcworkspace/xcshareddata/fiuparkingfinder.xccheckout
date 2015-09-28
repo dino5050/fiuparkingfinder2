@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
+	<false/>
+	<key>IDESourceControlProjectIdentifier</key>
+	<string>D9C26C5F-26F5-43D4-88C2-77A8D0D4AE1C</string>
+	<key>IDESourceControlProjectName</key>
+	<string>fiuparkingfinder</string>
+	<key>IDESourceControlProjectOriginsDictionary</key>
+	<dict>
+		<key>44C348BEEF0B889E1107F977B1A11BD248C9B187</key>
+		<string>https://github.com/dino5050/fiuparkingfinder2.git</string>
+	</dict>
+	<key>IDESourceControlProjectPath</key>
+	<string>fiuparkingfinder.xcworkspace</string>
+	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
+	<dict>
+		<key>44C348BEEF0B889E1107F977B1A11BD248C9B187</key>
+		<string>..</string>
+	</dict>
+	<key>IDESourceControlProjectURL</key>
+	<string>https://github.com/dino5050/fiuparkingfinder2.git</string>
+	<key>IDESourceControlProjectVersion</key>
+	<integer>111</integer>
+	<key>IDESourceControlProjectWCCIdentifier</key>
+	<string>44C348BEEF0B889E1107F977B1A11BD248C9B187</string>
+	<key>IDESourceControlProjectWCConfigurations</key>
+	<array>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>44C348BEEF0B889E1107F977B1A11BD248C9B187</string>
+			<key>IDESourceControlWCCName</key>
+			<string>fiuparkingfinder</string>
+		</dict>
+	</array>
+</dict>
+</plist>
