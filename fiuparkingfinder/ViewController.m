@@ -66,12 +66,32 @@
     UIPanGestureRecognizer *recognizer = [[UIPanGestureRecognizer alloc] initWithTarget:self
                                                                           action:@selector(handlePan:)];
     [map addGestureRecognizer:recognizer];
-    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"FIU Parking Finder Update Available!"
+    NSString * version1;
+    @try{NSURLRequest *update = [NSURLRequest requestWithURL:[NSURL URLWithString:@"http://69.194.224.199/fiuparkingmonitor/updateOS.php"]];
+    NSURLResponse * response1 = nil;
+    NSError * error1 = nil;
+    NSData * update2 = [NSURLConnection sendSynchronousRequest:update
+                                            returningResponse:&response1
+                                                        error:&error1];
+    NSString * version = [[NSString alloc] initWithData:update2 encoding:NSUTF8StringEncoding];
+    // char check3 = [check2 characterAtIndex:0];
+    version1 = [version substringWithRange:NSMakeRange(2,2)];
+    }@catch(NSException *error){}
+    NSString *version2 = [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleShortVersionString"];
+    //printf("%s", [version1 UTF8String]);
+    //printf("Hello");
+    int version_1 = [version1 intValue];
+    int version_2 = [version2 intValue];
+    //printf("%d", version_2);
+    
+    if(version_1>version_2){
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"FIU Parking Finder Update Available!"
                                                     message:@"Update Now?"
                                                    delegate:self    // <------
-                                          cancelButtonTitle:@"Later"
-                                          otherButtonTitles:@"Update", nil];
-   // [alert show];
+                                              cancelButtonTitle:@"Later"
+                                              otherButtonTitles:@"Update", nil];
+        [alert show];
+    }
     self.bannerView.adUnitID = @"ca-app-pub-3188229665332758/5863888255";
     self.bannerView.rootViewController = self;
     [self.bannerView loadRequest:[GADRequest request]];
@@ -82,7 +102,7 @@
     
     if([title isEqualToString:@"Update"])
     {
-        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"https://itunes.apple.com/us/app/fiu-parking-finder/id1011204764"]];
+        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"http://itunes.apple.com/app/id1011204764"]];
     }
     
     
