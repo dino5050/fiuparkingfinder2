@@ -8,6 +8,8 @@
 
 #import "ViewController.h"
 #import "DrawCircle.h"
+#import <FBSDKCoreKit/FBSDKCoreKit.h>
+#import <FBSDKShareKit/FBSDKShareKit.h>
 #define IDIOM UI_USER_INTERFACE_IDIOM()
 #define IPAD UIUserInterfaceIdiomPad
 
@@ -67,7 +69,7 @@
                                                                           action:@selector(handlePan:)];
     [map addGestureRecognizer:recognizer];
     NSString * version1;
-    @try{NSURLRequest *update = [NSURLRequest requestWithURL:[NSURL URLWithString:@"http://69.194.224.199/fiuparkingmonitor/updateOS.php"]];
+    @try{NSURLRequest *update = [NSURLRequest requestWithURL:[NSURL URLWithString:@"http://collegeparkingfinder.com/fiuparkingmonitor/updateOS.php"]];
     NSURLResponse * response1 = nil;
     NSError * error1 = nil;
     NSData * update2 = [NSURLConnection sendSynchronousRequest:update
@@ -95,6 +97,20 @@
     self.bannerView.adUnitID = @"ca-app-pub-3188229665332758/5863888255";
     self.bannerView.rootViewController = self;
     [self.bannerView loadRequest:[GADRequest request]];
+    
+    FBSDKShareLinkContent *content = [[FBSDKShareLinkContent alloc] init];
+    content.contentURL = [NSURL URLWithString:@"https://www.facebook.com/fiuparkingfinder"];
+    FBSDKShareButton *shareButton = [[FBSDKShareButton alloc] init];
+    shareButton.shareContent = content;
+    //shareButton.center = self.view.center;
+    CGRect screenBound = [[UIScreen mainScreen] bounds];
+    CGSize screenSize = screenBound.size;
+    
+    shareButton.frame = CGRectMake(18
+                                   , screenSize.height - 82, 70, 30);
+    [self.view addSubview:shareButton];
+    
+    
 }
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
 {
@@ -148,5 +164,7 @@
 - (IBAction) openstreet{
     [[UIApplication sharedApplication]openURL:[NSURL URLWithString:@"https://www.openstreetmap.org/copyright"]];
 }
+
+
 
 @end

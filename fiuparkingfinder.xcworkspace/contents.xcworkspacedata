@@ -2,7 +2,7 @@
 <Workspace
    version = "1.0">
    <FileRef
-      location = "group:fiuparkingfinder.xcodeproj">
+      location = "group:/Users/nezennin/Desktop/fiuparkingfinder/FIU Parking Finder.xcodeproj">
    </FileRef>
    <FileRef
       location = "group:Pods/Pods.xcodeproj">
