@@ -18,6 +18,7 @@
 @property(nonatomic, retain) DrawCircle *circle;
 @property(nonatomic, retain) UIImageView *map;
 @property(nonatomic, retain) UIImageView *sandlot;
+@property(nonatomic, retain) UIView *fbshare;
 
 - (IBAction) openstreet;
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex;

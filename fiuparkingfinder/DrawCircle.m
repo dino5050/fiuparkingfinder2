@@ -8,12 +8,24 @@
 
 #import "DrawCircle.h"
 #import "ViewController.h"
+#import <FBSDKCoreKit/FBSDKCoreKit.h>
+#import <FBSDKShareKit/FBSDKShareKit.h>
 #define IDIOM UI_USER_INTERFACE_IDIOM()
 #define IPAD UIUserInterfaceIdiomPad
 
 @implementation DrawCircle
-
--(void)drawRect:(CGRect)rect
+-(UIView *)fbshare{
+    FBSDKShareLinkContent *content = [[FBSDKShareLinkContent alloc] init];
+    content.contentURL = [NSURL URLWithString:@"https://www.facebook.com/fiuparkingfinder"];
+    FBSDKShareButton *shareButton = [[FBSDKShareButton alloc] init];
+    shareButton.shareContent = content;
+    //shareButton.center = self.view.center;
+    CGRect screenBound = [[UIScreen mainScreen] bounds];
+    CGSize screenSize = screenBound.size;
+    shareButton.frame = CGRectMake(18, screenSize.height - 82, 70, 30);
+    return shareButton;
+} 
+ -(void)drawRect:(CGRect)rect
 {
     
     @try{NSURLRequest *app_info = [NSURLRequest requestWithURL:[NSURL URLWithString:@"http://collegeparkingfinder.com/fiuparkingmonitor/offday.php"]];

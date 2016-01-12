@@ -40,11 +40,10 @@
     //sandlot.frame = CGRectMake(xval, yval, width, height);
     [map addSubview:sandlot];
     //[sandlot setFrame:CGRectMake(1000, 1000, sandlot.frame.size.width, sandlot.frame.size.height)];
-    
-    
+    if (IDIOM == IPAD) [sandlot removeFromSuperview];
+    // make method -(void)ipad: UIImageView map
     if (IDIOM == IPAD){
         UIImage *image = map.image;
-        [sandlot removeFromSuperview];
         UIImage *tempImage = nil;
         //CGSize targetSize = CGSizeMake(770,1177);
         CGSize targetSize = CGSizeMake(862,1318);
@@ -86,7 +85,7 @@
     int version_2 = [version2 intValue];
     //printf("%d", version_2);
     
-    if(version_1>version_2){
+    if(version_1>=version_2){
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"FIU Parking Finder Update Available!"
                                                     message:@"Update Now?"
                                                    delegate:self    // <------
@@ -96,9 +95,9 @@
     }
     self.bannerView.adUnitID = @"ca-app-pub-3188229665332758/5863888255";
     self.bannerView.rootViewController = self;
-    [self.bannerView loadRequest:[GADRequest request]];
+    //[self.bannerView loadRequest:[GADRequest request]];
     
-    FBSDKShareLinkContent *content = [[FBSDKShareLinkContent alloc] init];
+ /*   FBSDKShareLinkContent *content = [[FBSDKShareLinkContent alloc] init];
     content.contentURL = [NSURL URLWithString:@"https://www.facebook.com/fiuparkingfinder"];
     FBSDKShareButton *shareButton = [[FBSDKShareButton alloc] init];
     shareButton.shareContent = content;
@@ -107,8 +106,8 @@
     CGSize screenSize = screenBound.size;
     
     shareButton.frame = CGRectMake(18
-                                   , screenSize.height - 82, 70, 30);
-    [self.view addSubview:shareButton];
+                                   , screenSize.height - 82, 70, 30); */
+    [self.view addSubview:[[DrawCircle alloc] fbshare]];
     
     
 }

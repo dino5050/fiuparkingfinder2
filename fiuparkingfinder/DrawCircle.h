@@ -11,6 +11,7 @@
 
 @interface DrawCircle : UIView
 
+-(UIView *)fbshare;
 -(void)drawRect:(CGRect)rect;
 
 @end
