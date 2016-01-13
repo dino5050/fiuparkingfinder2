@@ -22,6 +22,7 @@
 @synthesize circle;
 @synthesize map;
 @synthesize sandlot;
+@synthesize openstreet;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -32,14 +33,23 @@
 
     
  
-    map = (UIImageView *)[self.view viewWithTag:2];
-    sandlot = (UIImageView *)[self.view viewWithTag:3];
+    map = (UIImageView *)[self.view viewWithTag:1];
+    sandlot = (UIImageView *)[self.view viewWithTag:4];
     self.circle = [[DrawCircle alloc] initWithFrame:CGRectMake(0.0, 0.0, 850.0, 1200.0)];
     self.circle.backgroundColor = [UIColor clearColor];
     [map addSubview:self.circle];
     //sandlot.frame = CGRectMake(xval, yval, width, height);
     [map addSubview:sandlot];
     //[sandlot setFrame:CGRectMake(1000, 1000, sandlot.frame.size.width, sandlot.frame.size.height)];
+    
+    openstreet = [UIImage imageNamed:@"openstreet"];
+    UIImageView *openview = [[UIImageView alloc] initWithImage:openstreet];
+    CGRect screenBound = [[UIScreen mainScreen] bounds];
+    CGSize screenSize = screenBound.size;
+    openview.frame = CGRectMake(screenSize.width-openstreet.size.width, screenSize.height - 82, openstreet.size.width, openstreet.size.height);
+    
+    [self.view addSubview:openview];
+    
     if (IDIOM == IPAD) [sandlot removeFromSuperview];
     // make method -(void)ipad: UIImageView map
     if (IDIOM == IPAD){
@@ -160,10 +170,10 @@
     [[NSNotificationCenter defaultCenter] removeObserver:self];
     
 }
-- (IBAction) openstreet{
+/*- (IBAction) openstreet{
     [[UIApplication sharedApplication]openURL:[NSURL URLWithString:@"https://www.openstreetmap.org/copyright"]];
 }
-
+*/
 
 
 @end

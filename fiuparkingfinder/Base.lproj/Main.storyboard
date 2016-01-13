@@ -17,34 +17,24 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" tag="2" contentMode="center" fixedFrame="YES" image="fiu_mmc_open" translatesAutoresizingMaskIntoConstraints="NO" id="XoQ-zF-dFu">
+                            <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" tag="1" contentMode="center" fixedFrame="YES" image="fiu_mmc_open" translatesAutoresizingMaskIntoConstraints="NO" id="XoQ-zF-dFu">
                                 <rect key="frame" x="-88" y="-167" width="645" height="1080"/>
                             </imageView>
                             <view contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="99P-jG-dLq" customClass="GADBannerView">
                                 <rect key="frame" x="0.0" y="430" width="320" height="50"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             </view>
-                            <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" fixedFrame="YES" image="parking_gradient3" translatesAutoresizingMaskIntoConstraints="NO" id="nsS-RE-PBD">
-                                <rect key="frame" x="-2" y="-9" width="18" height="444"/>
-                            </imageView>
-                            <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" tag="3" contentMode="center" fixedFrame="YES" image="Sandlot" translatesAutoresizingMaskIntoConstraints="NO" id="pr2-6P-A6p">
+                            <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" tag="4" contentMode="center" fixedFrame="YES" image="Sandlot" translatesAutoresizingMaskIntoConstraints="NO" id="pr2-6P-A6p">
                                 <rect key="frame" x="58" y="33" width="30" height="82"/>
                             </imageView>
-                            <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XhG-nW-shC">
-                                <rect key="frame" x="180" y="412" width="140" height="18"/>
-                                <state key="normal" image="openstreet">
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <connections>
-                                    <action selector="openstreet" destination="BYZ-38-t0r" eventType="touchUpInside" id="B4J-cL-0fR"/>
-                                </connections>
-                            </button>
+                            <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" tag="2" contentMode="center" fixedFrame="YES" image="parking_gradient3" translatesAutoresizingMaskIntoConstraints="NO" id="HQ8-kf-d7G">
+                                <rect key="frame" x="0.0" y="-9" width="18" height="444"/>
+                            </imageView>
                         </subviews>
                         <color key="backgroundColor" red="0.46193298363676771" green="0.88235294117647056" blue="0.54051156452647031" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstAttribute="bottom" secondItem="99P-jG-dLq" secondAttribute="bottom" id="5he-k8-R9U"/>
                             <constraint firstAttribute="bottom" secondItem="99P-jG-dLq" secondAttribute="bottom" id="c6p-Ac-mhc"/>
-                            <constraint firstAttribute="bottom" secondItem="XhG-nW-shC" secondAttribute="bottom" constant="51" id="xW7-C9-zbJ"/>
                         </constraints>
                     </view>
                     <connections>
@@ -59,7 +49,6 @@
     <resources>
         <image name="Sandlot" width="30" height="82"/>
         <image name="fiu_mmc_open" width="470" height="787"/>
-        <image name="openstreet" width="138" height="18"/>
         <image name="parking_gradient3" width="18" height="444"/>
     </resources>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
