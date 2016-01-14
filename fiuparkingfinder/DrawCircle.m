@@ -25,7 +25,8 @@
     shareButton.frame = CGRectMake(18, screenSize.height - 82, 70, 30);
     return shareButton;
 }
--(UIImageView *)openview: (UIImage*)openstreet{
+-(UIImageView *)openview{
+    UIImage *openstreet = [UIImage imageNamed:@"openstreet"];
     UIImageView *openview = [[UIImageView alloc] initWithImage:openstreet];
     CGRect screenBound = [[UIScreen mainScreen] bounds];
     CGSize screenSize = screenBound.size;
