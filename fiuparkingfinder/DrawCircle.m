@@ -24,7 +24,43 @@
     CGSize screenSize = screenBound.size;
     shareButton.frame = CGRectMake(18, screenSize.height - 82, 70, 30);
     return shareButton;
-} 
+}
+-(UIImageView *)openview: (UIImage*)openstreet{
+    UIImageView *openview = [[UIImageView alloc] initWithImage:openstreet];
+    CGRect screenBound = [[UIScreen mainScreen] bounds];
+    CGSize screenSize = screenBound.size;
+    openview.frame = CGRectMake(screenSize.width-openstreet.size.width, screenSize.height - 82, openstreet.size.width, openstreet.size.height);
+    UITapGestureRecognizer *singleTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapDetected)];
+    singleTap.numberOfTapsRequired = 1;
+    [openview setUserInteractionEnabled:YES];
+    [openview addGestureRecognizer:singleTap];
+    return openview;
+}
+- (void)tapDetected{
+    [[UIApplication sharedApplication]openURL:[NSURL URLWithString:@"https://www.openstreetmap.org/copyright"]];
+}
+-(void)ipad:(UIImageView*)map{
+    UIImage *image = map.image;
+    UIImage *tempImage = nil;
+    //CGSize targetSize = CGSizeMake(770,1177);
+    CGSize targetSize = CGSizeMake(862,1318);
+    UIGraphicsBeginImageContext(targetSize);
+    
+    CGRect thumbnailRect = CGRectMake(0, 0, 0, 0);
+    thumbnailRect.origin = CGPointMake(90.0,130.0);
+    thumbnailRect.size.width  = targetSize.width-90;
+    thumbnailRect.size.height = targetSize.height;
+    
+    [image drawInRect:thumbnailRect];
+    
+    tempImage = UIGraphicsGetImageFromCurrentImageContext();
+    
+    UIGraphicsEndImageContext();
+    
+    map.image = tempImage;
+    //return tempImage;
+}
+
  -(void)drawRect:(CGRect)rect
 {
     

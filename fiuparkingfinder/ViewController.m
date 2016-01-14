@@ -38,41 +38,14 @@
     self.circle = [[DrawCircle alloc] initWithFrame:CGRectMake(0.0, 0.0, 850.0, 1200.0)];
     self.circle.backgroundColor = [UIColor clearColor];
     [map addSubview:self.circle];
-    //sandlot.frame = CGRectMake(xval, yval, width, height);
     [map addSubview:sandlot];
-    //[sandlot setFrame:CGRectMake(1000, 1000, sandlot.frame.size.width, sandlot.frame.size.height)];
-    
+
     openstreet = [UIImage imageNamed:@"openstreet"];
-    UIImageView *openview = [[UIImageView alloc] initWithImage:openstreet];
-    CGRect screenBound = [[UIScreen mainScreen] bounds];
-    CGSize screenSize = screenBound.size;
-    openview.frame = CGRectMake(screenSize.width-openstreet.size.width, screenSize.height - 82, openstreet.size.width, openstreet.size.height);
-    
-    [self.view addSubview:openview];
-    
+    [self.view addSubview:[circle openview:openstreet]];
+  
     if (IDIOM == IPAD) [sandlot removeFromSuperview];
-    // make method -(void)ipad: UIImageView map
-    if (IDIOM == IPAD){
-        UIImage *image = map.image;
-        UIImage *tempImage = nil;
-        //CGSize targetSize = CGSizeMake(770,1177);
-        CGSize targetSize = CGSizeMake(862,1318);
-        UIGraphicsBeginImageContext(targetSize);
-        
-        CGRect thumbnailRect = CGRectMake(0, 0, 0, 0);
-        thumbnailRect.origin = CGPointMake(90.0,130.0);
-        thumbnailRect.size.width  = targetSize.width-90;
-        thumbnailRect.size.height = targetSize.height;
-        
-        [image drawInRect:thumbnailRect];
-        
-        tempImage = UIGraphicsGetImageFromCurrentImageContext();
-        
-        UIGraphicsEndImageContext();
-        
-        
-        map.image = tempImage;
-    }
+    if (IDIOM == IPAD) [circle ipad:map];
+    
     
     UIPanGestureRecognizer *recognizer = [[UIPanGestureRecognizer alloc] initWithTarget:self
                                                                           action:@selector(handlePan:)];
@@ -107,20 +80,12 @@
     self.bannerView.rootViewController = self;
     //[self.bannerView loadRequest:[GADRequest request]];
     
- /*   FBSDKShareLinkContent *content = [[FBSDKShareLinkContent alloc] init];
-    content.contentURL = [NSURL URLWithString:@"https://www.facebook.com/fiuparkingfinder"];
-    FBSDKShareButton *shareButton = [[FBSDKShareButton alloc] init];
-    shareButton.shareContent = content;
-    //shareButton.center = self.view.center;
-    CGRect screenBound = [[UIScreen mainScreen] bounds];
-    CGSize screenSize = screenBound.size;
+    [self.view addSubview:[circle fbshare]]; insert school [parameter fbshare: school]
     
-    shareButton.frame = CGRectMake(18
-                                   , screenSize.height - 82, 70, 30); */
-    [self.view addSubview:[[DrawCircle alloc] fbshare]];
     
     
 }
+
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
 {
     NSString *title = [alertView buttonTitleAtIndex:buttonIndex];
@@ -170,10 +135,8 @@
     [[NSNotificationCenter defaultCenter] removeObserver:self];
     
 }
-/*- (IBAction) openstreet{
-    [[UIApplication sharedApplication]openURL:[NSURL URLWithString:@"https://www.openstreetmap.org/copyright"]];
-}
-*/
+
+
 
 
 @end
