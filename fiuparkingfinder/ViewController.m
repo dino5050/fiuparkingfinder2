@@ -40,8 +40,8 @@
     [map addSubview:self.circle];
     [map addSubview:sandlot];
 
-   // openstreet = [UIImage imageNamed:@"openstreet"];
-    [self.view addSubview:[circle openview]];
+    openstreet = [UIImage imageNamed:@"openstreet"];
+    [self.view addSubview:[circle openview:openstreet]];
   
     if (IDIOM == IPAD) [sandlot removeFromSuperview];
     if (IDIOM == IPAD) [circle ipad:map];
@@ -62,8 +62,11 @@
     version1 = [version substringWithRange:NSMakeRange(2,2)];
     }@catch(NSException *error){}
     NSString *version2 = [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleShortVersionString"];
+    //printf("%s", [version1 UTF8String]);
+    //printf("Hello");
     int version_1 = [version1 intValue];
     int version_2 = [version2 intValue];
+    //printf("%d", version_2);
     
     if(version_1>=version_2){
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"FIU Parking Finder Update Available!"
@@ -71,13 +74,16 @@
                                                    delegate:self    // <------
                                               cancelButtonTitle:@"Later"
                                               otherButtonTitles:@"Update", nil];
-        [alert show]; //try making method again
+        [alert show];
     }
     self.bannerView.adUnitID = @"ca-app-pub-3188229665332758/5863888255";
     self.bannerView.rootViewController = self;
     //[self.bannerView loadRequest:[GADRequest request]];
     
-    [self.view addSubview:[circle fbshare]]; //insert school [parameter fbshare: schoollink alert]
+    [self.view addSubview:[circle fbshare]]; insert school [parameter fbshare: school]
+    
+    
+    
 }
 
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
@@ -88,6 +94,8 @@
     {
         [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"http://itunes.apple.com/app/id1011204764"]];
     }
+    
+    
 }
 
 - (IBAction)handlePan:(UIPanGestureRecognizer*)recognizer {
