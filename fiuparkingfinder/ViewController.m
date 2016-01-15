@@ -32,11 +32,10 @@
                                                object:nil];
 
     
-    //UIImage *mapImage = [UIImage imageNamed:@"fiu_mmc_open"];
+ 
     map = (UIImageView *)[self.view viewWithTag:1];
     sandlot = (UIImageView *)[self.view viewWithTag:4];
-   // self.circle = [[DrawCircle alloc] initWithFrame:CGRectMake(0.0, 0.0, mapImage.size.width, mapImage.size.height)];
-    self.circle = [[DrawCircle alloc] initWithFrame:CGRectMake(map.frame.origin.x, map.frame.origin.y, map.frame.size.width, map.frame.size.height)];
+    self.circle = [[DrawCircle alloc] initWithFrame:CGRectMake(0.0, 0.0, 850.0, 1200.0)];
     self.circle.backgroundColor = [UIColor clearColor];
     [map addSubview:self.circle];
     [map addSubview:sandlot];
@@ -81,7 +80,7 @@
     self.bannerView.rootViewController = self;
     //[self.bannerView loadRequest:[GADRequest request]];
     
-    [self.view addSubview:[circle fbshare]];// insert school [parameter fbshare: school]
+    [self.view addSubview:[circle fbshare]]; insert school [parameter fbshare: school]
     
     
     
