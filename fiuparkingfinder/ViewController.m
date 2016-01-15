@@ -80,7 +80,7 @@
     self.bannerView.rootViewController = self;
     //[self.bannerView loadRequest:[GADRequest request]];
     
-    [self.view addSubview:[circle fbshare]]; insert school [parameter fbshare: school]
+    [self.view addSubview:[circle fbshare]]; //insert school [parameter fbshare: school]
     
     
     
