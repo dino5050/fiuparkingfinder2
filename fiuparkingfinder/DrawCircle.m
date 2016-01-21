@@ -14,9 +14,11 @@
 #define IPAD UIUserInterfaceIdiomPad
 
 @implementation DrawCircle
--(UIView *)fbshare{
+-(UIView *)fbshare : (NSString*) school{
     FBSDKShareLinkContent *content = [[FBSDKShareLinkContent alloc] init];
-    content.contentURL = [NSURL URLWithString:@"https://www.facebook.com/fiuparkingfinder"];
+    //content.contentURL = [NSURL URLWithString:@"https://www.facebook.com/fiuparkingfinder"];
+    NSString *link = [NSString stringWithFormat:@"https://www.facebook.com/%@parkingfinder",school];
+    content.contentURL = [NSURL URLWithString:link];
     FBSDKShareButton *shareButton = [[FBSDKShareButton alloc] init];
     shareButton.shareContent = content;
     //shareButton.center = self.view.center;
@@ -63,6 +65,7 @@
 
  -(void)drawRect:(CGRect)rect
 {
+    int coor[] = {98-25,134-30,94,224+20,90,336-3,93,410,203,726+3,571+1,193-5,499,274,433,273,179,623,508,213,403,196,563,758,277,799};
     
     @try{NSURLRequest *app_info = [NSURLRequest requestWithURL:[NSURL URLWithString:@"http://collegeparkingfinder.com/fiuparkingmonitor/offday.php"]];
     NSURLResponse * response2 = nil;
@@ -88,15 +91,15 @@
     
     NSString *url = @"http://collegeparkingfinder.com/fiuparkingmonitor/get_color2.php?";
     
-    int coor2[26];
+    int coor2[sizeof(coor)];
     
-    for(int i =0; i<26; i++){
+    for(int i =0; i<sizeof(coor); i++){
         if(IDIOM == IPAD) {
-            int coor[] = {98-25,134-30,94,224+20,90,336-3,93,410,203,726+3,571+1,193-5,499,274,433,273,179,623,508,213,403,196,563,758+5,277,799+5};
+           // int coor[] = {98-25,134-30,94,224+20,90,336-3,93,410,203,726+3,571+1,193-5,499,274,433,273,179,623,508,213,403,196,563,758+5,277,799+5};
             coor2[i] = coor[i]*1.2;
         }
         else {
-            int coor[] = {98-25,134-30,94,224+20,90,336-3,93,410,203,726+3,571+1,193-5,499,274,433,273,179,623,508,213,403,196,563,758,277,799};
+          //  int coor[] = {98-25,134-30,94,224+20,90,336-3,93,410,203,726+3,571+1,193-5,499,274,433,273,179,623,508,213,403,196,563,758,277,799};
             coor2[i] = coor[i]*0.723;
         }
     }

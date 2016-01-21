@@ -24,6 +24,10 @@
 @synthesize sandlot;
 @synthesize openstreet;
 
+NSString *school = @"FIU";
+NSString *adID = @"ca-app-pub-3188229665332758/5863888255";
+NSString *appID = @"id1011204764";
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     [[NSNotificationCenter defaultCenter] addObserver:self
@@ -32,10 +36,9 @@
                                                object:nil];
 
     
- 
     map = (UIImageView *)[self.view viewWithTag:1];
     sandlot = (UIImageView *)[self.view viewWithTag:4];
-    self.circle = [[DrawCircle alloc] initWithFrame:CGRectMake(0.0, 0.0, 850.0, 1200.0)];
+    self.circle = [[DrawCircle alloc] initWithFrame:CGRectMake(0.0, 0.0, map.frame.size.width, map.frame.size.height)];
     self.circle.backgroundColor = [UIColor clearColor];
     [map addSubview:self.circle];
     [map addSubview:sandlot];
@@ -69,18 +72,18 @@
     //printf("%d", version_2);
     
     if(version_1>=version_2){
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"FIU Parking Finder Update Available!"
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:[NSString stringWithFormat:@"%@ Parking Finder Update Available!", school]
                                                     message:@"Update Now?"
                                                    delegate:self    // <------
                                               cancelButtonTitle:@"Later"
                                               otherButtonTitles:@"Update", nil];
         [alert show];
     }
-    self.bannerView.adUnitID = @"ca-app-pub-3188229665332758/5863888255";
+    self.bannerView.adUnitID = adID;
     self.bannerView.rootViewController = self;
     //[self.bannerView loadRequest:[GADRequest request]];
     
-    [self.view addSubview:[circle fbshare]]; //insert school [parameter fbshare: school]
+    [self.view addSubview:[circle fbshare:school]]; //insert school [parameter fbshare: school]
     
     
     
@@ -92,7 +95,8 @@
     
     if([title isEqualToString:@"Update"])
     {
-        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"http://itunes.apple.com/app/id1011204764"]];
+        NSString *updateLink = [NSString stringWithFormat:@"http://itunes.apple.com/app/%@",appID];
+        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:updateLink]];
     }
     
     

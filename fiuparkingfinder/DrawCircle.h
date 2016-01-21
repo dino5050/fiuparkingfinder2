@@ -11,7 +11,7 @@
 
 @interface DrawCircle : UIView
 
--(UIView *)fbshare;
+-(UIView *)fbshare: (NSString *)school;
 -(UIImageView *)openview: (UIImage*)openstreet;
 -(void)ipad:(UIImageView*)map;
 -(void)drawRect:(CGRect)rect;
