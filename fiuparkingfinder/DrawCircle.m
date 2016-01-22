@@ -65,8 +65,8 @@
 
  -(void)drawRect:(CGRect)rect
 {
-    
     int coor[] = {98-25,134-30,94,224+20,90,336-3,93,410,203,726+3,571+1,193-5,499,274,433,273,179,623,508,213,403,196,563,758,277,799};
+    
     @try{NSURLRequest *app_info = [NSURLRequest requestWithURL:[NSURL URLWithString:@"http://collegeparkingfinder.com/fiuparkingmonitor/offday.php"]];
     NSURLResponse * response2 = nil;
     NSError * error2 = nil;

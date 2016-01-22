@@ -139,10 +139,7 @@ NSString *appID = @"id1011204764";
     [[NSNotificationCenter defaultCenter] removeObserver:self];
     
 }
--(UIImageView *)mapView{
-    UIImageView *map3 = (UIImageView *)[self.view viewWithTag:1];
-    return map3;
-}
+
 
 
 
