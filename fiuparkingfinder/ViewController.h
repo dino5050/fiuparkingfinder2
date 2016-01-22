@@ -12,6 +12,7 @@
 @interface ViewController : UIViewController
 {
     DrawCircle *circle;
+    //UIImageView *map;
     
 }
 @property (strong, nonatomic) IBOutlet GADBannerView *bannerView;
@@ -26,6 +27,6 @@
 - (IBAction)handlePan:(UIPanGestureRecognizer *)recognizer;
 - (BOOL)shouldAutorotate;
 - (void)refreshView:(NSNotification *) notification;
-
+- (UIImageView *)mapView;
 @end
 
