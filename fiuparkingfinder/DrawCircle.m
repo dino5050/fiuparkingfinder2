@@ -65,8 +65,11 @@
 
  -(void)drawRect:(CGRect)rect
 {
+    float old_width = 645.0;
+    float old_height = 1080.0;
     int coor[] = {98-25,134-30,94,224+20,90,336-3,93,410,203,726+3,571+1,193-5,499,274,433,273,179,623,508,213,403,196,563,758,277,799};
-    
+    UIImage *map = [UIImage imageNamed:@"fiu_mmc_open"];
+    printf("%f", map.size.width);
     @try{NSURLRequest *app_info = [NSURLRequest requestWithURL:[NSURL URLWithString:@"http://collegeparkingfinder.com/fiuparkingmonitor/offday.php"]];
     NSURLResponse * response2 = nil;
     NSError * error2 = nil;
@@ -159,7 +162,7 @@
             }else{
                 if (k == 0) radius = 90.0;
                 else radius = 50.0;
-                borderRect = CGRectMake((coor2[k*2]+65), (coor2[k*2+1]+125), radius, radius);
+                borderRect = CGRectMake((coor2[k*2]+65-175), (coor2[k*2+1]+125-293), radius, radius);
             }
             if([shutdown isEqual:@"1"] && k == 5){
                 CGContextSetRGBStrokeColor(context, 0.5, 0.5, 0.5, 1.0);
@@ -207,7 +210,7 @@
             }else{
                 if (k == 0) radius = 90.0;
                 else radius = 50.0;
-                borderRect = CGRectMake((coor2[k*2]+65), (coor2[k*2+1]+125), radius, radius);
+                borderRect = CGRectMake((coor2[k*2]+65-(old_width-map.size.width)*0.5), (coor2[k*2+1]+125-(old_height-map.size.height)*0.5), radius, radius);
             }
             
             if(color2 == 4) {

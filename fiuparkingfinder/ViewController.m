@@ -42,6 +42,7 @@ NSString *appID = @"id1011204764";
     self.circle.backgroundColor = [UIColor clearColor];
     [map addSubview:self.circle];
     [map addSubview:sandlot];
+    printf("%f", map.frame.size.width);
 
     openstreet = [UIImage imageNamed:@"openstreet"];
     [self.view addSubview:[circle openview:openstreet]];
