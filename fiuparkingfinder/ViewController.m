@@ -38,7 +38,8 @@ NSString *appID = @"id1011204764";
     
     map = (UIImageView *)[self.view viewWithTag:1];
     sandlot = (UIImageView *)[self.view viewWithTag:4];
-    self.circle = [[DrawCircle alloc] initWithFrame:CGRectMake(0.0, 0.0, map.frame.size.width, map.frame.size.height)];
+    if (IDIOM==IPAD) self.circle = [[DrawCircle alloc] initWithFrame:CGRectMake(0.0, 0.0, map.frame.size.width*1.6, map.frame.size.height*1.6)];
+    else self.circle = [[DrawCircle alloc] initWithFrame:CGRectMake(0.0, 0.0, map.frame.size.width, map.frame.size.height)];
     self.circle.backgroundColor = [UIColor clearColor];
     [map addSubview:self.circle];
     [map addSubview:sandlot];

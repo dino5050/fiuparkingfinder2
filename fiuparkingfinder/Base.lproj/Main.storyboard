@@ -22,16 +22,16 @@
                                 <animations/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             </view>
-                            <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" tag="1" contentMode="center" fixedFrame="YES" image="fiu_mmc_open" translatesAutoresizingMaskIntoConstraints="NO" id="DGQ-vO-dcF">
+                            <imageView opaque="NO" multipleTouchEnabled="YES" tag="1" contentMode="center" fixedFrame="YES" image="fiu_mmc_open" translatesAutoresizingMaskIntoConstraints="NO" id="DGQ-vO-dcF">
                                 <rect key="frame" x="0.0" y="-31" width="470" height="787"/>
-                                <animations/>
-                            </imageView>
-                            <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" fixedFrame="YES" image="parking_gradient3" translatesAutoresizingMaskIntoConstraints="NO" id="K72-jb-qh4">
-                                <rect key="frame" x="0.0" y="-12" width="18" height="444"/>
                                 <animations/>
                             </imageView>
                             <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" tag="4" contentMode="center" fixedFrame="YES" image="Sandlot" translatesAutoresizingMaskIntoConstraints="NO" id="kGA-Ba-f81">
                                 <rect key="frame" x="60" y="28" width="30" height="82"/>
+                                <animations/>
+                            </imageView>
+                            <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" fixedFrame="YES" image="parking_gradient3" translatesAutoresizingMaskIntoConstraints="NO" id="K72-jb-qh4">
+                                <rect key="frame" x="0.0" y="0.0" width="18" height="444"/>
                                 <animations/>
                             </imageView>
                         </subviews>
