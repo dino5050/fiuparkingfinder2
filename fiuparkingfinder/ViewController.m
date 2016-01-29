@@ -25,6 +25,7 @@
 @synthesize openstreet;
 
 NSString *school = @"FIU";
+NSString *appName = @"fiuparkingfinder";
 NSString *adID = @"ca-app-pub-3188229665332758/5863888255";
 NSString *appID = @"id1011204764";
 
@@ -38,7 +39,7 @@ NSString *appID = @"id1011204764";
     
     map = (UIImageView *)[self.view viewWithTag:1];
     sandlot = (UIImageView *)[self.view viewWithTag:4];
-    if (IDIOM==IPAD) self.circle = [[DrawCircle alloc] initWithFrame:CGRectMake(0.0, 0.0, map.frame.size.width*1.6, map.frame.size.height*1.6)];
+    if (IDIOM==IPAD) self.circle = [[DrawCircle alloc] initWithFrame:CGRectMake(0.0, 0.0, map.frame.size.width*1.8, map.frame.size.height*1.8)];
     else self.circle = [[DrawCircle alloc] initWithFrame:CGRectMake(0.0, 0.0, map.frame.size.width, map.frame.size.height)];
     self.circle.backgroundColor = [UIColor clearColor];
     [map addSubview:self.circle];
@@ -85,7 +86,7 @@ NSString *appID = @"id1011204764";
     self.bannerView.rootViewController = self;
     //[self.bannerView loadRequest:[GADRequest request]];
     
-    [self.view addSubview:[circle fbshare:school]]; //insert school [parameter fbshare: school]
+    [self.view addSubview:[circle fbshare:appName]]; //insert school [parameter fbshare: school]
     
     
     
