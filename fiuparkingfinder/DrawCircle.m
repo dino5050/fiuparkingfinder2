@@ -19,6 +19,7 @@
 {
     float old_width = 1774;
     float old_height = 1113;
+    int numColors = 13;
     NSString *table = @"FIU_parking_data";
     //int coor[] = {98-25,134-30,94,224+20,90,336-3,93,410,203,726+3,571+1,193-5,499,274,433,273,179,623,508,213,403,196,563,758,277,799};
     int coor[] = {1578+50,156-35,1383,159,1230,162,1101,165,741,312,564,351,442,482,512,962,1464,690,1340,746,1336,855,1438,874,1478,980};
@@ -86,7 +87,7 @@
     //printf("%s %s", [dayofweek UTF8String], [hour1 UTF8String]);
     NSString *color;
     NSString *fullURL = [[NSString alloc] initWithFormat:@"%@time=%@&table=%@",url,hour1,table];
-    NSMutableArray *color1 = [[NSMutableArray alloc] initWithCapacity:12];
+    NSMutableArray *color1 = [[NSMutableArray alloc] initWithCapacity:numColors-1];
     if(![hour1  isEqual: @"offhour"] && ![dayofweek isEqual:@"offday"] && ![status isEqualToString:@"off"]){
         @try{
             NSURLRequest * urlRequest = [NSURLRequest requestWithURL:[NSURL URLWithString: fullURL]];
@@ -99,12 +100,12 @@
             color = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
             
             NSArray *colors = [ color componentsSeparatedByString: @","];
-            for(int i = 0; i<13; i++){
+            for(int i = 0; i<numColors; i++){
                 color1[i] = colors[i];
             }
         }@catch(NSException *error){}
     }
-    for(int k = 0; k<13; k++){
+    for(int k = 0; k<numColors; k++){
         CGContextRef context = UIGraphicsGetCurrentContext();
         if([hour1  isEqual: @"offhour"] || [dayofweek isEqual:@"offday"] || [status isEqualToString:@"off"]){
             CGRect borderRect;
@@ -214,11 +215,26 @@
     shareButton.frame = CGRectMake(18, screenSize.height - 82, 70, 30);
     return shareButton;
 }
+-(UIImageView *)notify: (UIImage *)notification {
+    UIImageView *notifyView = [[UIImageView alloc] initWithImage:notification];
+    CGRect screenBound = [[UIScreen mainScreen] bounds];
+    CGSize screenSize = screenBound.size;
+    notifyView.frame = CGRectMake((screenSize.width-notification.size.width)/2, 10, notification.size.width, notification.size.height);
+    return notifyView;
+}
+-(UIImageView *)compass: (BOOL *) rotate: (UIImage *)compass {
+    UIImageView *compassView = [[UIImageView alloc] initWithImage:compass];
+    CGRect screenBound = [[UIScreen mainScreen] bounds];
+    CGSize screenSize = screenBound.size;
+    compassView.frame = CGRectMake(screenSize.width-compass.size.width-5, 10, compass.size.width, compass.size.height);
+    if (rotate) compassView.transform = CGAffineTransformMakeRotation(-M_PI_2);
+    return compassView;
+}
 -(UIImageView *)openview: (UIImage*)openstreet{
     UIImageView *openview = [[UIImageView alloc] initWithImage:openstreet];
     CGRect screenBound = [[UIScreen mainScreen] bounds];
     CGSize screenSize = screenBound.size;
-    openview.frame = CGRectMake(screenSize.width-openstreet.size.width, screenSize.height - 82, openstreet.size.width, openstreet.size.height);
+    openview.frame = CGRectMake(screenSize.width-openstreet.size.width, screenSize.height - 88+openstreet.size.height, openstreet.size.width, openstreet.size.height);
     UITapGestureRecognizer *singleTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapDetected)];
     singleTap.numberOfTapsRequired = 1;
     [openview setUserInteractionEnabled:YES];

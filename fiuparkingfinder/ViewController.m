@@ -28,6 +28,7 @@ NSString *school = @"FIU";
 NSString *appName = @"fiuparkingfinder";
 NSString *adID = @"ca-app-pub-3188229665332758/5863888255";
 NSString *appID = @"id1011204764";
+BOOL *rotate = (BOOL *)1;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -38,16 +39,25 @@ NSString *appID = @"id1011204764";
 
     
     map = (UIImageView *)[self.view viewWithTag:1];
-    sandlot = (UIImageView *)[self.view viewWithTag:4];
+    sandlot = (UIImageView *)[self.view viewWithTag:2];
     if (IDIOM==IPAD) self.circle = [[DrawCircle alloc] initWithFrame:CGRectMake(0.0, 0.0, map.frame.size.width*1.8, map.frame.size.height*1.8)];
     else self.circle = [[DrawCircle alloc] initWithFrame:CGRectMake(0.0, 0.0, map.frame.size.width, map.frame.size.height)];
     self.circle.backgroundColor = [UIColor clearColor];
     [map addSubview:self.circle];
     [map addSubview:sandlot];
     printf("%f", map.frame.size.width);
+    
+    self.bannerView.adUnitID = adID;
+    self.bannerView.rootViewController = self;
+    [self.bannerView loadRequest:[GADRequest request]];
 
     openstreet = [UIImage imageNamed:@"openstreet"];
     [self.view addSubview:[circle openview:openstreet]];
+    UIImage *compass = [UIImage imageNamed:@"compass2"];
+    [self.view addSubview:[circle compass:rotate:compass]];
+    UIImage *notification = [UIImage imageNamed:@"notification"];
+    [self.view addSubview:[circle notify: notification]];
+    
   
     if (IDIOM == IPAD) [sandlot removeFromSuperview];
     if (IDIOM == IPAD) [circle ipad:map];
@@ -74,7 +84,7 @@ NSString *appID = @"id1011204764";
     int version_2 = [version2 intValue];
     //printf("%d", version_2);
     
-    if(version_1>=version_2){
+    if(version_1>version_2){
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:[NSString stringWithFormat:@"%@ Parking Finder Update Available!", school]
                                                     message:@"Update Now?"
                                                    delegate:self    // <------
@@ -82,9 +92,7 @@ NSString *appID = @"id1011204764";
                                               otherButtonTitles:@"Update", nil];
         [alert show];
     }
-    self.bannerView.adUnitID = adID;
-    self.bannerView.rootViewController = self;
-    //[self.bannerView loadRequest:[GADRequest request]];
+    
     
     [self.view addSubview:[circle fbshare:appName]]; //insert school [parameter fbshare: school]
     
@@ -126,8 +134,8 @@ NSString *appID = @"id1011204764";
 }
 -(void)refreshView:(NSNotification *) notification {
     [self.circle removeFromSuperview];
-    map = (UIImageView *)[self.view viewWithTag:2];
-    //sandlot = (UIImageView *)[self.view viewWithTag:3];
+    map = (UIImageView *)[self.view viewWithTag:1];
+    //sandlot = (UIImageView *)[self.view viewWithTag:2];
     self.circle = [[DrawCircle alloc] initWithFrame:CGRectMake(0.0, 0.0, 670.0, 1024.0)];
     self.circle.backgroundColor = [UIColor clearColor];
     

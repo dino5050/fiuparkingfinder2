@@ -22,28 +22,39 @@
                                 <animations/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             </view>
-                            <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" tag="4" contentMode="center" fixedFrame="YES" image="Sandlot" translatesAutoresizingMaskIntoConstraints="NO" id="kGA-Ba-f81">
-                                <rect key="frame" x="55" y="33" width="30" height="82"/>
-                                <animations/>
-                            </imageView>
-                            <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" fixedFrame="YES" image="parking_gradient3" translatesAutoresizingMaskIntoConstraints="NO" id="K72-jb-qh4">
-                                <rect key="frame" x="0.0" y="0.0" width="18" height="444"/>
-                                <animations/>
-                            </imageView>
                             <imageView opaque="NO" multipleTouchEnabled="YES" tag="1" contentMode="center" fixedFrame="YES" image="mapiOS" translatesAutoresizingMaskIntoConstraints="NO" id="9KW-pI-Taa">
                                 <rect key="frame" x="0.0" y="0.0" width="450" height="717"/>
                                 <animations/>
                             </imageView>
+                            <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" tag="2" contentMode="center" fixedFrame="YES" image="Sandlot" translatesAutoresizingMaskIntoConstraints="NO" id="UQ6-7B-Pd7">
+                                <rect key="frame" x="53" y="36" width="30" height="82"/>
+                                <animations/>
+                            </imageView>
+                            <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" fixedFrame="YES" image="parking_gradient3" translatesAutoresizingMaskIntoConstraints="NO" id="VW5-uO-Zja">
+                                <rect key="frame" x="0.0" y="0.0" width="18" height="444"/>
+                                <animations/>
+                            </imageView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="5fd-Pz-t52" customClass="GADBannerView">
+                                <rect key="frame" x="0.0" y="430" width="320" height="50"/>
+                                <animations/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="320" id="KSL-Xo-WGG"/>
+                                    <constraint firstAttribute="height" constant="50" id="RDY-eN-s9h"/>
+                                </constraints>
+                            </view>
                         </subviews>
                         <animations/>
                         <color key="backgroundColor" red="0.46193298363676771" green="0.88235294117647056" blue="0.54051156452647031" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstAttribute="bottom" secondItem="99P-jG-dLq" secondAttribute="bottom" id="5he-k8-R9U"/>
+                            <constraint firstItem="ro2-hK-9hV" firstAttribute="top" secondItem="5fd-Pz-t52" secondAttribute="bottom" id="DxY-16-iye"/>
+                            <constraint firstAttribute="centerX" secondItem="5fd-Pz-t52" secondAttribute="centerX" id="Qz5-8P-CBp"/>
                             <constraint firstAttribute="bottom" secondItem="99P-jG-dLq" secondAttribute="bottom" id="c6p-Ac-mhc"/>
                         </constraints>
                     </view>
                     <connections>
-                        <outlet property="bannerView" destination="99P-jG-dLq" id="FeG-bX-rM6"/>
+                        <outlet property="bannerView" destination="5fd-Pz-t52" id="ndW-Ii-x93"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
