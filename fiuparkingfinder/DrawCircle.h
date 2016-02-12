@@ -12,6 +12,7 @@
 @interface DrawCircle : UIView
 
 -(UIImageView *)compass: (BOOL *) rotate: (UIImage *)compass;
+-(UIImageView *)gesture: (UIImage *)gesture;
 -(UIImageView *)notify: (UIImage *)notification;
 -(UIView *)fbshare: (NSString *)appName;
 -(UIImageView *)openview: (UIImage*)openstreet;

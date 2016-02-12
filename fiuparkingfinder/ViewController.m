@@ -49,7 +49,7 @@ BOOL *rotate = (BOOL *)1;
     
     self.bannerView.adUnitID = adID;
     self.bannerView.rootViewController = self;
-    [self.bannerView loadRequest:[GADRequest request]];
+    [self.bannerView loadRequest:[GADRequest request]]; 
 
     openstreet = [UIImage imageNamed:@"openstreet"];
     [self.view addSubview:[circle openview:openstreet]];
@@ -57,6 +57,8 @@ BOOL *rotate = (BOOL *)1;
     [self.view addSubview:[circle compass:rotate:compass]];
     UIImage *notification = [UIImage imageNamed:@"notification"];
     [self.view addSubview:[circle notify: notification]];
+    UIImage *gesture = [UIImage imageNamed:@"Gestures_Pan"];
+    [self.view addSubview:[circle gesture:gesture]];
     
   
     if (IDIOM == IPAD) [sandlot removeFromSuperview];

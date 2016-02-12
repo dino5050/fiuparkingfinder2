@@ -232,6 +232,13 @@
     if (rotate) compassView.transform = CGAffineTransformMakeRotation(-M_PI_2);
     return compassView;
 }
+-(UIImageView *)gesture: (UIImage *)gesture {
+    UIImageView *gestureView = [[UIImageView alloc] initWithImage:gesture];
+    CGRect screenBound = [[UIScreen mainScreen] bounds];
+    CGSize screenSize = screenBound.size;
+    gestureView.frame = CGRectMake(screenSize.width-gesture.size.width+7, 60, gesture.size.width, gesture.size.height);
+    return gestureView;
+}
 -(UIImageView *)openview: (UIImage*)openstreet{
     UIImageView *openview = [[UIImageView alloc] initWithImage:openstreet];
     CGRect screenBound = [[UIScreen mainScreen] bounds];
