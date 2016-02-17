@@ -138,7 +138,8 @@ BOOL *rotate = (BOOL *)1;
     [self.circle removeFromSuperview];
     map = (UIImageView *)[self.view viewWithTag:1];
     //sandlot = (UIImageView *)[self.view viewWithTag:2];
-    self.circle = [[DrawCircle alloc] initWithFrame:CGRectMake(0.0, 0.0, 670.0, 1024.0)];
+    if(IDIOM==IPAD) self.circle = [[DrawCircle alloc] initWithFrame:CGRectMake(0.0, 0.0, map.frame.size.width*2, map.frame.size.height*2)];
+    else self.circle = [[DrawCircle alloc] initWithFrame:CGRectMake(0.0, 0.0, map.frame.size.width, map.frame.size.height)];
     self.circle.backgroundColor = [UIColor clearColor];
     
     [map addSubview:self.circle];
