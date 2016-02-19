@@ -143,6 +143,21 @@ BOOL *rotate = (BOOL *)1;
     self.circle.backgroundColor = [UIColor clearColor];
     
     [map addSubview:self.circle];
+    
+    self.bannerView.adUnitID = adID;
+    self.bannerView.rootViewController = self;
+    [self.bannerView loadRequest:[GADRequest request]];
+    
+    openstreet = [UIImage imageNamed:@"openstreet"];
+    [self.view addSubview:[circle openview:openstreet]];
+    
+    if (IDIOM == IPAD) [circle ipad:map];
+    
+    [self.view addSubview:[circle fbshare:appName]];
+    
+    UIPanGestureRecognizer *recognizer = [[UIPanGestureRecognizer alloc] initWithTarget:self
+                                                                                 action:@selector(handlePan:)];
+    [map addGestureRecognizer:recognizer];
     //[map addSubview:sandlot];
     
     // If viewWillAppear also contains code

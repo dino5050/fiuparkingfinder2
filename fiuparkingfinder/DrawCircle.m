@@ -24,7 +24,7 @@
     UIImage *map;
     //int coor[] = {98-25,134-30,94,224+20,90,336-3,93,410,203,726+3,571+1,193-5,499,274,433,273,179,623,508,213,403,196,563,758,277,799};
     int coor[] = {1578+50,156-35,1383,159,1230,162,1101,165,741,312,564,351,442,482,512,962,1464,690,1340,746,1336,855,1438,874,1478,980};
-    if(IDIOM == IPAD) map = [UIImage imageNamed:@"fiu_mmc_open"];
+    if(IDIOM == IPAD) map = [UIImage imageNamed:@"mapFIU"];
     else map = [UIImage imageNamed:@"mapFIU"];
     printf("%f", map.size.width);
     @try{NSURLRequest *app_info = [NSURLRequest requestWithURL:[NSURL URLWithString:@"http://collegeparkingfinder.com/fiuparkingmonitor/offday.php"]];
@@ -115,7 +115,7 @@
             {
                 if (k == 0) radius = 120.0;
                 else radius = 80.0;
-                borderRect = CGRectMake((pow(coor2[k*2+1],0.9815)*1.04+128-(old_width-map.size.width)*0.1-40), map.size.height-pow(coor2[k*2],0.990)*0.94+448-(old_height-map.size.height)*0.1, radius, radius);
+                borderRect = CGRectMake((pow(coor2[k*2+1],0.9815)*1.04+128-(old_width-map.size.width)*0.1-40), map.size.height-pow(coor2[k*2],0.990)*0.94+448-(old_height-map.size.height)*0.1+75, radius, radius);
                 //borderRect = CGRectMake((coor2[k*2]*1.04+73-(old_width-map.size.width)*0.5-40), (coor2[k*2+1]*0.94+108-(old_height-map.size.height)*0.5), radius, radius);
             }else{
                 if (k == 0) radius = 90.0;
@@ -165,7 +165,7 @@
             {
                 if (k == 0) radius = 120.0;
                 else radius = 80.0;
-                borderRect = CGRectMake((pow(coor2[k*2+1],0.9815)*1.04+128-(old_width-map.size.width)*0.1-40), map.size.height-pow(coor2[k*2],0.990)*0.94+448-(old_height-map.size.height)*0.1, radius, radius);
+                borderRect = CGRectMake((pow(coor2[k*2+1],0.9815)*1.04+128-(old_width-map.size.width)*0.1-40), map.size.height-pow(coor2[k*2],0.990)*0.94+448-(old_height-map.size.height)*0.1+75, radius, radius);
             }else{
                 if (k == 0) radius = 90.0;
                 else radius = 50.0;

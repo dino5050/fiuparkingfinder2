@@ -7,8 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		4B0FBE331BC84130001A8C4C /* FBSDKCoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4B0FBE311BC84130001A8C4C /* FBSDKCoreKit.framework */; };
-		4B0FBE341BC84130001A8C4C /* FBSDKShareKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4B0FBE321BC84130001A8C4C /* FBSDKShareKit.framework */; };
 		4B1212961C5BDE200098BE1A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4B1212951C5BDE200098BE1A /* Images.xcassets */; };
 		4B2923E61B692DEC007A8456 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B2923E51B692DEC007A8456 /* main.m */; };
 		4B2923E91B692DEC007A8456 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B2923E81B692DEC007A8456 /* AppDelegate.m */; };
@@ -17,6 +15,8 @@
 		4B2923F41B692DED007A8456 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4B2923F21B692DED007A8456 /* LaunchScreen.xib */; };
 		4B2924001B692DEE007A8456 /* fiuparkingfinderTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B2923FF1B692DEE007A8456 /* fiuparkingfinderTests.m */; };
 		4B66F2161B6C168500E8C9FD /* DrawCircle.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B66F2151B6C168500E8C9FD /* DrawCircle.m */; };
+		4B98EDCB1C7698E200CC402D /* FBSDKCoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4B98EDC91C7698E200CC402D /* FBSDKCoreKit.framework */; };
+		4B98EDCC1C7698E200CC402D /* FBSDKShareKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4B98EDCA1C7698E200CC402D /* FBSDKShareKit.framework */; };
 		4BC818821B7645F0008D1BDD /* Podfile in Resources */ = {isa = PBXBuildFile; fileRef = 4BC818811B7645F0008D1BDD /* Podfile */; };
 		4BC818841B7693DC008D1BDD /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = 4BC818831B7693DC008D1BDD /* Default.png */; };
 		886DC2569F7135C336F5D053 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CAB219C0664E506CA9F6D995 /* libPods.a */; };
@@ -33,8 +33,6 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		4B0FBE311BC84130001A8C4C /* FBSDKCoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FBSDKCoreKit.framework; path = "../../Documents/FacebookSDKs-iOS-20150813/FBSDKCoreKit.framework"; sourceTree = "<group>"; };
-		4B0FBE321BC84130001A8C4C /* FBSDKShareKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FBSDKShareKit.framework; path = "../../Documents/FacebookSDKs-iOS-20150813/FBSDKShareKit.framework"; sourceTree = "<group>"; };
 		4B1212951C5BDE200098BE1A /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		4B2923E01B692DEB007A8456 /* FIU Parking Finder.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "FIU Parking Finder.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		4B2923E41B692DEC007A8456 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -50,6 +48,8 @@
 		4B2923FF1B692DEE007A8456 /* fiuparkingfinderTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = fiuparkingfinderTests.m; sourceTree = "<group>"; };
 		4B66F2141B6C168500E8C9FD /* DrawCircle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DrawCircle.h; sourceTree = "<group>"; };
 		4B66F2151B6C168500E8C9FD /* DrawCircle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DrawCircle.m; sourceTree = "<group>"; };
+		4B98EDC91C7698E200CC402D /* FBSDKCoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FBSDKCoreKit.framework; path = "../../Documents/FacebookSDKs-iOS-20150813/FBSDKCoreKit.framework"; sourceTree = "<group>"; };
+		4B98EDCA1C7698E200CC402D /* FBSDKShareKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FBSDKShareKit.framework; path = "../../Documents/FacebookSDKs-iOS-20150813/FBSDKShareKit.framework"; sourceTree = "<group>"; };
 		4BC818811B7645F0008D1BDD /* Podfile */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Podfile; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		4BC818831B7693DC008D1BDD /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = "<group>"; };
 		740116BD40BE149ED09C970E /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
@@ -63,8 +63,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				886DC2569F7135C336F5D053 /* libPods.a in Frameworks */,
-				4B0FBE331BC84130001A8C4C /* FBSDKCoreKit.framework in Frameworks */,
-				4B0FBE341BC84130001A8C4C /* FBSDKShareKit.framework in Frameworks */,
+				4B98EDCB1C7698E200CC402D /* FBSDKCoreKit.framework in Frameworks */,
+				4B98EDCC1C7698E200CC402D /* FBSDKShareKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -146,8 +146,8 @@
 		DB603652417F93A986F5D84C /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				4B0FBE311BC84130001A8C4C /* FBSDKCoreKit.framework */,
-				4B0FBE321BC84130001A8C4C /* FBSDKShareKit.framework */,
+				4B98EDC91C7698E200CC402D /* FBSDKCoreKit.framework */,
+				4B98EDCA1C7698E200CC402D /* FBSDKShareKit.framework */,
 				CAB219C0664E506CA9F6D995 /* libPods.a */,
 			);
 			name = Frameworks;
@@ -440,6 +440,7 @@
 					"$(PROJECT_DIR)",
 					"/Users/nezennin/Downloads/FacebookSDKs-iOS-20150813",
 					"/Users/nezennin/Documents/FacebookSDKs-iOS-20150813",
+					/Users/nezennin/Desktop/CollegeParkingFinder/mdcparkingfinder,
 				);
 				INFOPLIST_FILE = fiuparkingfinder/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
@@ -462,6 +463,7 @@
 					"$(PROJECT_DIR)",
 					"/Users/nezennin/Downloads/FacebookSDKs-iOS-20150813",
 					"/Users/nezennin/Documents/FacebookSDKs-iOS-20150813",
+					/Users/nezennin/Desktop/CollegeParkingFinder/mdcparkingfinder,
 				);
 				INFOPLIST_FILE = fiuparkingfinder/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
