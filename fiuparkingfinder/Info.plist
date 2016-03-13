@@ -33,6 +33,7 @@
 			<key>CFBundleURLSchemes</key>
 			<array>
 				<string>fb1017237504982678</string>
+                <string>fbauth2</string>
 			</array>
 		</dict>
 	</array>
