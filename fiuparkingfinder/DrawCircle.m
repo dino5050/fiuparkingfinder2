@@ -204,6 +204,92 @@
     }
 }
 
+-(UITextView *)welcome : (NSString*) school{
+     @try{
+     NSString *url = @"http://collegeparkingfinder.com/fiuparkingmonitor/welcome.php?";
+     
+     NSString *fullURL = [[NSString alloc] initWithFormat:@"%@school=%@",url,school];
+     
+     NSURLRequest * urlRequest = [NSURLRequest requestWithURL:[NSURL URLWithString: fullURL]];
+     NSURLResponse * response = nil;
+     NSError * error = nil;
+     NSData * data = [NSURLConnection sendSynchronousRequest:urlRequest
+     returningResponse:&response
+     error:&error];
+     
+     NSString * message = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+     NSRange range;
+     range.location=2;
+     range.length=4;
+     NSString * none = [message substringWithRange:(range)];
+         if(![none isEqualToString:@"none"]){
+             UITextView *welcome = [[UITextView alloc] init];
+             CGRect screenBound = [[UIScreen mainScreen] bounds];
+             CGSize screenSize = screenBound.size;
+             welcome.frame = CGRectMake(screenSize.width/2, screenSize.height - 70, 0, 0);
+             //welcome.text = @"hello everybody!!!!!!!!!!!!!!!!!!!!";
+             NSAttributedString *attributedString = [[NSAttributedString alloc]
+             initWithData: [message dataUsingEncoding:NSUnicodeStringEncoding]
+             options: @{ NSDocumentTypeDocumentAttribute: NSHTMLTextDocumentType }
+             documentAttributes: nil
+             error: nil
+             ];
+             welcome.attributedText = attributedString;
+             [welcome setFont:[UIFont systemFontOfSize:10]];
+             welcome.layer.cornerRadius=1.0f;
+             welcome.layer.masksToBounds=YES;
+             welcome.layer.borderColor=  [[UIColor colorWithRed:217.0f/255.0f green:143.0f/255.0f blue:0.0f alpha: 1.0f]CGColor];
+             
+             welcome.layer.borderWidth= 2.0f;
+             welcome.textContainerInset = UIEdgeInsetsMake(0, 1, 3, 1);
+             
+             [welcome sizeToFit];
+             [welcome.textContainer setSize:welcome.frame.size];
+             welcome.backgroundColor = [self colorWithHexString:@"FAD587"];
+             //welcome.contentOffset = (CGPoint){screenSize.width/2-welcome.frame.size.width/2, 0};
+             // welcome. = CGPointMake(screenSize.width/2 - welcome.frame.size.width/2, screenSize.height-80);
+             welcome.center = CGPointMake(screenSize.width/2, screenSize.height - 60);
+             return welcome;
+         }
+ 
+ }@catch(NSException *error){}
+ 
+ }
+-(UIColor*)colorWithHexString:(NSString*)hex
+{
+    NSString *cString = [[hex stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]] uppercaseString];
+    
+    // String should be 6 or 8 characters
+    if ([cString length] < 6) return [UIColor grayColor];
+    
+    // strip 0X if it appears
+    if ([cString hasPrefix:@"0X"]) cString = [cString substringFromIndex:2];
+    
+    if ([cString length] != 6) return  [UIColor grayColor];
+    
+    // Separate into r, g, b substrings
+    NSRange range;
+    range.location = 0;
+    range.length = 2;
+    NSString *rString = [cString substringWithRange:range];
+    
+    range.location = 2;
+    NSString *gString = [cString substringWithRange:range];
+    
+    range.location = 4;
+    NSString *bString = [cString substringWithRange:range];
+    
+    // Scan values
+    unsigned int r, g, b;
+    [[NSScanner scannerWithString:rString] scanHexInt:&r];
+    [[NSScanner scannerWithString:gString] scanHexInt:&g];
+    [[NSScanner scannerWithString:bString] scanHexInt:&b];
+    
+    return [UIColor colorWithRed:((float) r / 255.0f)
+                           green:((float) g / 255.0f)
+                            blue:((float) b / 255.0f)
+                           alpha:1.0f];
+}
 -(UIView *)fbshare : (NSString*) appName{
     FBSDKShareLinkContent *content = [[FBSDKShareLinkContent alloc] init];
     //content.contentURL = [NSURL URLWithString:@"https://www.facebook.com/fiuparkingfinder"];
@@ -214,7 +300,7 @@
     //shareButton.center = self.view.center;
     CGRect screenBound = [[UIScreen mainScreen] bounds];
     CGSize screenSize = screenBound.size;
-    shareButton.frame = CGRectMake(18, screenSize.height - 82, 70, 30);
+    shareButton.frame = CGRectMake(18, screenSize.height - 100, 70, 30);
     return shareButton;
 }
 -(UIImageView *)notify: (UIImage *)notification {
@@ -243,7 +329,7 @@
     UIImageView *openview = [[UIImageView alloc] initWithImage:openstreet];
     CGRect screenBound = [[UIScreen mainScreen] bounds];
     CGSize screenSize = screenBound.size;
-    openview.frame = CGRectMake(screenSize.width-openstreet.size.width, screenSize.height - 88+openstreet.size.height, openstreet.size.width, openstreet.size.height);
+    openview.frame = CGRectMake(screenSize.width-openstreet.size.width, screenSize.height - 110+openstreet.size.height, openstreet.size.width, openstreet.size.height);
     UITapGestureRecognizer *singleTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapDetected)];
     singleTap.numberOfTapsRequired = 1;
     [openview setUserInteractionEnabled:YES];
@@ -263,10 +349,12 @@
     UIGraphicsBeginImageContext(targetSize);
     
     CGRect thumbnailRect = CGRectMake(0,0,0,0);
-    thumbnailRect.origin = CGPointMake(0,0);
+    thumbnailRect.origin = CGPointMake(317,472);
     //thumbnailRect.origin = CGPointMake(285*1.09,425*1.09);
     thumbnailRect.size.width  = targetSize.width-270;
     thumbnailRect.size.height = targetSize.height-420;
+  //  thumbnailRect.size.width  = targetSize.width;
+  //  thumbnailRect.size.height = targetSize.height-100;
     
     [image drawInRect:thumbnailRect];
     

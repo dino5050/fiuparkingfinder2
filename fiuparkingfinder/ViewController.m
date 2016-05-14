@@ -26,6 +26,7 @@
 
 NSString *school = @"FIU";
 NSString *appName = @"fiuparkingfinder";
+//NSString *adID = @"ca-app-pub-3940256099942544/2934735716"; //test adID
 NSString *adID = @"ca-app-pub-3188229665332758/5863888255";
 NSString *appID = @"id1011204764";
 BOOL *rotate = (BOOL *)1;
@@ -51,8 +52,7 @@ BOOL *rotate = (BOOL *)1;
     self.bannerView.rootViewController = self;
     [self.bannerView loadRequest:[GADRequest request]]; 
 
-    openstreet = [UIImage imageNamed:@"openstreet"];
-    [self.view addSubview:[circle openview:openstreet]];
+    
     UIImage *compass = [UIImage imageNamed:@"compass2"];
     [self.view addSubview:[circle compass:rotate:compass]];
     UIImage *notification = [UIImage imageNamed:@"notification"];
@@ -97,7 +97,9 @@ BOOL *rotate = (BOOL *)1;
     
     
     [self.view addSubview:[circle fbshare:appName]]; //insert school [parameter fbshare: school]
-    
+    [self.view addSubview:[circle welcome:school]];
+    openstreet = [UIImage imageNamed:@"openstreet"];
+    [self.view addSubview:[circle openview:openstreet]];
     
     
 }
@@ -154,6 +156,8 @@ BOOL *rotate = (BOOL *)1;
     if (IDIOM == IPAD) [circle ipad:map];
     
     [self.view addSubview:[circle fbshare:appName]];
+    
+
     
     UIPanGestureRecognizer *recognizer = [[UIPanGestureRecognizer alloc] initWithTarget:self
                                                                                  action:@selector(handlePan:)];

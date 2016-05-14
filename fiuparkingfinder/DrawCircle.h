@@ -11,6 +11,7 @@
 
 @interface DrawCircle : UIView
 
+-(UITextView *)welcome : (NSString*) school;
 -(UIImageView *)compass: (BOOL *) rotate: (UIImage *)compass;
 -(UIImageView *)gesture: (UIImage *)gesture;
 -(UIImageView *)notify: (UIImage *)notification;
