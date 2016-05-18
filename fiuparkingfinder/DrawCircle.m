@@ -252,7 +252,27 @@
              return welcome;
          }
  
- }@catch(NSException *error){}
+ }@catch(NSException *error){
+ 
+     
+     UITextView *welcome = [[UITextView alloc] init];
+     CGRect screenBound = [[UIScreen mainScreen] bounds];
+     CGSize screenSize = screenBound.size;
+     welcome.layer.cornerRadius=1.0f;
+     welcome.layer.masksToBounds=YES;
+     welcome.layer.borderColor=  [[UIColor colorWithRed:217.0f/255.0f green:143.0f/255.0f blue:0.0f alpha: 1.0f]CGColor];
+     welcome.layer.borderWidth= 2.0f;
+     welcome.frame = CGRectMake(screenSize.width/2, screenSize.height - 70, 0, 0);
+     welcome.text = @"No Internet Connection";
+     welcome.textContainerInset = UIEdgeInsetsMake(1, 0, 0, -12);
+     [welcome sizeToFit];
+     [welcome.textContainer setSize:welcome.frame.size];
+     welcome.backgroundColor = [self colorWithHexString:@"FAD587"];
+     [welcome setFont:[UIFont systemFontOfSize:10]];
+     welcome.center = CGPointMake(screenSize.width/2, screenSize.height - 60);
+     
+     return welcome;
+ }
  
  }
 -(UIColor*)colorWithHexString:(NSString*)hex
