@@ -10,6 +10,10 @@
 #import "DrawCircle.h"
 #import <FBSDKCoreKit/FBSDKCoreKit.h>
 #import <FBSDKShareKit/FBSDKShareKit.h>
+#import "ChatViewController.h"
+#import <Foundation/Foundation.h>
+#import "Communicator.h"
+#import "ChatClient.h"
 #define IDIOM UI_USER_INTERFACE_IDIOM()
 #define IPAD UIUserInterfaceIdiomPad
 
@@ -19,10 +23,12 @@
 @end
 
 @implementation ViewController
+@synthesize chat;
 @synthesize circle;
 @synthesize map;
 @synthesize sandlot;
 @synthesize openstreet;
+@synthesize inputStream, outputStream;
 
 NSString *school = @"FIU";
 NSString *appName = @"fiuparkingfinder";
@@ -36,8 +42,10 @@ BOOL *rotate = (BOOL *)1;
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(refreshView:)
                                                  name:UIApplicationWillEnterForegroundNotification
+     
                                                object:nil];
 
+    
     
     map = (UIImageView *)[self.view viewWithTag:1];
     sandlot = (UIImageView *)[self.view viewWithTag:2];
@@ -48,9 +56,15 @@ BOOL *rotate = (BOOL *)1;
     [map addSubview:sandlot];
     printf("%f", map.frame.size.width);
     
+/*    self.chat = [ChatClient alloc];
+    self.chat.initNetworkCommunication;
+    self.chat.joinChat;
+    self.chat.sendMessage;
+    self.chat.close;
+*/
     self.bannerView.adUnitID = adID;
     self.bannerView.rootViewController = self;
-    [self.bannerView loadRequest:[GADRequest request]]; 
+ //   [self.bannerView loadRequest:[GADRequest request]];
 
     
     UIImage *compass = [UIImage imageNamed:@"compass2"];
@@ -100,8 +114,38 @@ BOOL *rotate = (BOOL *)1;
     [self.view addSubview:[circle welcome:school]];
     openstreet = [UIImage imageNamed:@"openstreet"];
     [self.view addSubview:[circle openview:openstreet]];
+    UITextView *chatbox = (UITextView *)[self.view viewWithTag:3];
+ //   chatbox.text = self.chat.getMessage;
+//    NSAutoreleasePool * pool = [[NSAutoreleasePool alloc] init];
+/*    Communicator *c = [[Communicator alloc] init];
     
+    c->host = @"http://www.collegeparkingfinder.com";
+    c->port = 9000;
     
+    [c setup];
+    [c open];
+    // stream:(NSStream *)stream handleEvent:(NSStreamEvent)event
+  //  NSStream *stream = [[NSStream alloc] init];
+  //  NSStreamEvent *event = [[NSStreamEvent alloc] init];
+    
+    NSString *text = [[NSString alloc] init];
+    // toString(chatIndex)+ ":" + school + ":main:"
+    //NSString *s = [[NSString alloc] init];
+    [c writeOut:@"0:FIU:main:"];
+    [NSThread sleepForTimeInterval:3];
+   // text = [c stream: stream handleEvent: 1];
+    [c readIn:text];
+    
+    //text = @"Hello";
+    chatbox.text = text;
+    
+    //also try chatbox.text = chatbox.text + @"Hello"
+ */
+  //  [self mainQueue];
+ //   [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(appWillResignActive) name:UIApplicationWillResignActiveNotification object:nil];
+
+  //  [[ChatClient alloc] initNetworkCommunication];
+    [self backgroundQueue];
 }
 
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
@@ -116,6 +160,71 @@ BOOL *rotate = (BOOL *)1;
     
     
 }
+- (IBAction)backgroundQueue {
+    
+    // call the same method on a background thread
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        
+        CFReadStreamRef readStream;
+        CFWriteStreamRef writeStream;
+        CFStreamCreatePairWithSocketToHost(NULL, (CFStringRef)@"collegeparkingfinder.com", 9000, &readStream, &writeStream);
+        
+  //      inputStream = (__bridge NSInputStream *)readStream;
+        outputStream = (__bridge NSOutputStream *)((CFWriteStreamRef)writeStream);
+ //       [inputStream setDelegate:self];
+  //      [outputStream setDelegate:self];
+        [inputStream scheduleInRunLoop:[NSRunLoop currentRunLoop] forMode:NSDefaultRunLoopMode];
+        [outputStream scheduleInRunLoop:[NSRunLoop currentRunLoop] forMode:NSDefaultRunLoopMode];
+        [inputStream open];
+        [outputStream open];
+        while(true){
+            NSString *response  = [NSString stringWithFormat:@"%@", @"0:FIU:main"];
+            NSData *data = [[NSData alloc] initWithData:[response dataUsingEncoding:NSASCIIStringEncoding]];
+            [outputStream write:[data bytes] maxLength:[data length]];
+            NSLog(@"message sent");
+            [NSThread sleepForTimeInterval:10];
+            
+            
+         //   NSLog(@"%@", s);
+            
+        }
+        // update UI on the main thread
+ //       dispatch_async(dispatch_get_main_queue(), ^{
+        //    self.title = [[NSString alloc]initWithFormat:@"Result: %d", i];
+            
+         //   self.chat.close;
+ //       });
+        
+    });
+}
+
+//- (void)mainQueue{
+    
+    // call this on the main thread
+    
+    
+  //      NSAutoreleasePool * pool = [[NSAutoreleasePool alloc] init];
+   //     Communicator *c = [[Communicator alloc] init];
+  /*
+        c->host = @"http://www.collegeparkingfinder.com";
+        c->port = 9000;
+    NSString *text = [[NSString alloc] init];
+        [c setup];
+        [c open];
+   //     [pool drain];
+     //   [c writeOut:@"0:FIU:main:"];
+    
+    while(true){
+        [c writeOut:@"0:FIU:main:"];
+        [NSThread sleepForTimeInterval:15];
+       // [c readIn:@"0:FIU:main:"];
+    }
+ //   int i = arc4random() % 100;
+ //   self.title = [[NSString alloc]initWithFormat:@"Result: %d", i];
+ //   NSAutoreleasePool * pool = [[NSAutoreleasePool alloc] init];
+    
+} */
+
 
 - (IBAction)handlePan:(UIPanGestureRecognizer*)recognizer {
    
@@ -135,6 +244,9 @@ BOOL *rotate = (BOOL *)1;
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+-(void)closeStream{
+    
 }
 -(void)refreshView:(NSNotification *) notification {
     [self.circle removeFromSuperview];
@@ -170,6 +282,11 @@ BOOL *rotate = (BOOL *)1;
 
 - (void) dealloc {
     [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
+
+-(IBAction)Chat{
+    ChatViewController *chat = [[ChatViewController alloc] initWithNibName:nil bundle:nil];
+    [self presentViewController:chat animated:YES  completion:NULL];
     
 }
 

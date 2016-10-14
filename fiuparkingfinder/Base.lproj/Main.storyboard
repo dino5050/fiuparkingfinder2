@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9532" systemVersion="15D21" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10117" systemVersion="15G31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="BYZ-38-t0r">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9530"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
         <!--View Controller-->
@@ -30,7 +31,7 @@
                             <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" tag="2" contentMode="center" fixedFrame="YES" image="Sandlot" translatesAutoresizingMaskIntoConstraints="NO" id="UQ6-7B-Pd7">
                                 <rect key="frame" x="57" y="38" width="30" height="82"/>
                             </imageView>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="5fd-Pz-t52" customClass="GADBannerView">
+                            <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="5fd-Pz-t52" customClass="GADBannerView">
                                 <rect key="frame" x="0.0" y="430" width="320" height="50"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
@@ -38,13 +39,34 @@
                                     <constraint firstAttribute="height" constant="50" id="RDY-eN-s9h"/>
                                 </constraints>
                             </view>
+                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="f8M-RR-edD">
+                                <rect key="frame" x="182" y="342" width="66" height="44"/>
+                                <rect key="contentStretch" x="0.0" y="0.0" width="0.0" height="0.0"/>
+                                <edgeInsets key="layoutMargins" top="8" left="8" bottom="8" right="8"/>
+                                <state key="normal" image="chat_button"/>
+                                <connections>
+                                    <action selector="Chat" destination="dkx-z0-nzr" eventType="touchUpInside" id="vhK-oc-uHa"/>
+                                </connections>
+                            </button>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" tag="3" contentMode="scaleToFill" fixedFrame="YES" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="k1l-nR-u63">
+                                <rect key="frame" x="79" y="320" width="100" height="66"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
+                                <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="13"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                            </textView>
                         </subviews>
                         <color key="backgroundColor" red="0.46193298363676771" green="0.88235294117647056" blue="0.54051156452647031" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstAttribute="bottom" secondItem="99P-jG-dLq" secondAttribute="bottom" id="5he-k8-R9U"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="5fd-Pz-t52" secondAttribute="trailing" constant="-40" id="6dp-op-rgQ"/>
                             <constraint firstItem="ro2-hK-9hV" firstAttribute="top" secondItem="5fd-Pz-t52" secondAttribute="bottom" id="DxY-16-iye"/>
+                            <constraint firstItem="ro2-hK-9hV" firstAttribute="top" secondItem="5fd-Pz-t52" secondAttribute="bottom" constant="30" id="EaL-8v-JI1"/>
                             <constraint firstAttribute="centerX" secondItem="5fd-Pz-t52" secondAttribute="centerX" id="Qz5-8P-CBp"/>
                             <constraint firstAttribute="bottom" secondItem="99P-jG-dLq" secondAttribute="bottom" id="c6p-Ac-mhc"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="f8M-RR-edD" secondAttribute="trailing" constant="58" id="fL4-qs-4um"/>
+                            <constraint firstItem="5fd-Pz-t52" firstAttribute="top" secondItem="f8M-RR-edD" secondAttribute="bottom" constant="50" id="jFX-M8-VE1"/>
+                            <constraint firstItem="ro2-hK-9hV" firstAttribute="top" secondItem="5fd-Pz-t52" secondAttribute="bottom" constant="50" id="utI-Nz-x9u"/>
                         </constraints>
                     </view>
                     <connections>
@@ -53,11 +75,12 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="375" y="307"/>
+            <point key="canvasLocation" x="278" y="313"/>
         </scene>
     </scenes>
     <resources>
         <image name="Sandlot" width="30" height="82"/>
+        <image name="chat_button" width="65" height="44"/>
         <image name="mapFIU" width="450" height="717"/>
         <image name="parking_gradient3" width="18" height="444"/>
     </resources>
