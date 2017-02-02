@@ -32,6 +32,8 @@
 - (BOOL)shouldAutorotate;
 - (void)refreshView:(NSNotification *) notification;
 - (void)mainQueue;
+- (void) initNetworkCommunication;
+- (IBAction)backgroundQueue;
 
 @end
 
