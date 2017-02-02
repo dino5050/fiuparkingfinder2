@@ -16,8 +16,8 @@
 		4B2924001B692DEE007A8456 /* fiuparkingfinderTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B2923FF1B692DEE007A8456 /* fiuparkingfinderTests.m */; };
 		4B66F2161B6C168500E8C9FD /* DrawCircle.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B66F2151B6C168500E8C9FD /* DrawCircle.m */; };
 		4B735AE41D5F7D320001D5C7 /* ChatViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B735AE21D5F7D320001D5C7 /* ChatViewController.m */; };
+		4B735AE51D5F7D320001D5C7 /* ChatViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4B735AE31D5F7D320001D5C7 /* ChatViewController.xib */; };
 		4B814A361D68B5B60056443D /* Communicator.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B814A351D68B5B60056443D /* Communicator.m */; };
-		4B85F8F31E43F45C00AAB37F /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4B85F8F21E43F45C00AAB37F /* Main.storyboard */; };
 		4B9665941CE6210E00565583 /* GoogleMobileAds.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4B9665931CE6210E00565583 /* GoogleMobileAds.framework */; };
 		4B98EDCB1C7698E200CC402D /* FBSDKCoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4B98EDC91C7698E200CC402D /* FBSDKCoreKit.framework */; };
 		4B98EDCC1C7698E200CC402D /* FBSDKShareKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4B98EDCA1C7698E200CC402D /* FBSDKShareKit.framework */; };
@@ -55,10 +55,10 @@
 		4B66F2151B6C168500E8C9FD /* DrawCircle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DrawCircle.m; sourceTree = "<group>"; };
 		4B735AE11D5F7D320001D5C7 /* ChatViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChatViewController.h; sourceTree = "<group>"; };
 		4B735AE21D5F7D320001D5C7 /* ChatViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChatViewController.m; sourceTree = "<group>"; };
+		4B735AE31D5F7D320001D5C7 /* ChatViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ChatViewController.xib; sourceTree = "<group>"; };
 		4B7BBC301D90307700B96650 /* FIU Parking Finder.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "FIU Parking Finder.entitlements"; sourceTree = "<group>"; };
 		4B814A341D68B5900056443D /* Communicator.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Communicator.h; sourceTree = "<group>"; };
 		4B814A351D68B5B60056443D /* Communicator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Communicator.m; sourceTree = "<group>"; };
-		4B85F8F21E43F45C00AAB37F /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
 		4B9665931CE6210E00565583 /* GoogleMobileAds.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GoogleMobileAds.framework; path = "../CollegeParkingFinder/GoogleMobileAdsSdkiOS-7.6.0/GoogleMobileAds.framework"; sourceTree = "<group>"; };
 		4B98EDC91C7698E200CC402D /* FBSDKCoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FBSDKCoreKit.framework; path = "../../Documents/FacebookSDKs-iOS-20150813/FBSDKCoreKit.framework"; sourceTree = "<group>"; };
 		4B98EDCA1C7698E200CC402D /* FBSDKShareKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FBSDKShareKit.framework; path = "../../Documents/FacebookSDKs-iOS-20150813/FBSDKShareKit.framework"; sourceTree = "<group>"; };
@@ -122,6 +122,7 @@
 			children = (
 				4B735AE11D5F7D320001D5C7 /* ChatViewController.h */,
 				4B735AE21D5F7D320001D5C7 /* ChatViewController.m */,
+				4B735AE31D5F7D320001D5C7 /* ChatViewController.xib */,
 				4B2923E71B692DEC007A8456 /* AppDelegate.h */,
 				4B2923E81B692DEC007A8456 /* AppDelegate.m */,
 				4BCD61291D930F97003EF895 /* ChatClient.h */,
@@ -132,7 +133,6 @@
 				4B66F2151B6C168500E8C9FD /* DrawCircle.m */,
 				4B1212951C5BDE200098BE1A /* Images.xcassets */,
 				4B2923ED1B692DED007A8456 /* Main.storyboard */,
-				4B85F8F21E43F45C00AAB37F /* Main.storyboard */,
 				4B2923F21B692DED007A8456 /* LaunchScreen.xib */,
 				4B2923E31B692DEB007A8456 /* Supporting Files */,
 				4B814A341D68B5900056443D /* Communicator.h */,
@@ -287,8 +287,8 @@
 			files = (
 				4BC818841B7693DC008D1BDD /* Default.png in Resources */,
 				4B1212961C5BDE200098BE1A /* Images.xcassets in Resources */,
+				4B735AE51D5F7D320001D5C7 /* ChatViewController.xib in Resources */,
 				4B2923EF1B692DED007A8456 /* Main.storyboard in Resources */,
-				4B85F8F31E43F45C00AAB37F /* Main.storyboard in Resources */,
 				4B2923F41B692DED007A8456 /* LaunchScreen.xib in Resources */,
 				4BC818821B7645F0008D1BDD /* Podfile in Resources */,
 			);
@@ -488,7 +488,7 @@
 					/Users/nezennin/Desktop/CollegeParkingFinder/mdcparkingfinder,
 				);
 				INFOPLIST_FILE = fiuparkingfinder/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "FIU Parking Finder";
 				PROVISIONING_PROFILE = "";
@@ -512,7 +512,7 @@
 					/Users/nezennin/Desktop/CollegeParkingFinder/mdcparkingfinder,
 				);
 				INFOPLIST_FILE = fiuparkingfinder/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
 				"IPHONEOS_DEPLOYMENT_TARGET[sdk=iphoneos7.1]" = 7.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "FIU Parking Finder";

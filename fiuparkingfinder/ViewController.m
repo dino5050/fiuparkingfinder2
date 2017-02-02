@@ -64,7 +64,7 @@ BOOL *rotate = (BOOL *)1;
 */
     self.bannerView.adUnitID = adID;
     self.bannerView.rootViewController = self;
-    [self.bannerView loadRequest:[GADRequest request]];
+ //   [self.bannerView loadRequest:[GADRequest request]];
 
     
     UIImage *compass = [UIImage imageNamed:@"compass2"];
@@ -115,10 +115,9 @@ BOOL *rotate = (BOOL *)1;
     openstreet = [UIImage imageNamed:@"openstreet"];
     [self.view addSubview:[circle openview:openstreet]];
     UITextView *chatbox = (UITextView *)[self.view viewWithTag:3];
-    
  //   chatbox.text = self.chat.getMessage;
 //    NSAutoreleasePool * pool = [[NSAutoreleasePool alloc] init];
- /*   Communicator *c = [[Communicator alloc] init];
+/*    Communicator *c = [[Communicator alloc] init];
     
     c->host = @"http://www.collegeparkingfinder.com";
     c->port = 9000;
@@ -139,9 +138,9 @@ BOOL *rotate = (BOOL *)1;
     
     //text = @"Hello";
     chatbox.text = text;
-  */  
+    
     //also try chatbox.text = chatbox.text + @"Hello"
- 
+ */
   //  [self mainQueue];
  //   [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(appWillResignActive) name:UIApplicationWillResignActiveNotification object:nil];
 
@@ -168,28 +167,20 @@ BOOL *rotate = (BOOL *)1;
         
         CFReadStreamRef readStream;
         CFWriteStreamRef writeStream;
-        CFStreamCreatePairWithSocketToHost(kCFAllocatorDefault, (CFStringRef)@"collegeparkingfinder.com", 9000, &readStream, &writeStream);
+        CFStreamCreatePairWithSocketToHost(NULL, (CFStringRef)@"collegeparkingfinder.com", 9000, &readStream, &writeStream);
         
-        inputStream = (__bridge NSInputStream *)readStream;
+  //      inputStream = (__bridge NSInputStream *)readStream;
         outputStream = (__bridge NSOutputStream *)((CFWriteStreamRef)writeStream);
-        
-        [inputStream setDelegate:self];
-        [outputStream setDelegate:self];
+ //       [inputStream setDelegate:self];
+  //      [outputStream setDelegate:self];
         [inputStream scheduleInRunLoop:[NSRunLoop currentRunLoop] forMode:NSDefaultRunLoopMode];
         [outputStream scheduleInRunLoop:[NSRunLoop currentRunLoop] forMode:NSDefaultRunLoopMode];
         [inputStream open];
         [outputStream open];
-        /*        NSString *response  = [NSString stringWithUTF8String:"0:FIU:main"];
-         NSData *data = [[NSData alloc] initWithData:[response dataUsingEncoding:NSUTF8StringEncoding]]; */
-        NSString *response  = @"0:FIU:main\n";
-        const char *response2 = [response UTF8String];
-        //         NSMutableData *data = [[NSData alloc] initWithData:[response dataUsingEncoding:NSASCIIStringEncoding]];
-        NSMutableData *data = [NSMutableData dataWithBytes:response2 length:100];
-        //    encodeDataArray = [UInt8](response.utf8);
         while(true){
-
-            [outputStream write:(const uint8_t *)[data mutableBytes] maxLength:100];
-        //    [outputStream write:"0:FIU:main"];
+            NSString *response  = [NSString stringWithFormat:@"%@", @"0:FIU:main"];
+            NSData *data = [[NSData alloc] initWithData:[response dataUsingEncoding:NSASCIIStringEncoding]];
+            [outputStream write:[data bytes] maxLength:[data length]];
             NSLog(@"message sent");
             [NSThread sleepForTimeInterval:10];
             
