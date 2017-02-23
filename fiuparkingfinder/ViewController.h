@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "ChatClient.h"
+#import <CoreLocation/CoreLocation.h>
 @import GoogleMobileAds;
 @class DrawCircle;
 @interface ViewController : UIViewController
@@ -24,14 +25,16 @@
 @property(nonatomic, retain) UIImageView *sandlot;
 @property(nonatomic, retain) UIView *fbshare;
 @property (weak, nonatomic) IBOutlet GADBannerView *bannerView;
+@property (nonatomic, retain) CLLocationManager *locationManager;
 
 
 - (IBAction)Chat;
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex;
-- (IBAction)handlePan:(UIPanGestureRecognizer *)recognizer;
+//- (IBAction)handlePan:(UIPanGestureRecognizer *)recognizer;
 - (BOOL)shouldAutorotate;
 - (void)refreshView:(NSNotification *) notification;
 - (void)mainQueue;
+
 
 @end
 

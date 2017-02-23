@@ -1,9 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10117" systemVersion="15G31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10117" systemVersion="15G1212" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="BYZ-38-t0r">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
-        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
         <!--View Controller-->
@@ -18,18 +17,15 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView opaque="NO" multipleTouchEnabled="YES" tag="1" contentMode="center" fixedFrame="YES" image="mapFIU" translatesAutoresizingMaskIntoConstraints="NO" id="Yy6-AP-ZoU">
-                                <rect key="frame" x="0.0" y="0.0" width="450" height="717"/>
+                            <imageView opaque="NO" multipleTouchEnabled="YES" tag="1" contentMode="scaleAspectFill" misplaced="YES" image="mapFIU2" translatesAutoresizingMaskIntoConstraints="NO" id="eKX-vv-Dez">
+                                <rect key="frame" x="-85" y="-184" width="450" height="683"/>
                             </imageView>
                             <view contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="99P-jG-dLq" customClass="GADBannerView">
                                 <rect key="frame" x="0.0" y="430" width="320" height="50"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             </view>
-                            <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" fixedFrame="YES" image="parking_gradient3" translatesAutoresizingMaskIntoConstraints="NO" id="VW5-uO-Zja">
-                                <rect key="frame" x="0.0" y="0.0" width="18" height="444"/>
-                            </imageView>
-                            <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" tag="2" contentMode="center" fixedFrame="YES" image="Sandlot" translatesAutoresizingMaskIntoConstraints="NO" id="UQ6-7B-Pd7">
-                                <rect key="frame" x="57" y="38" width="30" height="82"/>
+                            <imageView opaque="NO" multipleTouchEnabled="YES" contentMode="center" misplaced="YES" image="parking_gradient4" translatesAutoresizingMaskIntoConstraints="NO" id="SuD-j2-0ZJ">
+                                <rect key="frame" x="0.0" y="-409" width="20" height="1250"/>
                             </imageView>
                             <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="5fd-Pz-t52" customClass="GADBannerView">
                                 <rect key="frame" x="0.0" y="430" width="320" height="50"/>
@@ -39,33 +35,20 @@
                                     <constraint firstAttribute="height" constant="50" id="RDY-eN-s9h"/>
                                 </constraints>
                             </view>
-                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="f8M-RR-edD">
-                                <rect key="frame" x="182" y="342" width="66" height="44"/>
-                                <rect key="contentStretch" x="0.0" y="0.0" width="0.0" height="0.0"/>
-                                <edgeInsets key="layoutMargins" top="8" left="8" bottom="8" right="8"/>
-                                <state key="normal" image="chat_button"/>
-                                <connections>
-                                    <action selector="Chat" destination="dkx-z0-nzr" eventType="touchUpInside" id="vhK-oc-uHa"/>
-                                </connections>
-                            </button>
-                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" tag="3" contentMode="scaleToFill" fixedFrame="YES" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="k1l-nR-u63">
-                                <rect key="frame" x="79" y="320" width="100" height="66"/>
-                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
-                                <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="13"/>
-                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
-                            </textView>
                         </subviews>
                         <color key="backgroundColor" red="0.46193298363676771" green="0.88235294117647056" blue="0.54051156452647031" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstAttribute="bottom" secondItem="99P-jG-dLq" secondAttribute="bottom" id="5he-k8-R9U"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="5fd-Pz-t52" secondAttribute="trailing" constant="-40" id="6dp-op-rgQ"/>
+                            <constraint firstItem="SuD-j2-0ZJ" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" constant="-1" id="6dD-w9-k1T"/>
                             <constraint firstItem="ro2-hK-9hV" firstAttribute="top" secondItem="5fd-Pz-t52" secondAttribute="bottom" id="DxY-16-iye"/>
+                            <constraint firstAttribute="trailing" secondItem="eKX-vv-Dez" secondAttribute="trailing" constant="-10" id="EGm-XG-qo7"/>
                             <constraint firstItem="ro2-hK-9hV" firstAttribute="top" secondItem="5fd-Pz-t52" secondAttribute="bottom" constant="30" id="EaL-8v-JI1"/>
+                            <constraint firstItem="eKX-vv-Dez" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" id="FSC-K2-D02"/>
+                            <constraint firstItem="eKX-vv-Dez" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" constant="10" id="K7K-uV-yhd"/>
                             <constraint firstAttribute="centerX" secondItem="5fd-Pz-t52" secondAttribute="centerX" id="Qz5-8P-CBp"/>
+                            <constraint firstAttribute="bottom" secondItem="eKX-vv-Dez" secondAttribute="bottom" constant="-10" id="Vk2-ju-eHG"/>
                             <constraint firstAttribute="bottom" secondItem="99P-jG-dLq" secondAttribute="bottom" id="c6p-Ac-mhc"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="f8M-RR-edD" secondAttribute="trailing" constant="58" id="fL4-qs-4um"/>
-                            <constraint firstItem="5fd-Pz-t52" firstAttribute="top" secondItem="f8M-RR-edD" secondAttribute="bottom" constant="50" id="jFX-M8-VE1"/>
+                            <constraint firstItem="SuD-j2-0ZJ" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="oPx-Q9-qbX"/>
                             <constraint firstItem="ro2-hK-9hV" firstAttribute="top" secondItem="5fd-Pz-t52" secondAttribute="bottom" constant="50" id="utI-Nz-x9u"/>
                         </constraints>
                     </view>
@@ -79,10 +62,8 @@
         </scene>
     </scenes>
     <resources>
-        <image name="Sandlot" width="30" height="82"/>
-        <image name="chat_button" width="65" height="44"/>
-        <image name="mapFIU" width="450" height="717"/>
-        <image name="parking_gradient3" width="18" height="444"/>
+        <image name="mapFIU2" width="450" height="683"/>
+        <image name="parking_gradient4" width="18" height="1250"/>
     </resources>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>

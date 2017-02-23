@@ -14,6 +14,7 @@
 #import <Foundation/Foundation.h>
 #import "Communicator.h"
 #import "ChatClient.h"
+#import <CoreLocation/CoreLocation.h>
 #define IDIOM UI_USER_INTERFACE_IDIOM()
 #define IPAD UIUserInterfaceIdiomPad
 
@@ -29,6 +30,7 @@
 @synthesize sandlot;
 @synthesize openstreet;
 @synthesize inputStream, outputStream;
+@synthesize locationManager;
 
 NSString *school = @"FIU";
 NSString *appName = @"fiuparkingfinder";
@@ -36,6 +38,13 @@ NSString *appName = @"fiuparkingfinder";
 NSString *adID = @"ca-app-pub-3188229665332758/5863888255";
 NSString *appID = @"id1011204764";
 BOOL *rotate = (BOOL *)1;
+double location = 0;
+double xAdjust = 0;
+double yAdjust = 0;
+double XscaleAdjust = 1;
+double YscaleAdjust = 1;
+UIImageView *bluedot;
+int position = 0;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -49,12 +58,20 @@ BOOL *rotate = (BOOL *)1;
     
     map = (UIImageView *)[self.view viewWithTag:1];
     sandlot = (UIImageView *)[self.view viewWithTag:2];
-    if (IDIOM==IPAD) self.circle = [[DrawCircle alloc] initWithFrame:CGRectMake(0.0, 0.0, map.frame.size.width*1.8, map.frame.size.height*1.8)];
+    if (IDIOM==IPAD) self.circle = [[DrawCircle alloc] initWithFrame:CGRectMake(0.0, 0.0, map.frame.size.width*2.2, map.frame.size.height*2.2)];
     else self.circle = [[DrawCircle alloc] initWithFrame:CGRectMake(0.0, 0.0, map.frame.size.width, map.frame.size.height)];
     self.circle.backgroundColor = [UIColor clearColor];
     [map addSubview:self.circle];
     [map addSubview:sandlot];
-    printf("%f", map.frame.size.width);
+    
+    CGRect screenBound = [[UIScreen mainScreen] bounds];
+    CGSize screenSize = screenBound.size;
+    printf("%f %f\n%f %f", map.frame.size.width, map.frame.size.height, screenSize.width, screenSize.height);
+    
+ //   [self.view bringSubviewToFront:bluedot];
+    
+ //   [bluedot setFrame:CGRectMake(83*xCalibration*(pow(xCalibration,0.1))-28*xCalibration, 94*yCalibration*(pow(xCalibration,0.1))+56*yCalibration, 15, 15)];
+    
     
 /*    self.chat = [ChatClient alloc];
     self.chat.initNetworkCommunication;
@@ -145,9 +162,130 @@ BOOL *rotate = (BOOL *)1;
  //   [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(appWillResignActive) name:UIApplicationWillResignActiveNotification object:nil];
 
   //  [[ChatClient alloc] initNetworkCommunication];
-    [self backgroundQueue];
+  //  [self backgroundQueue];
+    
+ //   [self getLocation];
+  //  [self startStandardUpdated];
+    
+    
+ //   [bluedot setFrame:CGRectMake(83*xCalibration*(pow(xCalibration,0.1))-28*xCalibration, 94*yCalibration*(pow(xCalibration,0.1))+56*yCalibration, 15, 15)];
+//    [bluedot setFrame:CGRectMake(320-15/2, 568-15/2, 15, 15)];
+
+       UIAlertView *toast = [[UIAlertView alloc] initWithTitle:nil message: [NSString stringWithFormat:@"%@", [self deviceLocation]] delegate: nil cancelButtonTitle:nil otherButtonTitles: nil];
+//    [toast show];
+    
+    bluedot = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 15, 15)];
+    bluedot.image=[UIImage imageNamed:@"bluedot"];
+
+      [self.view addSubview:bluedot];
+    [self.view bringSubviewToFront:bluedot];
+//    [bluedot removeFromSuperview];
+    
+    if(position == 0) [NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(getLocation:) userInfo:bluedot repeats:YES];
+    
+}
+- (float)longitude{
+    return locationManager.location.coordinate.longitude;
+}
+-(float)latitude{
+    return locationManager.location.coordinate.latitude;
+}
+- (NSString *)deviceLocation{
+    return [NSString stringWithFormat:@"%.8f %.8f", locationManager.location.coordinate.latitude, locationManager.location.coordinate.longitude];
 }
 
+- (int)getLocation: (NSTimer*)theTimer{
+ //   dispatch_async(dispatch_get_global_queue(0, 0), ^{
+    
+    bluedot = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 15, 15)];
+    bluedot.image=[UIImage imageNamed:@"bluedot"];
+//    [self.view addSubview:bluedot];
+//    [self.view bringSubviewToFront:bluedot];
+    locationManager = [[CLLocationManager alloc] init];
+    locationManager.distanceFilter = 5;
+    locationManager.desiredAccuracy = kCLLocationAccuracyBest;
+    [locationManager startUpdatingLocation];
+    CGRect screenBound = [[UIScreen mainScreen] bounds];
+    CGSize screenSize = screenBound.size;
+    UIImageView *swArrow = [[UIImageView alloc] initWithFrame:CGRectMake(0, screenSize.height-12, 30, 12)];
+    swArrow.image = [UIImage imageNamed:@"swArrow"];
+    UIImageView *seArrow = [[UIImageView alloc] initWithFrame:CGRectMake(0, screenSize.height-12, 30, 12)];
+    seArrow.image = [UIImage imageNamed:@"seArrow"];
+    UIImageView *nwArrow = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 30, 12)];
+    nwArrow.image = [UIImage imageNamed:@"nwArrow"];
+    UIImageView *neArrow = [[UIImageView alloc] initWithFrame:CGRectMake(0, screenSize.height-12, 30, 12)];
+    neArrow.image = [UIImage imageNamed:@"neArrow"];
+    [self.view addSubview:swArrow];
+    
+        float xCalibration = screenSize.width/450;
+        float yCalibration = screenSize.height/683;
+        double gpsCoor[2][4] = {{25.760544,25.760544,25.751753,25.751753},{-80.384068,-80.367813,-80.367813,-80.384068}};
+        double mX =  screenSize.width/(gpsCoor[0][0]-gpsCoor[0][2]);
+        double mY =  screenSize.height/(gpsCoor[1][1]-gpsCoor[1][0]);
+        double gpsCoor00 = gpsCoor[0][0]; double gpsCoor10 = gpsCoor[1][0];
+        double gpsCoor02 = gpsCoor[0][2]; double gpsCoor11 = gpsCoor[1][1];
+        double x = 0;
+        double y = 0;
+        double latitude = [self latitude];
+        double longitude = [self longitude];
+ //   check if gps is on
+    
+/*    if(longitude > gpsCoor00){
+        if(latitude < gpsCoor10){
+            [nwArrow removeFromSuperview]; [nwArrow removeFromSuperview];[nwArrow removeFromSuperview]; [bluedot removeFromSuperview];
+            position = 1;
+        }else if(latitude > gpsCoor11){
+            position = 2;
+        }else{
+            position = 5;
+        }
+    }else{} */
+        if(location == 0){
+                x = mX*(gpsCoor00-25.759585);  //25.77804972
+                y = screenSize.height-mY*(-80.370178-gpsCoor10); //-80.41314309
+                location = 1;
+        }else{
+            x = mX*(gpsCoor00-25.756922);  //25.77804972
+            y = screenSize.height-mY*(-80.378985-gpsCoor10); //-80.41314309
+            location = 0;
+        }
+        if(IDIOM==IPAD){
+            xAdjust = 55;
+            yAdjust = 5;
+            XscaleAdjust = 0.9;
+            YscaleAdjust = 1.11;
+            if(screenSize.height == 1366){
+                xAdjust = 70;
+                yAdjust = -5;
+            }
+            
+        }else{
+            xAdjust = 25;
+            yAdjust = 33;
+            XscaleAdjust = 1.04;
+            YscaleAdjust = 0.97;
+            if(screenSize.height == 480){xAdjust = 44; yAdjust = 31; XscaleAdjust = 0.88;}
+            if(screenSize.height == 568){xAdjust = 23; yAdjust = 32;}
+            
+        }
+                double xF = 0+x*xCalibration*(pow(xCalibration,-1.0))*XscaleAdjust-0*xCalibration+xAdjust;
+                double yF = -28+y*yCalibration*(pow(yCalibration,-1.0 ))*YscaleAdjust+0*yCalibration+yAdjust; //IDIOM = IPAD adjustment
+                if (IDIOM == IPAD){ xF = xF +22*xCalibration; yF = yF - 26*yCalibration; }
+        if(position == 0) [[theTimer userInfo] setFrame:CGRectMake(xF-24/2, yF-15/2, 25, 31) ];
+    
+    
+    position = 0;
+    return position;
+
+   // [bluedot removeFromSuperview];
+      //      }
+    //    });
+    //});
+    
+    //[self performSelector:@selector(getLocation) withObject: bluedot afterDelay:10];
+    
+    
+}
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
 {
     NSString *title = [alertView buttonTitleAtIndex:buttonIndex];
@@ -160,6 +298,7 @@ BOOL *rotate = (BOOL *)1;
     
     
 }
+
 - (IBAction)backgroundQueue {
     
     // call the same method on a background thread
@@ -225,7 +364,7 @@ BOOL *rotate = (BOOL *)1;
     
 } */
 
-
+/*
 - (IBAction)handlePan:(UIPanGestureRecognizer*)recognizer {
    
     CGPoint translation = [recognizer translationInView:recognizer.view];
@@ -235,7 +374,7 @@ BOOL *rotate = (BOOL *)1;
         [recognizer setTranslation:CGPointMake(0, 0) inView:recognizer.view];
     }
 
-}
+} */
 - (BOOL)shouldAutorotate
 {
     return NO;

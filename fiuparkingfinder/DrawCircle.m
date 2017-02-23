@@ -19,11 +19,15 @@
 {
     float old_width = 1774;
     float old_height = 1113;
+    CGRect screenBound = [[UIScreen mainScreen] bounds];
+    CGSize screenSize = screenBound.size;
+    float xCalibration = screenSize.width/450;
+    float yCalibration = screenSize.height/717;
     int numColors = 13;
     NSString *table = @"FIU_parking_data";
     UIImage *map;
     //int coor[] = {98-25,134-30,94,224+20,90,336-3,93,410,203,726+3,571+1,193-5,499,274,433,273,179,623,508,213,403,196,563,758,277,799};
-    int coor[] = {1578+50,156-35,1383,159,1230,162,1101,165,741,312,564,351,442,482,512,962,1464,690,1340,746,1336,855,1438,874,1478,980};
+    int coor[] = {1578+50,156-60,1383,159,1230,162,1101,165,741,312,564,351,442,482,512,962,1464,690,1340,746,1336,855,1438,874,1478,980};
     if(IDIOM == IPAD) map = [UIImage imageNamed:@"mapFIU"];
     else map = [UIImage imageNamed:@"mapFIU"];
     printf("%f", map.size.width);
@@ -56,11 +60,18 @@
     for(int i =0; i<sizeof(coor); i++){
         if(IDIOM == IPAD) {
             // int coor[] = {98-25,134-30,94,224+20,90,336-3,93,410,203,726+3,571+1,193-5,499,274,433,273,179,623,508,213,403,196,563,758+5,277,799+5};
-            coor2[i] = coor[i]*0.8;//*1.2;
+            double scaleAdjust = 1;
+            if(screenSize.height == 1024){scaleAdjust = 0.8;}
+            if(screenSize.height == 1366){scaleAdjust = 1.06;}
+            coor2[i] = coor[i]*scaleAdjust;//*1.2;
         }
         else {
             //  int coor[] = {98-25,134-30,94,224+20,90,336-3,93,410,203,726+3,571+1,193-5,499,274,433,273,179,623,508,213,403,196,563,758,277,799};
-            coor2[i] = coor[i]*map.size.width/old_height*1.0;//0.723
+            double scaleAdjust = 1;
+            if(screenSize.height == 480){scaleAdjust = 0.95;}
+            if(screenSize.height == 568){scaleAdjust = 1.32;}
+            if(screenSize.height == 667){scaleAdjust = 1.32;}
+            coor2[i] = coor[i]*map.size.width/old_height*scaleAdjust*xCalibration*xCalibration/yCalibration;//0.723
         }
     }
     //change hour to string!!!!!!!
@@ -115,7 +126,7 @@
             {
                 if (k == 0) radius = 120.0;
                 else radius = 80.0;
-                borderRect = CGRectMake((pow(coor2[k*2+1],0.9815)*1.04+128-(old_width-map.size.width)*0.1-40), map.size.height-pow(coor2[k*2],0.990)*0.94+448-(old_height-map.size.height)*0.1+75, radius, radius);
+                borderRect = CGRectMake((pow(coor2[k*2+1],0.9815)*1.04+128-(old_width-map.size.width)*0.1-60), map.size.height-pow(coor2[k*2],0.990)*0.94+448-(old_height-map.size.height)*0.1+95, radius, radius);
                 //borderRect = CGRectMake((coor2[k*2]*1.04+73-(old_width-map.size.width)*0.5-40), (coor2[k*2+1]*0.94+108-(old_height-map.size.height)*0.5), radius, radius);
             }else{
                 if (k == 0) radius = 90.0;
@@ -163,13 +174,24 @@
             
             if(IDIOM == IPAD)
             {
-                if (k == 0) radius = 120.0;
+                if (k == 0) radius = 150.0;
                 else radius = 80.0;
-                borderRect = CGRectMake((pow(coor2[k*2+1],0.9815)*1.04+128-(old_width-map.size.width)*0.1-40), map.size.height-pow(coor2[k*2],0.990)*0.94+448-(old_height-map.size.height)*0.1+75, radius, radius);
+                double Hadjust = 0;
+                double Wadjust = 0;
+                if(screenSize.height == 1024){ Hadjust = 20; Wadjust = -10;}
+                if(screenSize.height == 1366){ Hadjust = 400; Wadjust = -10;}
+                borderRect = CGRectMake((pow(coor2[k*2+1],0.9815)*1.04+128-(old_width-map.size.width)*0.1-40)+Wadjust, map.size.height-pow(coor2[k*2],0.990)*0.94+448-(old_height-map.size.height)*0.1-10+Hadjust, radius, radius);
+                
             }else{
                 if (k == 0) radius = 90.0;
                 else radius = 50.0;
-                borderRect = CGRectMake((pow(coor2[k*2+1],1.0)-(old_height-map.size.width)*0.041)+7, map.size.height-pow(coor2[k*2],1.0)-(old_width-map.size.height)*(0.092)+73, radius, radius);
+                double Hadjust = 0;
+                double Wadjust = 0;
+                if(screenSize.height==480){ Hadjust = -85; Wadjust = +28;}
+                if(screenSize.height == 568){Hadjust = 0; Wadjust = 0;}
+                if(screenSize.height == 667){ Hadjust = 96; Wadjust = -6;}
+                
+                borderRect = CGRectMake((pow(coor2[k*2+1],1.0)-(old_height-map.size.width)*0.041)-17/xCalibration+Wadjust, map.size.height-pow(coor2[k*2],1.0)-(old_width-map.size.height)*(0.092)-30/yCalibration + Hadjust, radius, radius);
             }
             
             if(color2 == 4) {
@@ -360,7 +382,7 @@
     [[UIApplication sharedApplication]openURL:[NSURL URLWithString:@"https://www.openstreetmap.org/copyright"]];
 }
 -(void)ipad:(UIImageView*)map{
-    UIImage *image = [UIImage imageNamed:@"mapiOSiPad"];
+    UIImage *image = [UIImage imageNamed:@"mapiOSiPad2"];
     
     UIImage *tempImage = nil;
     //CGSize targetSize = CGSizeMake(770,1177);
@@ -369,10 +391,11 @@
     UIGraphicsBeginImageContext(targetSize);
     
     CGRect thumbnailRect = CGRectMake(0,0,0,0);
-    thumbnailRect.origin = CGPointMake(317,472);
+    thumbnailRect.origin = CGPointMake(0,0);
+//    thumbnailRect.origin = CGPointMake(317,472);
     //thumbnailRect.origin = CGPointMake(285*1.09,425*1.09);
-    thumbnailRect.size.width  = targetSize.width-270;
-    thumbnailRect.size.height = targetSize.height-420;
+    thumbnailRect.size.width  = image.size.width;
+    thumbnailRect.size.height = image.size.height;
   //  thumbnailRect.size.width  = targetSize.width;
   //  thumbnailRect.size.height = targetSize.height-100;
     
