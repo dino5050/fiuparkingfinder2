@@ -174,14 +174,15 @@ int position = 0;
        UIAlertView *toast = [[UIAlertView alloc] initWithTitle:nil message: [NSString stringWithFormat:@"%@", [self deviceLocation]] delegate: nil cancelButtonTitle:nil otherButtonTitles: nil];
 //    [toast show];
     
-    bluedot = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 15, 15)];
-    bluedot.image=[UIImage imageNamed:@"bluedot"];
+ //   bluedot = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 15, 15)];
+ //   bluedot.image=[UIImage imageNamed:@"bluedot"];
 
-      [self.view addSubview:bluedot];
-    [self.view bringSubviewToFront:bluedot];
+//      [self.view addSubview:bluedot];
+//    [self.view bringSubviewToFront:bluedot];
 //    [bluedot removeFromSuperview];
     
-    if(position == 0) [NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(getLocation:) userInfo:bluedot repeats:YES];
+    [NSTimer scheduledTimerWithTimeInterval:0.3 target:self selector:@selector(getLocation:) userInfo:nil repeats:YES];
+    
     
 }
 - (float)longitude{
@@ -194,10 +195,10 @@ int position = 0;
     return [NSString stringWithFormat:@"%.8f %.8f", locationManager.location.coordinate.latitude, locationManager.location.coordinate.longitude];
 }
 
-- (int)getLocation: (NSTimer*)theTimer{
+- (void)getLocation: (NSTimer*)theTimer{
  //   dispatch_async(dispatch_get_global_queue(0, 0), ^{
-    
-    bluedot = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 15, 15)];
+    // if GPS is on
+    bluedot = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 0, 0)] ;
     bluedot.image=[UIImage imageNamed:@"bluedot"];
 //    [self.view addSubview:bluedot];
 //    [self.view bringSubviewToFront:bluedot];
@@ -207,15 +208,15 @@ int position = 0;
     [locationManager startUpdatingLocation];
     CGRect screenBound = [[UIScreen mainScreen] bounds];
     CGSize screenSize = screenBound.size;
-    UIImageView *swArrow = [[UIImageView alloc] initWithFrame:CGRectMake(0, screenSize.height-12, 30, 12)];
+    UIImageView *swArrow = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 0, 0)];
     swArrow.image = [UIImage imageNamed:@"swArrow"];
-    UIImageView *seArrow = [[UIImageView alloc] initWithFrame:CGRectMake(0, screenSize.height-12, 30, 12)];
+    UIImageView *seArrow = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 0, 0)];
     seArrow.image = [UIImage imageNamed:@"seArrow"];
-    UIImageView *nwArrow = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 30, 12)];
+    UIImageView *nwArrow = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 0, 0)];
     nwArrow.image = [UIImage imageNamed:@"nwArrow"];
-    UIImageView *neArrow = [[UIImageView alloc] initWithFrame:CGRectMake(0, screenSize.height-12, 30, 12)];
+    UIImageView *neArrow = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 0, 0)];
     neArrow.image = [UIImage imageNamed:@"neArrow"];
-    [self.view addSubview:swArrow];
+//    [self.view addSubview:nwArrow];
     
         float xCalibration = screenSize.width/450;
         float yCalibration = screenSize.height/683;
@@ -228,6 +229,7 @@ int position = 0;
         double y = 0;
         double latitude = [self latitude];
         double longitude = [self longitude];
+    
  //   check if gps is on
     
 /*    if(longitude > gpsCoor00){
@@ -240,15 +242,17 @@ int position = 0;
             position = 5;
         }
     }else{} */
-        if(location == 0){
+    /*    if(location == 0){
                 x = mX*(gpsCoor00-25.759585);  //25.77804972
                 y = screenSize.height-mY*(-80.370178-gpsCoor10); //-80.41314309
                 location = 1;
         }else{
-            x = mX*(gpsCoor00-25.756922);  //25.77804972
-            y = screenSize.height-mY*(-80.378985-gpsCoor10); //-80.41314309
+            x = mX*(gpsCoor00-25.753798);  //25.77804972
+            y = screenSize.height-mY*(-80.381656-gpsCoor10); //-80.41314309
             location = 0;
-        }
+        } */
+        x = mX*(gpsCoor00-longitude);  //25.77804972
+        y = screenSize.height-mY*(latitude-gpsCoor10);
         if(IDIOM==IPAD){
             xAdjust = 55;
             yAdjust = 5;
@@ -271,12 +275,44 @@ int position = 0;
                 double xF = 0+x*xCalibration*(pow(xCalibration,-1.0))*XscaleAdjust-0*xCalibration+xAdjust;
                 double yF = -28+y*yCalibration*(pow(yCalibration,-1.0 ))*YscaleAdjust+0*yCalibration+yAdjust; //IDIOM = IPAD adjustment
                 if (IDIOM == IPAD){ xF = xF +22*xCalibration; yF = yF - 26*yCalibration; }
-        if(position == 0) [[theTimer userInfo] setFrame:CGRectMake(xF-24/2, yF-15/2, 25, 31) ];
     
-    
-    position = 0;
-    return position;
+        //[[theTimer userInfo] setFrame:CGRectMake(xF-24/2, yF-15/2, 25, 31) ];
+    if(longitude > gpsCoor00){
+        if(latitude < gpsCoor10){
+            [seArrow removeFromSuperview]; [nwArrow removeFromSuperview]; [neArrow removeFromSuperview];
+            [bluedot removeFromSuperview]; [self.view addSubview:swArrow]; [swArrow setFrame:CGRectMake(0, screenSize.height-22, 55, 22)];
+        }else if(latitude > gpsCoor11){
+            [seArrow removeFromSuperview]; [swArrow removeFromSuperview]; [neArrow removeFromSuperview];
+            [bluedot removeFromSuperview]; [self.view addSubview:nwArrow]; [nwArrow setFrame:CGRectMake(0, 0, 55, 22)];}
+        else{
+            [swArrow removeFromSuperview]; [neArrow removeFromSuperview]; [seArrow removeFromSuperview];
+            [bluedot removeFromSuperview]; [self.view addSubview:nwArrow]; [nwArrow setFrame:CGRectMake(0, yF, 55, 22)];
+        }
+    }else if(longitude < gpsCoor02){
+        if(latitude < gpsCoor10){
+            [swArrow removeFromSuperview]; [nwArrow removeFromSuperview]; [neArrow removeFromSuperview];
+            [bluedot removeFromSuperview]; [self.view addSubview:seArrow]; [seArrow setFrame:CGRectMake(screenSize.width-55, screenSize.height-22, 55, 22)];
+        }else if(latitude > gpsCoor11){
+            [seArrow removeFromSuperview]; [swArrow removeFromSuperview]; [neArrow removeFromSuperview];
+            [bluedot removeFromSuperview]; [self.view addSubview:neArrow]; [neArrow setFrame:CGRectMake(screenSize.width-55, 0, 55, 22)];}
+        else{
+            [swArrow removeFromSuperview]; [seArrow removeFromSuperview]; [nwArrow removeFromSuperview];
+            [bluedot removeFromSuperview]; [self.view addSubview:neArrow]; [neArrow setFrame:CGRectMake(screenSize.width-55, yF, 55, 22)];
+        }
 
+    }else if(latitude > gpsCoor10) {
+        [swArrow removeFromSuperview]; [neArrow removeFromSuperview]; [seArrow removeFromSuperview];
+        [bluedot removeFromSuperview]; [self.view addSubview:nwArrow]; [nwArrow setFrame:CGRectMake(xF, 0, 55, 22)];
+    }
+    else if(latitude < gpsCoor11){
+        [seArrow removeFromSuperview]; [nwArrow removeFromSuperview]; [neArrow removeFromSuperview];
+        [bluedot removeFromSuperview]; [self.view addSubview:swArrow]; [swArrow setFrame:CGRectMake(xF, screenSize.height-55, 55, 22)];
+    }
+    else {
+        [seArrow removeFromSuperview]; [nwArrow removeFromSuperview]; [neArrow removeFromSuperview];
+        [seArrow removeFromSuperview]; [self.view addSubview:bluedot]; [bluedot setFrame:CGRectMake(xF, yF, 25, 31)];
+    }
+    [theTimer userInfo];
    // [bluedot removeFromSuperview];
       //      }
     //    });
