@@ -277,22 +277,22 @@ int position = 0;
                 if (IDIOM == IPAD){ xF = xF +22*xCalibration; yF = yF - 26*yCalibration; }
     
         //[[theTimer userInfo] setFrame:CGRectMake(xF-24/2, yF-15/2, 25, 31) ];
-    if(longitude > gpsCoor00){
-        if(latitude < gpsCoor10){
+    if(latitude > gpsCoor00){
+        if(longitude < gpsCoor10){
             [seArrow removeFromSuperview]; [nwArrow removeFromSuperview]; [neArrow removeFromSuperview];
             [bluedot removeFromSuperview]; [self.view addSubview:swArrow]; [swArrow setFrame:CGRectMake(0, screenSize.height-22, 55, 22)];
-        }else if(latitude > gpsCoor11){
+        }else if(longitude > gpsCoor11){
             [seArrow removeFromSuperview]; [swArrow removeFromSuperview]; [neArrow removeFromSuperview];
             [bluedot removeFromSuperview]; [self.view addSubview:nwArrow]; [nwArrow setFrame:CGRectMake(0, 0, 55, 22)];}
         else{
             [swArrow removeFromSuperview]; [neArrow removeFromSuperview]; [seArrow removeFromSuperview];
             [bluedot removeFromSuperview]; [self.view addSubview:nwArrow]; [nwArrow setFrame:CGRectMake(0, yF, 55, 22)];
         }
-    }else if(longitude < gpsCoor02){
-        if(latitude < gpsCoor10){
+    }else if(latitude < gpsCoor02){
+        if(longitude < gpsCoor10){
             [swArrow removeFromSuperview]; [nwArrow removeFromSuperview]; [neArrow removeFromSuperview];
             [bluedot removeFromSuperview]; [self.view addSubview:seArrow]; [seArrow setFrame:CGRectMake(screenSize.width-55, screenSize.height-22, 55, 22)];
-        }else if(latitude > gpsCoor11){
+        }else if(longitude > gpsCoor11){
             [seArrow removeFromSuperview]; [swArrow removeFromSuperview]; [neArrow removeFromSuperview];
             [bluedot removeFromSuperview]; [self.view addSubview:neArrow]; [neArrow setFrame:CGRectMake(screenSize.width-55, 0, 55, 22)];}
         else{
@@ -300,11 +300,11 @@ int position = 0;
             [bluedot removeFromSuperview]; [self.view addSubview:neArrow]; [neArrow setFrame:CGRectMake(screenSize.width-55, yF, 55, 22)];
         }
 
-    }else if(latitude > gpsCoor10) {
+    }else if(longitude > gpsCoor10) {
         [swArrow removeFromSuperview]; [neArrow removeFromSuperview]; [seArrow removeFromSuperview];
         [bluedot removeFromSuperview]; [self.view addSubview:nwArrow]; [nwArrow setFrame:CGRectMake(xF, 0, 55, 22)];
     }
-    else if(latitude < gpsCoor11){
+    else if(longitude < gpsCoor11){
         [seArrow removeFromSuperview]; [nwArrow removeFromSuperview]; [neArrow removeFromSuperview];
         [bluedot removeFromSuperview]; [self.view addSubview:swArrow]; [swArrow setFrame:CGRectMake(xF, screenSize.height-55, 55, 22)];
     }
