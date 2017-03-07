@@ -174,15 +174,35 @@ int position = 0;
        UIAlertView *toast = [[UIAlertView alloc] initWithTitle:nil message: [NSString stringWithFormat:@"%@", [self deviceLocation]] delegate: nil cancelButtonTitle:nil otherButtonTitles: nil];
 //    [toast show];
     
- //   bluedot = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 15, 15)];
- //   bluedot.image=[UIImage imageNamed:@"bluedot"];
+    bluedot = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 15, 15)];
+    bluedot.image=[UIImage imageNamed:@"bluedot"];
 
-//      [self.view addSubview:bluedot];
-//    [self.view bringSubviewToFront:bluedot];
+    [self.view addSubview:bluedot];
+    [self.view bringSubviewToFront:bluedot];
 //    [bluedot removeFromSuperview];
+ /*   locationManager = [[CLLocationManager alloc] init];
+    locationManager.distanceFilter = 5;
+    locationManager.desiredAccuracy = kCLLocationAccuracyBest;
+    [locationManager startUpdatingLocation];
+  */
+    [NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(getLocation:) userInfo:bluedot repeats:YES];
     
-    [NSTimer scheduledTimerWithTimeInterval:0.3 target:self selector:@selector(getLocation:) userInfo:nil repeats:YES];
+    [[UIApplication sharedApplication] setIdleTimerDisabled:YES];
     
+ /*   if(![CLLocationManager locationServicesEnabled]){
+        UIAlertController *alertController = [UIAlertController alertControllerWithTitle:NSLocalizedString( @"Enter your title here", @"" ) message:NSLocalizedString( @"Enter your message here.", @"" ) preferredStyle:UIAlertControllerStyleAlert];
+        
+        UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:NSLocalizedString( @"Cancel", @"" ) style:UIAlertActionStyleCancel handler:nil];
+        UIAlertAction *settingsAction = [UIAlertAction actionWithTitle:NSLocalizedString( @"Settings", @"" ) style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
+            [[UIApplication sharedApplication] openURL:[NSURL URLWithString:
+                                                        UIApplicationOpenSettingsURLString]];
+        }];
+        
+        [alertController addAction:cancelAction];
+        [alertController addAction:settingsAction];
+        
+        [self presentViewController:alertController animated:YES completion:nil];
+    } */
     
 }
 - (float)longitude{
@@ -198,17 +218,20 @@ int position = 0;
 - (void)getLocation: (NSTimer*)theTimer{
  //   dispatch_async(dispatch_get_global_queue(0, 0), ^{
     // if GPS is on
-    bluedot = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 0, 0)] ;
-    bluedot.image=[UIImage imageNamed:@"bluedot"];
+//    bluedot = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 0, 0)] ;
+//    bluedot.image=[UIImage imageNamed:@"bluedot"];
 //    [self.view addSubview:bluedot];
 //    [self.view bringSubviewToFront:bluedot];
+ //  locationManager = [[CLLocationManager alloc] init];
+ //   [locationManager requestLocation];
+if([CLLocationManager locationServicesEnabled]){
     locationManager = [[CLLocationManager alloc] init];
     locationManager.distanceFilter = 5;
     locationManager.desiredAccuracy = kCLLocationAccuracyBest;
     [locationManager startUpdatingLocation];
     CGRect screenBound = [[UIScreen mainScreen] bounds];
     CGSize screenSize = screenBound.size;
-    UIImageView *swArrow = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 0, 0)];
+/*    UIImageView *swArrow = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 0, 0)];
     swArrow.image = [UIImage imageNamed:@"swArrow"];
     UIImageView *seArrow = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 0, 0)];
     seArrow.image = [UIImage imageNamed:@"seArrow"];
@@ -216,11 +239,13 @@ int position = 0;
     nwArrow.image = [UIImage imageNamed:@"nwArrow"];
     UIImageView *neArrow = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 0, 0)];
     neArrow.image = [UIImage imageNamed:@"neArrow"];
+ */
 //    [self.view addSubview:nwArrow];
     
         float xCalibration = screenSize.width/450;
         float yCalibration = screenSize.height/683;
-        double gpsCoor[2][4] = {{25.760544,25.760544,25.751753,25.751753},{-80.384068,-80.367813,-80.367813,-80.384068}};
+       // double gpsCoor[2][4] = {{25.760544,25.760544,25.751753,25.751753},{-80.384068,-80.367813,-80.367813,-80.384068}};
+        double gpsCoor[2][4] = {{25.778804,25.778804,25.776121,25.776121},{-80.413167,-80.411821,-80.411821,-80.413167}};
         double mX =  screenSize.width/(gpsCoor[0][0]-gpsCoor[0][2]);
         double mY =  screenSize.height/(gpsCoor[1][1]-gpsCoor[1][0]);
         double gpsCoor00 = gpsCoor[0][0]; double gpsCoor10 = gpsCoor[1][0];
@@ -251,8 +276,8 @@ int position = 0;
             y = screenSize.height-mY*(-80.381656-gpsCoor10); //-80.41314309
             location = 0;
         } */
-        x = mX*(gpsCoor00-longitude);  //25.77804972
-        y = screenSize.height-mY*(latitude-gpsCoor10);
+        x = mX*(gpsCoor00-latitude);  //25.77804972
+        y = screenSize.height-mY*(longitude-gpsCoor10);
         if(IDIOM==IPAD){
             xAdjust = 55;
             yAdjust = 5;
@@ -279,40 +304,44 @@ int position = 0;
         //[[theTimer userInfo] setFrame:CGRectMake(xF-24/2, yF-15/2, 25, 31) ];
     if(latitude > gpsCoor00){
         if(longitude < gpsCoor10){
-            [seArrow removeFromSuperview]; [nwArrow removeFromSuperview]; [neArrow removeFromSuperview];
-            [bluedot removeFromSuperview]; [self.view addSubview:swArrow]; [swArrow setFrame:CGRectMake(0, screenSize.height-22, 55, 22)];
+            bluedot.image=[UIImage imageNamed:@"swArrow"];
+            [[theTimer userInfo] setFrame:CGRectMake(0, screenSize.height-22, 55, 22)];
         }else if(longitude > gpsCoor11){
-            [seArrow removeFromSuperview]; [swArrow removeFromSuperview]; [neArrow removeFromSuperview];
-            [bluedot removeFromSuperview]; [self.view addSubview:nwArrow]; [nwArrow setFrame:CGRectMake(0, 0, 55, 22)];}
+            bluedot.image=[UIImage imageNamed:@"nwArrow"];
+            [[theTimer userInfo] setFrame:CGRectMake(0, 0, 55, 22)];
+        }
         else{
-            [swArrow removeFromSuperview]; [neArrow removeFromSuperview]; [seArrow removeFromSuperview];
-            [bluedot removeFromSuperview]; [self.view addSubview:nwArrow]; [nwArrow setFrame:CGRectMake(0, yF, 55, 22)];
+            bluedot.image=[UIImage imageNamed:@"nwArrow"];
+            [[theTimer userInfo] setFrame:CGRectMake(0, yF, 55, 22)];
         }
     }else if(latitude < gpsCoor02){
         if(longitude < gpsCoor10){
-            [swArrow removeFromSuperview]; [nwArrow removeFromSuperview]; [neArrow removeFromSuperview];
-            [bluedot removeFromSuperview]; [self.view addSubview:seArrow]; [seArrow setFrame:CGRectMake(screenSize.width-55, screenSize.height-22, 55, 22)];
+            bluedot.image=[UIImage imageNamed:@"seArrow"];
+            [[theTimer userInfo] setFrame:CGRectMake(screenSize.width-55, screenSize.height-22, 55, 22)];
         }else if(longitude > gpsCoor11){
-            [seArrow removeFromSuperview]; [swArrow removeFromSuperview]; [neArrow removeFromSuperview];
-            [bluedot removeFromSuperview]; [self.view addSubview:neArrow]; [neArrow setFrame:CGRectMake(screenSize.width-55, 0, 55, 22)];}
+            bluedot.image = [UIImage imageNamed:@"neArrow"];
+            [[theTimer userInfo] setFrame:CGRectMake(screenSize.width-55, 0, 55, 22)];
+        }
         else{
-            [swArrow removeFromSuperview]; [seArrow removeFromSuperview]; [nwArrow removeFromSuperview];
-            [bluedot removeFromSuperview]; [self.view addSubview:neArrow]; [neArrow setFrame:CGRectMake(screenSize.width-55, yF, 55, 22)];
+            bluedot.image=[UIImage imageNamed:@"neArrow"];
+            [[theTimer userInfo] setFrame:CGRectMake(screenSize.width-55, yF, 55, 22)];
         }
 
-    }else if(longitude > gpsCoor10) {
-        [swArrow removeFromSuperview]; [neArrow removeFromSuperview]; [seArrow removeFromSuperview];
-        [bluedot removeFromSuperview]; [self.view addSubview:nwArrow]; [nwArrow setFrame:CGRectMake(xF, 0, 55, 22)];
+    }else if(longitude < gpsCoor10) {
+        bluedot.image=[UIImage imageNamed:@"swArrow"];
+        [[theTimer userInfo] setFrame:CGRectMake(xF, screenSize.height-22, 55, 22)];
     }
-    else if(longitude < gpsCoor11){
-        [seArrow removeFromSuperview]; [nwArrow removeFromSuperview]; [neArrow removeFromSuperview];
-        [bluedot removeFromSuperview]; [self.view addSubview:swArrow]; [swArrow setFrame:CGRectMake(xF, screenSize.height-55, 55, 22)];
+    else if(longitude > gpsCoor11){
+        bluedot.image=[UIImage imageNamed:@"nwArrow"];
+        [[theTimer userInfo] setFrame:CGRectMake(xF, 0, 55, 22)];
     }
     else {
-        [seArrow removeFromSuperview]; [nwArrow removeFromSuperview]; [neArrow removeFromSuperview];
-        [seArrow removeFromSuperview]; [self.view addSubview:bluedot]; [bluedot setFrame:CGRectMake(xF, yF, 25, 31)];
+        bluedot.image=[UIImage imageNamed:@"bluedot"];
+        [[theTimer userInfo] setFrame:CGRectMake(xF, yF, 25, 31)];
     }
-    [theTimer userInfo];
+    
+}else{ [[theTimer userInfo] setFrame:CGRectMake(0, 0, 0, 0)];}
+//    [theTimer userInfo];
    // [bluedot removeFromSuperview];
       //      }
     //    });
