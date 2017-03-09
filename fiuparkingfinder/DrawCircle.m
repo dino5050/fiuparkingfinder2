@@ -63,6 +63,7 @@
             double scaleAdjust = 1;
             if(screenSize.height == 1024){scaleAdjust = 0.8;}
             if(screenSize.height == 1366){scaleAdjust = 1.06;}
+            
             coor2[i] = coor[i]*scaleAdjust;//*1.2;
         }
         else {
@@ -71,6 +72,7 @@
             if(screenSize.height == 480){scaleAdjust = 0.95;}
             if(screenSize.height == 568){scaleAdjust = 1.32;}
             if(screenSize.height == 667){scaleAdjust = 1.32;}
+            if(screenSize.height == 736){scaleAdjust = 1.31;}
             coor2[i] = coor[i]*map.size.width/old_height*scaleAdjust*xCalibration*xCalibration/yCalibration;//0.723
         }
     }
@@ -140,6 +142,7 @@
                 if(screenSize.height==480){ Hadjust = -85; Wadjust = +28;}
                 if(screenSize.height == 568){Hadjust = 0; Wadjust = 0;}
                 if(screenSize.height == 667){ Hadjust = 96; Wadjust = -6;}
+                if(screenSize.height == 736){ Hadjust = 165; Wadjust = -12;}
                 
                 borderRect = CGRectMake((pow(coor2[k*2+1],1.0)-(old_height-map.size.width)*0.041)-17/xCalibration+Wadjust, map.size.height-pow(coor2[k*2],1.0)-(old_width-map.size.height)*(0.092)-30/yCalibration + Hadjust, radius, radius);
             }
@@ -187,6 +190,7 @@
                 else radius = 80.0;
                 double Hadjust = 0;
                 double Wadjust = 0;
+                
                 if(screenSize.height == 1024){ Hadjust = 20; Wadjust = -10;}
                 if(screenSize.height == 1366){ Hadjust = 400; Wadjust = -10;}
                 borderRect = CGRectMake((pow(coor2[k*2+1],0.9815)*1.04+128-(old_width-map.size.width)*0.1-40)+Wadjust, map.size.height-pow(coor2[k*2],0.990)*0.94+448-(old_height-map.size.height)*0.1-10+Hadjust, radius, radius);
@@ -199,6 +203,7 @@
                 if(screenSize.height==480){ Hadjust = -85; Wadjust = +28;}
                 if(screenSize.height == 568){Hadjust = 0; Wadjust = 0;}
                 if(screenSize.height == 667){ Hadjust = 96; Wadjust = -6;}
+                if(screenSize.height == 736){ Hadjust = 165; Wadjust = -12;}
                 
                 borderRect = CGRectMake((pow(coor2[k*2+1],1.0)-(old_height-map.size.width)*0.041)-17/xCalibration+Wadjust, map.size.height-pow(coor2[k*2],1.0)-(old_width-map.size.height)*(0.092)-30/yCalibration + Hadjust, radius, radius);
             }

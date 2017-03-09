@@ -99,33 +99,6 @@ int position = 0;
     UIPanGestureRecognizer *recognizer = [[UIPanGestureRecognizer alloc] initWithTarget:self
                                                                           action:@selector(handlePan:)];
     [map addGestureRecognizer:recognizer];
-    NSString * version1;
-    @try{NSURLRequest *update = [NSURLRequest requestWithURL:[NSURL URLWithString:@"http://collegeparkingfinder.com/fiuparkingmonitor/updateOS.php"]];
-    NSURLResponse * response1 = nil;
-    NSError * error1 = nil;
-    NSData * update2 = [NSURLConnection sendSynchronousRequest:update
-                                            returningResponse:&response1
-                                                        error:&error1];
-    NSString * version = [[NSString alloc] initWithData:update2 encoding:NSUTF8StringEncoding];
-    // char check3 = [check2 characterAtIndex:0];
-    version1 = [version substringWithRange:NSMakeRange(2,2)];
-    }@catch(NSException *error){}
-    NSString *version2 = [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleShortVersionString"];
-    //printf("%s", [version1 UTF8String]);
-    //printf("Hello");
-    int version_1 = [version1 intValue];
-    int version_2 = [version2 intValue];
-    //printf("%d", version_2);
-    
-    if(version_1>version_2){
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:[NSString stringWithFormat:@"%@ Parking Finder Update Available!", school]
-                                                    message:@"Update Now?"
-                                                   delegate:self    // <------
-                                              cancelButtonTitle:@"Later"
-                                              otherButtonTitles:@"Update", nil];
-        [alert show];
-    }
-    
     
     [self.view addSubview:[circle fbshare:appName]]; //insert school [parameter fbshare: school]
     [self.view addSubview:[circle welcome:school]];
@@ -171,7 +144,7 @@ int position = 0;
  //   [bluedot setFrame:CGRectMake(83*xCalibration*(pow(xCalibration,0.1))-28*xCalibration, 94*yCalibration*(pow(xCalibration,0.1))+56*yCalibration, 15, 15)];
 //    [bluedot setFrame:CGRectMake(320-15/2, 568-15/2, 15, 15)];
 
-       UIAlertView *toast = [[UIAlertView alloc] initWithTitle:nil message: [NSString stringWithFormat:@"%@", [self deviceLocation]] delegate: nil cancelButtonTitle:nil otherButtonTitles: nil];
+//       UIAlertView *toast = [[UIAlertView alloc] initWithTitle:nil message: [NSString stringWithFormat:@"%@", [self deviceLocation]] delegate: nil cancelButtonTitle:nil otherButtonTitles: nil];
 //    [toast show];
     
     bluedot = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 15, 15)];
@@ -180,11 +153,11 @@ int position = 0;
     [self.view addSubview:bluedot];
     [self.view bringSubviewToFront:bluedot];
 //    [bluedot removeFromSuperview];
- /*   locationManager = [[CLLocationManager alloc] init];
+    locationManager = [[CLLocationManager alloc] init];
     locationManager.distanceFilter = 5;
     locationManager.desiredAccuracy = kCLLocationAccuracyBest;
     [locationManager startUpdatingLocation];
-  */
+  
     [NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(getLocation:) userInfo:bluedot repeats:YES];
     
     [[UIApplication sharedApplication] setIdleTimerDisabled:YES];
@@ -231,21 +204,13 @@ if([CLLocationManager locationServicesEnabled]){
     [locationManager startUpdatingLocation];
     CGRect screenBound = [[UIScreen mainScreen] bounds];
     CGSize screenSize = screenBound.size;
-/*    UIImageView *swArrow = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 0, 0)];
-    swArrow.image = [UIImage imageNamed:@"swArrow"];
-    UIImageView *seArrow = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 0, 0)];
-    seArrow.image = [UIImage imageNamed:@"seArrow"];
-    UIImageView *nwArrow = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 0, 0)];
-    nwArrow.image = [UIImage imageNamed:@"nwArrow"];
-    UIImageView *neArrow = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 0, 0)];
-    neArrow.image = [UIImage imageNamed:@"neArrow"];
- */
+
 //    [self.view addSubview:nwArrow];
     
         float xCalibration = screenSize.width/450;
         float yCalibration = screenSize.height/683;
-       // double gpsCoor[2][4] = {{25.760544,25.760544,25.751753,25.751753},{-80.384068,-80.367813,-80.367813,-80.384068}};
-        double gpsCoor[2][4] = {{25.778804,25.778804,25.776121,25.776121},{-80.413167,-80.411821,-80.411821,-80.413167}};
+        double gpsCoor[2][4] = {{25.760544,25.760544,25.751753,25.751753},{-80.384068,-80.367813,-80.367813,-80.384068}};
+    //    double gpsCoor[2][4] = {{25.778804,25.778804,25.776121,25.776121},{-80.413167,-80.411821,-80.411821,-80.413167}};
         double mX =  screenSize.width/(gpsCoor[0][0]-gpsCoor[0][2]);
         double mY =  screenSize.height/(gpsCoor[1][1]-gpsCoor[1][0]);
         double gpsCoor00 = gpsCoor[0][0]; double gpsCoor10 = gpsCoor[1][0];
@@ -257,17 +222,7 @@ if([CLLocationManager locationServicesEnabled]){
     
  //   check if gps is on
     
-/*    if(longitude > gpsCoor00){
-        if(latitude < gpsCoor10){
-            [nwArrow removeFromSuperview]; [nwArrow removeFromSuperview];[nwArrow removeFromSuperview]; [bluedot removeFromSuperview];
-            position = 1;
-        }else if(latitude > gpsCoor11){
-            position = 2;
-        }else{
-            position = 5;
-        }
-    }else{} */
-    /*    if(location == 0){
+/*       if(location == 0){
                 x = mX*(gpsCoor00-25.759585);  //25.77804972
                 y = screenSize.height-mY*(-80.370178-gpsCoor10); //-80.41314309
                 location = 1;
@@ -275,7 +230,8 @@ if([CLLocationManager locationServicesEnabled]){
             x = mX*(gpsCoor00-25.753798);  //25.77804972
             y = screenSize.height-mY*(-80.381656-gpsCoor10); //-80.41314309
             location = 0;
-        } */
+        }
+ */
         x = mX*(gpsCoor00-latitude);  //25.77804972
         y = screenSize.height-mY*(longitude-gpsCoor10);
         if(IDIOM==IPAD){
@@ -300,8 +256,8 @@ if([CLLocationManager locationServicesEnabled]){
                 double xF = 0+x*xCalibration*(pow(xCalibration,-1.0))*XscaleAdjust-0*xCalibration+xAdjust;
                 double yF = -28+y*yCalibration*(pow(yCalibration,-1.0 ))*YscaleAdjust+0*yCalibration+yAdjust; //IDIOM = IPAD adjustment
                 if (IDIOM == IPAD){ xF = xF +22*xCalibration; yF = yF - 26*yCalibration; }
-    
-        //[[theTimer userInfo] setFrame:CGRectMake(xF-24/2, yF-15/2, 25, 31) ];
+  
+    //    [[theTimer userInfo] setFrame:CGRectMake(xF-28.7/2, yF-19/2, 30, 37) ];
     if(latitude > gpsCoor00){
         if(longitude < gpsCoor10){
             bluedot.image=[UIImage imageNamed:@"swArrow"];
@@ -312,7 +268,7 @@ if([CLLocationManager locationServicesEnabled]){
         }
         else{
             bluedot.image=[UIImage imageNamed:@"nwArrow"];
-            [[theTimer userInfo] setFrame:CGRectMake(0, yF, 55, 22)];
+            [[theTimer userInfo] setFrame:CGRectMake(0, yF-15/2, 55, 22)];
         }
     }else if(latitude < gpsCoor02){
         if(longitude < gpsCoor10){
@@ -324,20 +280,20 @@ if([CLLocationManager locationServicesEnabled]){
         }
         else{
             bluedot.image=[UIImage imageNamed:@"neArrow"];
-            [[theTimer userInfo] setFrame:CGRectMake(screenSize.width-55, yF, 55, 22)];
+            [[theTimer userInfo] setFrame:CGRectMake(screenSize.width-55, yF-15/2, 55, 22)];
         }
 
     }else if(longitude < gpsCoor10) {
         bluedot.image=[UIImage imageNamed:@"swArrow"];
-        [[theTimer userInfo] setFrame:CGRectMake(xF, screenSize.height-22, 55, 22)];
+        [[theTimer userInfo] setFrame:CGRectMake(xF-24/2, screenSize.height-22, 55, 22)];
     }
     else if(longitude > gpsCoor11){
         bluedot.image=[UIImage imageNamed:@"nwArrow"];
-        [[theTimer userInfo] setFrame:CGRectMake(xF, 0, 55, 22)];
+        [[theTimer userInfo] setFrame:CGRectMake(xF-24/2, 0, 55, 22)];
     }
     else {
         bluedot.image=[UIImage imageNamed:@"bluedot"];
-        [[theTimer userInfo] setFrame:CGRectMake(xF, yF, 25, 31)];
+        [[theTimer userInfo] setFrame:CGRectMake(xF-24/2, yF-15/2, 25, 31)];
     }
     
 }else{ [[theTimer userInfo] setFrame:CGRectMake(0, 0, 0, 0)];}
@@ -349,21 +305,63 @@ if([CLLocationManager locationServicesEnabled]){
     
     //[self performSelector:@selector(getLocation) withObject: bluedot afterDelay:10];
     
-    
-}
-- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
-{
-    NSString *title = [alertView buttonTitleAtIndex:buttonIndex];
-    
-    if([title isEqualToString:@"Update"])
-    {
-        NSString *updateLink = [NSString stringWithFormat:@"http://itunes.apple.com/app/%@",appID];
-        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:updateLink]];
-    }
-    
-    
+
 }
 
+
+- (void)viewDidAppear:(BOOL)animated
+{
+    NSString * version1;
+    @try{NSURLRequest *update = [NSURLRequest requestWithURL:[NSURL URLWithString:@"http://collegeparkingfinder.com/fiuparkingmonitor/updateOS.php"]];
+        NSURLResponse * response1 = nil;
+        NSError * error1 = nil;
+        NSData * update2 = [NSURLConnection sendSynchronousRequest:update
+                                                 returningResponse:&response1
+                                                             error:&error1];
+        NSString * version = [[NSString alloc] initWithData:update2 encoding:NSUTF8StringEncoding];
+        // char check3 = [check2 characterAtIndex:0];
+        version1 = [version substringWithRange:NSMakeRange(2,2)];
+    }@catch(NSException *error){}
+    NSString *version2 = [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleShortVersionString"];
+    //printf("%s", [version1 UTF8String]);
+    //printf("Hello");
+    int version_1 = [version1 intValue];
+    int version_2 = [version2 intValue];
+    //printf("%d", version_2);
+    
+    if(version_1>version_2){
+        
+    [super viewDidAppear:animated];
+    UIAlertController * alert=   [UIAlertController
+                                  alertControllerWithTitle:[NSString stringWithFormat:@"%@ Parking Finder Update Available!", school]
+                                  message:@"Update Now?"
+                                  preferredStyle:UIAlertControllerStyleAlert];
+    
+    UIAlertAction* ok = [UIAlertAction
+                         actionWithTitle:@"Update"
+                         style:UIAlertActionStyleDefault
+                         handler:^(UIAlertAction * action)
+                         {
+                             NSString *updateLink = [NSString stringWithFormat:@"http://itunes.apple.com/app/%@",appID];
+                             [[UIApplication sharedApplication] openURL:[NSURL URLWithString:updateLink]];
+                             [alert dismissViewControllerAnimated:YES completion:nil];
+                             
+                         }];
+    UIAlertAction* cancel = [UIAlertAction
+                             actionWithTitle:@"Later"
+                             style:UIAlertActionStyleDefault
+                             handler:^(UIAlertAction * action)
+                             {
+                                 [alert dismissViewControllerAnimated:YES completion:nil];
+                                 
+                             }];
+    
+    [alert addAction:ok];
+    [alert addAction:cancel];
+    
+    [self presentViewController:alert animated:YES completion:nil];
+    }
+}
 - (IBAction)backgroundQueue {
     
     // call the same method on a background thread
