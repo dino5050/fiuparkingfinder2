@@ -24,7 +24,7 @@
 @end
 
 @implementation ViewController
-@synthesize chat;
+//@synthesize chat;
 @synthesize circle;
 @synthesize map;
 @synthesize sandlot;
@@ -81,7 +81,7 @@ int position = 0;
 */
     self.bannerView.adUnitID = adID;
     self.bannerView.rootViewController = self;
- //   [self.bannerView loadRequest:[GADRequest request]];
+    [self.bannerView loadRequest:[GADRequest request]];
 
     
     UIImage *compass = [UIImage imageNamed:@"compass2"];
@@ -96,15 +96,15 @@ int position = 0;
     if (IDIOM == IPAD) [circle ipad:map];
     
     
-    UIPanGestureRecognizer *recognizer = [[UIPanGestureRecognizer alloc] initWithTarget:self
-                                                                          action:@selector(handlePan:)];
-    [map addGestureRecognizer:recognizer];
-    
+//    UIPanGestureRecognizer *recognizer = [[UIPanGestureRecognizer alloc] initWithTarget:self
+//                                                                          action:@selector(handlePan:)];
+//    [map addGestureRecognizer:recognizer];
+
     [self.view addSubview:[circle fbshare:appName]]; //insert school [parameter fbshare: school]
     [self.view addSubview:[circle welcome:school]];
     openstreet = [UIImage imageNamed:@"openstreet"];
     [self.view addSubview:[circle openview:openstreet]];
-    UITextView *chatbox = (UITextView *)[self.view viewWithTag:3];
+  //  UITextView *chatbox = (UITextView *)[self.view viewWithTag:3];
  //   chatbox.text = self.chat.getMessage;
 //    NSAutoreleasePool * pool = [[NSAutoreleasePool alloc] init];
 /*    Communicator *c = [[Communicator alloc] init];
@@ -473,9 +473,9 @@ if([CLLocationManager locationServicesEnabled]){
     
 
     
-    UIPanGestureRecognizer *recognizer = [[UIPanGestureRecognizer alloc] initWithTarget:self
-                                                                                 action:@selector(handlePan:)];
-    [map addGestureRecognizer:recognizer];
+ //   UIPanGestureRecognizer *recognizer = [[UIPanGestureRecognizer alloc] initWithTarget:self
+  //                                                                               action:@selector(handlePan:)];
+ //   [map addGestureRecognizer:recognizer];
     //[map addSubview:sandlot];
     
     // If viewWillAppear also contains code
@@ -486,11 +486,11 @@ if([CLLocationManager locationServicesEnabled]){
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
--(IBAction)Chat{
+/*-(IBAction)Chat{
     ChatViewController *chat = [[ChatViewController alloc] initWithNibName:nil bundle:nil];
-    [self presentViewController:chat animated:YES  completion:NULL];
+//    [self presentViewController:chat animated:YES  completion:NULL];
     
-}
+} */
 
 
 

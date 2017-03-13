@@ -19,7 +19,7 @@
 @property(nonatomic, retain) NSInputStream	*inputStream;
 @property(nonatomic, retain) NSOutputStream	*outputStream;
 @property(nonatomic, retain) DrawCircle *circle;
-@property(nonatomic, retain) ChatClient *chat;
+//@property(nonatomic, retain) ChatClient *chat;
 @property(nonatomic, retain) UIImageView *map;
 @property(nonatomic, retain) UIImage *openstreet;
 @property(nonatomic, retain) UIImageView *sandlot;
@@ -28,7 +28,7 @@
 @property (nonatomic, retain) CLLocationManager *locationManager;
 
 
-- (IBAction)Chat;
+//- (IBAction)Chat;
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex;
 //- (IBAction)handlePan:(UIPanGestureRecognizer *)recognizer;
 - (BOOL)shouldAutorotate;

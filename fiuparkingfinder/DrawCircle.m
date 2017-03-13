@@ -31,13 +31,13 @@
     if(IDIOM == IPAD) map = [UIImage imageNamed:@"mapFIU"];
     else map = [UIImage imageNamed:@"mapFIU"];
     printf("%f", map.size.width);
- /*   @try{NSURLRequest *app_info = [NSURLRequest requestWithURL:[NSURL URLWithString:@"http://collegeparkingfinder.com/fiuparkingmonitor/offday.php"]];
+    @try{NSURLRequest *app_info = [NSURLRequest requestWithURL:[NSURL URLWithString:@"http://collegeparkingfinder.com/fiuparkingmonitor/offday.php"]];
         NSURLResponse * response2 = nil;
         NSError * error2 = nil;
         [NSURLConnection sendSynchronousRequest:app_info
                               returningResponse:&response2
                                           error:&error2];
-    }@catch(NSException *error){} */
+    }@catch(NSException *error){} 
     NSCalendar *gregorian = [[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar];
     NSDateComponents *comps = [gregorian components:NSWeekdayCalendarUnit fromDate:[NSDate date]];
     NSInteger day = [comps weekday];
