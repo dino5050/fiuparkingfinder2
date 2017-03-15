@@ -197,7 +197,7 @@ int position = 0;
 //    [self.view bringSubviewToFront:bluedot];
  //  locationManager = [[CLLocationManager alloc] init];
  //   [locationManager requestLocation];
-if([CLLocationManager locationServicesEnabled]){
+if([CLLocationManager locationServicesEnabled] && [CLLocationManager authorizationStatus]){
     locationManager = [[CLLocationManager alloc] init];
     locationManager.distanceFilter = 5;
     locationManager.desiredAccuracy = kCLLocationAccuracyBest;
