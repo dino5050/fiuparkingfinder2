@@ -258,7 +258,7 @@ if([CLLocationManager locationServicesEnabled] && [CLLocationManager authorizati
                 if (IDIOM == IPAD){ xF = xF +22*xCalibration; yF = yF - 26*yCalibration; }
   
     //    [[theTimer userInfo] setFrame:CGRectMake(xF-28.7/2, yF-19/2, 30, 37) ];
-    if(latitude > gpsCoor00){
+    if(latitude > 25.761428){
         if(longitude < gpsCoor10){
             bluedot.image=[UIImage imageNamed:@"swArrow"];
             [[theTimer userInfo] setFrame:CGRectMake(0, screenSize.height-22, 55, 22)];
