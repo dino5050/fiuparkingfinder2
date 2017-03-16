@@ -293,7 +293,7 @@ if([CLLocationManager locationServicesEnabled] && [CLLocationManager authorizati
     }
     else {
         bluedot.image=[UIImage imageNamed:@"bluedot"];
-        [[theTimer userInfo] setFrame:CGRectMake(xF-24/2, yF-15/2, 25, 31)];
+        [[theTimer userInfo] setFrame:CGRectMake(xF-28.7/2, yF-19/2, 30, 37)];
     }
     
 }else{ [[theTimer userInfo] setFrame:CGRectMake(0, 0, 0, 0)];}
