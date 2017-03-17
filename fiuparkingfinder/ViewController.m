@@ -157,6 +157,8 @@ int position = 0;
     locationManager.distanceFilter = 5;
     locationManager.desiredAccuracy = kCLLocationAccuracyBest;
     [locationManager startUpdatingLocation];
+    [locationManager requestWhenInUseAuthorization];
+    
   
     [NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(getLocation:) userInfo:bluedot repeats:YES];
     
