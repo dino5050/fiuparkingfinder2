@@ -240,6 +240,43 @@
     }
 }
 
+-(UIImageView *)donateButton: (UIImage*)button{
+    NSString *setting;
+    @try{
+        
+        NSString *url = @"http://collegeparkingfinder.com/fiuparkingmonitor/donation.php";
+        
+        
+        NSURLRequest * urlRequest = [NSURLRequest requestWithURL:[NSURL URLWithString: url]];
+        NSURLResponse * response = nil;
+        NSError * error = nil;
+        NSData * data = [NSURLConnection sendSynchronousRequest:urlRequest
+                                              returningResponse:&response
+                                                          error:&error];
+        
+        NSString *donation = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+        
+        setting = [donation substringWithRange:NSMakeRange(2,3)];
+        //       printf("||||||||||||%s||||||||||||||||", [donation UTF8String]);
+        
+    }@catch(NSException *error){}
+    if(![setting isEqualToString:@"off"]){
+        UIImageView *donateButton = [[UIImageView alloc] initWithImage:button];
+        CGRect screenBound = [[UIScreen mainScreen] bounds];
+        CGSize screenSize = screenBound.size;
+        donateButton.frame = CGRectMake(screenSize.width-button.size.width, screenSize.height - 145 + button.size.height, button.size.width, button.size.height);
+        UITapGestureRecognizer *singleTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(donateDetected)];
+        singleTap.numberOfTapsRequired = 1;
+        [donateButton setUserInteractionEnabled:YES];
+        [donateButton addGestureRecognizer:singleTap];
+        return donateButton;
+    }
+}
+
+- (void)donateDetected{
+    [[UIApplication sharedApplication]openURL:[NSURL URLWithString:@"https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=RHDPBZWXEBSRS"]];
+}
+
 -(UITextView *)welcome : (NSString*) school{
      @try{
      NSString *url = @"http://collegeparkingfinder.com/fiuparkingmonitor/welcome.php?";

@@ -10,10 +10,7 @@
 #import "DrawCircle.h"
 #import <FBSDKCoreKit/FBSDKCoreKit.h>
 #import <FBSDKShareKit/FBSDKShareKit.h>
-#import "ChatViewController.h"
 #import <Foundation/Foundation.h>
-#import "Communicator.h"
-#import "ChatClient.h"
 #import <CoreLocation/CoreLocation.h>
 #define IDIOM UI_USER_INTERFACE_IDIOM()
 #define IPAD UIUserInterfaceIdiomPad
@@ -31,6 +28,7 @@
 @synthesize openstreet;
 @synthesize inputStream, outputStream;
 @synthesize locationManager;
+@synthesize donate;
 
 NSString *school = @"FIU";
 NSString *appName = @"fiuparkingfinder";
@@ -104,6 +102,10 @@ int position = 0;
     [self.view addSubview:[circle welcome:school]];
     openstreet = [UIImage imageNamed:@"openstreet"];
     [self.view addSubview:[circle openview:openstreet]];
+    
+    donate= [UIImage imageNamed:@"donateButton"];
+    [self.view addSubview:[circle donateButton:donate]];
+    
   //  UITextView *chatbox = (UITextView *)[self.view viewWithTag:3];
  //   chatbox.text = self.chat.getMessage;
 //    NSAutoreleasePool * pool = [[NSAutoreleasePool alloc] init];
@@ -157,7 +159,7 @@ int position = 0;
     locationManager.distanceFilter = 5;
     locationManager.desiredAccuracy = kCLLocationAccuracyBest;
     [locationManager startUpdatingLocation];
-    [locationManager requestWhenInUseAuthorization];
+//    [locationManager requestWhenInUseAuthorization];
     
   
     [NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(getLocation:) userInfo:bluedot repeats:YES];
@@ -199,7 +201,8 @@ int position = 0;
 //    [self.view bringSubviewToFront:bluedot];
  //  locationManager = [[CLLocationManager alloc] init];
  //   [locationManager requestLocation];
-if([CLLocationManager locationServicesEnabled] && [CLLocationManager authorizationStatus]){
+//if([CLLocationManager locationServicesEnabled] && [CLLocationManager authorizationStatus]){
+if([CLLocationManager locationServicesEnabled]){
     locationManager = [[CLLocationManager alloc] init];
     locationManager.distanceFilter = 5;
     locationManager.desiredAccuracy = kCLLocationAccuracyBest;
