@@ -38,15 +38,15 @@
                               returningResponse:&response2
                                           error:&error2];
     }@catch(NSException *error){} 
-    NSCalendar *gregorian = [[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar];
-    NSDateComponents *comps = [gregorian components:NSWeekdayCalendarUnit fromDate:[NSDate date]];
+    NSCalendar *gregorian = [[NSCalendar alloc] initWithCalendarIdentifier:NSCalendarIdentifierGregorian];
+    NSDateComponents *comps = [gregorian components:NSCalendarUnitWeekday fromDate:[NSDate date]];
     NSInteger day = [comps weekday];
     double radius;
     NSDate *now = [NSDate date];
     NSCalendar *calendar = [NSCalendar currentCalendar];
-    NSDateComponents *components = [calendar components:NSHourCalendarUnit fromDate:now];
+    NSDateComponents *components = [calendar components:NSCalendarUnitHour fromDate:now];
     NSInteger hour = [components hour];
-    //printf("%i", hour);
+//    printf("SIZE OF ARRAY %li", sizeof(coor)/sizeof(coor[0]));
     NSString *dayofweek;
     if(day > 1 && day < 6)
         dayofweek = @"mon";
@@ -55,9 +55,9 @@
     
     NSString *url = @"http://collegeparkingfinder.com/fiuparkingmonitor/get_color3.php?";
     
-    int coor2[sizeof(coor)];
+    int coor2[sizeof(coor)/sizeof(coor[0])];
     
-    for(int i =0; i<sizeof(coor); i++){
+    for(int i =0; i<sizeof(coor)/sizeof(coor[0]); i++){
         if(IDIOM == IPAD) {
             // int coor[] = {98-25,134-30,94,224+20,90,336-3,93,410,203,726+3,571+1,193-5,499,274,433,273,179,623,508,213,403,196,563,758+5,277,799+5};
             double scaleAdjust = 1;
