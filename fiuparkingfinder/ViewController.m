@@ -317,7 +317,7 @@ if([CLLocationManager locationServicesEnabled]){
 - (void)viewDidAppear:(BOOL)animated
 {
     NSString * version1;
-    @try{NSURLRequest *update = [NSURLRequest requestWithURL:[NSURL URLWithString:@"http://collegeparkingfinder.com/fiuparkingmonitor/updateOS.php"]];
+/*    @try{NSURLRequest *update = [NSURLRequest requestWithURL:[NSURL URLWithString:@"http://collegeparkingfinder.com/fiuparkingmonitor/updateOS.php"]];
         NSURLResponse * response1 = nil;
         NSError * error1 = nil;
         NSData * update2 = [NSURLConnection sendSynchronousRequest:update
@@ -327,6 +327,35 @@ if([CLLocationManager locationServicesEnabled]){
         // char check3 = [check2 characterAtIndex:0];
         version1 = [version substringWithRange:NSMakeRange(2,2)];
     }@catch(NSException *error){}
+    */
+    NSURLResponse *response;
+    NSError *error;
+    NSError __block *err = NULL;
+    NSData __block *data;
+    BOOL __block reqProcessed = false;
+    NSURLResponse __block *resp;
+    NSString *url = @"http://collegeparkingfinder.com/fiuparkingmonitor/updateOS.php";
+    
+    
+    NSURLRequest * urlRequest = [NSURLRequest requestWithURL:[NSURL URLWithString: url]];
+    
+    [[[NSURLSession sharedSession] dataTaskWithRequest:urlRequest completionHandler:^(NSData * _Nullable _data, NSURLResponse * _Nullable _response, NSError * _Nullable _error) {
+        resp = _response;
+        err = _error;
+        data = _data;
+        reqProcessed = true;
+    }] resume];
+    
+    while (!reqProcessed) {
+        [NSThread sleepForTimeInterval:0];
+    }
+    
+    response = resp;
+    error = err;
+    NSString * version = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+    // char check3 = [check2 characterAtIndex:0];
+    version1 = [version substringWithRange:NSMakeRange(2,2)];
+    
     NSString *version2 = [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleShortVersionString"];
     //printf("%s", [version1 UTF8String]);
     //printf("Hello");
@@ -367,6 +396,7 @@ if([CLLocationManager locationServicesEnabled]){
     [self presentViewController:alert animated:YES completion:nil];
     }
 }
+/*
 - (IBAction)backgroundQueue {
     
     // call the same method on a background thread
@@ -403,7 +433,7 @@ if([CLLocationManager locationServicesEnabled]){
  //       });
         
     });
-}
+} */
 
 //- (void)mainQueue{
     
@@ -452,9 +482,7 @@ if([CLLocationManager locationServicesEnabled]){
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
--(void)closeStream{
-    
-}
+
 -(void)refreshView:(NSNotification *) notification {
     [self.circle removeFromSuperview];
     map = (UIImageView *)[self.view viewWithTag:1];

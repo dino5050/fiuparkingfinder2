@@ -31,13 +31,22 @@
     if(IDIOM == IPAD) map = [UIImage imageNamed:@"mapFIU"];
     else map = [UIImage imageNamed:@"mapFIU"];
     printf("%f", map.size.width);
-    @try{NSURLRequest *app_info = [NSURLRequest requestWithURL:[NSURL URLWithString:@"http://collegeparkingfinder.com/fiuparkingmonitor/offday.php"]];
+/*    @try{NSURLRequest *app_info = [NSURLRequest requestWithURL:[NSURL URLWithString:@"http://collegeparkingfinder.com/fiuparkingmonitor/offday.php"]];
         NSURLResponse * response2 = nil;
         NSError * error2 = nil;
+   //     [NSURLSession dataTaskWithRequest:]
         [NSURLConnection sendSynchronousRequest:app_info
                               returningResponse:&response2
                                           error:&error2];
-    }@catch(NSException *error){} 
+    }@catch(NSException *error){}  */
+        NSURLSession *session = [NSURLSession sharedSession];
+        [[session dataTaskWithURL:[NSURL URLWithString:@"http://collegeparkingfinder.com/fiuparkingmonitor/offday.php"]
+                completionHandler:^(NSData *data,
+                                    NSURLResponse *response,
+                                    NSError *error) {
+                    // handle response
+                    
+                }] resume];
     NSCalendar *gregorian = [[NSCalendar alloc] initWithCalendarIdentifier:NSCalendarIdentifierGregorian];
     NSDateComponents *comps = [gregorian components:NSCalendarUnitWeekday fromDate:[NSDate date]];
     NSInteger day = [comps weekday];
@@ -79,8 +88,9 @@
     //change hour to string!!!!!!!
     NSString *hour1;
     if(hour == 7) hour1 = @"sevenam"; else if(hour == 8) hour1 = @"eightam"; else if(hour == 9) hour1 = @"nineam"; else if(hour == 10) hour1 = @"tenam"; else if(hour == 11) hour1 = @"elevenam"; else if(hour == 12) hour1 = @"twelvepm"; else if(hour == 13) hour1 = @"onepm"; else if(hour == 14) hour1 = @"twopm"; else if(hour == 15) hour1 = @"threepm"; else if(hour == 16) hour1 = @"fourpm"; else if(hour == 17) hour1 = @"fivepm"; else if(hour == 18) hour1 = @"sixpm"; else if(hour == 19) hour1 = @"sevenpm"; else hour1 = @"offhour";
-    NSString *check2;
-    @try{
+    
+    
+ /*   @try{
         
         NSURLRequest *check = [NSURLRequest requestWithURL:[NSURL URLWithString:@"http://collegeparkingfinder.com/fiuparkingmonitor/check.php"]];
         NSURLResponse * response1 = nil;
@@ -89,8 +99,31 @@
                                                 returningResponse:&response1
                                                             error:&error1];
         check2 = [[NSString alloc] initWithData:check1 encoding:NSUTF8StringEncoding];
-    }@catch(NSException *error){}
+    }@catch(NSException *error){} */
     // char check3 = [check2 characterAtIndex:0];
+    NSString *check2;
+    NSURLRequest * urlRequest = [NSURLRequest requestWithURL:[NSURL URLWithString: @"http://collegeparkingfinder.com/fiuparkingmonitor/check.php"]];
+    NSURLResponse *response;
+    NSError *error;
+    NSError __block *err = NULL;
+    NSData __block *check1;
+    BOOL __block reqProcessed = false;
+    NSURLResponse __block *resp;
+    
+    [[[NSURLSession sharedSession] dataTaskWithRequest:urlRequest completionHandler:^(NSData * _Nullable _data, NSURLResponse * _Nullable _response, NSError * _Nullable _error) {
+        resp = _response;
+        err = _error;
+        check1 = _data;
+        reqProcessed = true;
+    }] resume];
+    
+    while (!reqProcessed) {
+        [NSThread sleepForTimeInterval:0];
+    }
+    
+    response = resp;
+    error = err;
+    check2 = [[NSString alloc] initWithData:check1 encoding:NSUTF8StringEncoding];
     NSString *status;
     NSString *shutdown;
     @try{
@@ -104,10 +137,11 @@
     NSString *fullURL = [[NSString alloc] initWithFormat:@"%@time=%@&table=%@",url,hour1,table];
     NSMutableArray *color1 = [[NSMutableArray alloc] initWithCapacity:numColors-1];
     if(![hour1  isEqual: @"offhour"] && ![dayofweek isEqual:@"offday"] && ![status isEqualToString:@"off"]){
-        @try{
+/*        @try{
             NSURLRequest * urlRequest = [NSURLRequest requestWithURL:[NSURL URLWithString: fullURL]];
             NSURLResponse * response = nil;
             NSError * error = nil;
+            
             NSData * data = [NSURLConnection sendSynchronousRequest:urlRequest
                                                   returningResponse:&response
                                                               error:&error];
@@ -119,7 +153,35 @@
                 color1[i] = colors[i];
             }
         }@catch(NSException *error){}
+ */
+    
+    NSURLRequest * urlRequest2 = [NSURLRequest requestWithURL:[NSURL URLWithString: fullURL]];
+    NSURLResponse *response2;
+    NSError *error2;
+    NSError __block *err2 = NULL;
+    NSData __block *data2;
+    BOOL __block reqProcessed2 = false;
+    NSURLResponse __block *resp2;
+    
+    [[[NSURLSession sharedSession] dataTaskWithRequest:urlRequest2 completionHandler:^(NSData * _Nullable _data, NSURLResponse * _Nullable _response, NSError * _Nullable _error) {
+        resp = _response;
+        err2 = _error;
+        data2 = _data;
+        reqProcessed2 = true;
+    }] resume];
+    
+    while (!reqProcessed2) {
+        [NSThread sleepForTimeInterval:0];
     }
+    
+    response2 = resp2;
+    error2 = err;
+    color = [[NSString alloc] initWithData:data2 encoding:NSUTF8StringEncoding];
+    NSArray *colors = [ color componentsSeparatedByString: @","];
+    for(int i = 0; i<numColors; i++){
+        color1[i] = colors[i];
+    }
+}
     for(int k = 0; k<numColors; k++){
         CGContextRef context = UIGraphicsGetCurrentContext();
         if([hour1  isEqual: @"offhour"] || [dayofweek isEqual:@"offday"] || [status isEqualToString:@"off"]){
@@ -146,7 +208,7 @@
                 
                 borderRect = CGRectMake((pow(coor2[k*2+1],1.0)-(old_height-map.size.width)*0.041)-17/xCalibration+Wadjust, map.size.height-pow(coor2[k*2],1.0)-(old_width-map.size.height)*(0.092)-30/yCalibration + Hadjust, radius, radius);
             }
-            if([shutdown isEqual:@"1"] && k == 5){
+            if([shutdown isEqual:@"1"] && k == 12){
                 CGContextSetRGBStrokeColor(context, 0.5, 0.5, 0.5, 1.0);
                 CGContextSetRGBFillColor(context, 0.5, 0.5, 0.5, 0.25);
             }else{
@@ -177,7 +239,7 @@
                 if(k==7 && color2 > 1) color2 = color2 - 1;
                 if(k==9 && color2 > 1) color2 = color2 - 1;
                 if(k==10 && color2 > 1) color2 = color2 - 1;
-                if(k==5) color2 = 0;
+                if(k==12) color2 = 0;
             }
             
             //printf("%s", [color1[k] UTF8String]);
@@ -242,7 +304,7 @@
 
 -(UIImageView *)donateButton: (UIImage*)button{
     NSString *setting;
-    @try{
+ /*   @try{
         
         NSString *url = @"http://collegeparkingfinder.com/fiuparkingmonitor/donation.php";
         
@@ -259,7 +321,34 @@
         setting = [donation substringWithRange:NSMakeRange(2,3)];
         //       printf("||||||||||||%s||||||||||||||||", [donation UTF8String]);
         
-    }@catch(NSException *error){}
+    }@catch(NSException *error){} */
+    NSURLResponse *response;
+    NSError *error;
+    NSError __block *err = NULL;
+    NSData __block *data;
+    BOOL __block reqProcessed = false;
+    NSURLResponse __block *resp;
+    NSString *url = @"http://collegeparkingfinder.com/fiuparkingmonitor/donation.php";
+    
+    
+    NSURLRequest * urlRequest = [NSURLRequest requestWithURL:[NSURL URLWithString: url]];
+    
+    [[[NSURLSession sharedSession] dataTaskWithRequest:urlRequest completionHandler:^(NSData * _Nullable _data, NSURLResponse * _Nullable _response, NSError * _Nullable _error) {
+        resp = _response;
+        err = _error;
+        data = _data;
+        reqProcessed = true;
+    }] resume];
+    
+    while (!reqProcessed) {
+        [NSThread sleepForTimeInterval:0];
+    }
+    
+    response = resp;
+    error = err;
+    NSString *donation = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+    
+    setting = [donation substringWithRange:NSMakeRange(2,3)];
     if(![setting isEqualToString:@"off"]){
         UIImageView *donateButton = [[UIImageView alloc] initWithImage:button];
         CGRect screenBound = [[UIScreen mainScreen] bounds];
@@ -270,7 +359,7 @@
         [donateButton setUserInteractionEnabled:YES];
         [donateButton addGestureRecognizer:singleTap];
         return donateButton;
-    }
+    }else return NULL;
 }
 
 - (void)donateDetected{
@@ -283,13 +372,34 @@
      
      NSString *fullURL = [[NSString alloc] initWithFormat:@"%@school=%@",url,school];
      
-     NSURLRequest * urlRequest = [NSURLRequest requestWithURL:[NSURL URLWithString: fullURL]];
+/*     NSURLRequest * urlRequest = [NSURLRequest requestWithURL:[NSURL URLWithString: fullURL]];
      NSURLResponse * response = nil;
      NSError * error = nil;
      NSData * data = [NSURLConnection sendSynchronousRequest:urlRequest
      returningResponse:&response
      error:&error];
-     
+ */
+         NSURLRequest * urlRequest = [NSURLRequest requestWithURL:[NSURL URLWithString: fullURL]];
+         NSURLResponse *response;
+         NSError *error;
+         NSError __block *err = NULL;
+         NSData __block *data;
+         BOOL __block reqProcessed = false;
+         NSURLResponse __block *resp;
+         
+         [[[NSURLSession sharedSession] dataTaskWithRequest:urlRequest completionHandler:^(NSData * _Nullable _data, NSURLResponse * _Nullable _response, NSError * _Nullable _error) {
+             resp = _response;
+             err = _error;
+             data = _data;
+             reqProcessed = true;
+         }] resume];
+         
+         while (!reqProcessed) {
+             [NSThread sleepForTimeInterval:0];
+         }
+         
+         response = resp;
+         error = err;
      NSString * message = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
      NSRange range;
      range.location=2;
