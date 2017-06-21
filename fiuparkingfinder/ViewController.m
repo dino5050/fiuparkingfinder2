@@ -166,6 +166,8 @@ int position = 0;
     
     [[UIApplication sharedApplication] setIdleTimerDisabled:YES];
     
+    
+    
  /*   if(![CLLocationManager locationServicesEnabled]){
         UIAlertController *alertController = [UIAlertController alertControllerWithTitle:NSLocalizedString( @"Enter your title here", @"" ) message:NSLocalizedString( @"Enter your message here.", @"" ) preferredStyle:UIAlertControllerStyleAlert];
         

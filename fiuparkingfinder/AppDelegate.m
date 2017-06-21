@@ -14,9 +14,62 @@
 @end
 
 @implementation AppDelegate
+- (void)application:(UIApplication *)application didRegisterUserNotificationSettings:(UIUserNotificationSettings *)notificationSettings {
+    [application registerForRemoteNotifications];
+}
+
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
+    if ([[[UIDevice currentDevice] systemVersion] floatValue] >= 8.0)
+    {
+        [[UIApplication sharedApplication] registerUserNotificationSettings:[UIUserNotificationSettings settingsForTypes:(UIUserNotificationTypeSound | UIUserNotificationTypeAlert | UIUserNotificationTypeBadge) categories:nil]];
+        [[UIApplication sharedApplication] registerForRemoteNotifications];
+    }
+    else
+    {
+        [[UIApplication sharedApplication] registerForRemoteNotifications];
+    }
     return [[FBSDKApplicationDelegate sharedInstance] application:application
                                     didFinishLaunchingWithOptions:launchOptions];
+}
+- (void)application:(UIApplication*)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData*)deviceToken
+{
+
+    NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
+    NSString *currentLevelKey = @"currentlevel";
+    if([preferences objectForKey:currentLevelKey] == nil){
+        NSLog(@"deviceToken: %@", deviceToken);
+        NSString * token = [NSString stringWithFormat:@"%@", deviceToken];
+        //Format token as you need:
+        token = [token stringByReplacingOccurrencesOfString:@" " withString:@""];
+        token = [token stringByReplacingOccurrencesOfString:@">" withString:@""];
+        token = [token stringByReplacingOccurrencesOfString:@"<" withString:@""];
+        printf("DEVICE TOKEN %s", [token UTF8String]);
+        NSString *url = @"http://collegeparkingfinder.com/fiuparkingmonitor/push.php?";
+        NSString *fullURL = [[NSString alloc] initWithFormat:@"%@token=%@",url,token];
+        NSURLRequest * urlRequest = [NSURLRequest requestWithURL:[NSURL URLWithString: fullURL]];
+        NSError __block *err = NULL;
+        NSData __block *data;
+        BOOL __block reqProcessed = false;
+        NSURLResponse __block *resp;
+        
+        [[[NSURLSession sharedSession] dataTaskWithRequest:urlRequest completionHandler:^(NSData * _Nullable _data, NSURLResponse * _Nullable _response, NSError * _Nullable _error) {
+            resp = _response;
+            err = _error;
+            data = _data;
+            reqProcessed = true;
+        }] resume];
+        
+        while (!reqProcessed) {
+            [NSThread sleepForTimeInterval:0];
+        }
+        const NSInteger *currentLevel = 1;
+        [preferences setInteger:currentLevel forKey:currentLevelKey];
+    }
+}
+-(void)application:(UIApplication *)application didFailToRegisterForRemoteNotificationsWithError:(NSError *)error
+{
+    NSLog(@"Error in registration. Error: %@", error.description);
+    printf("DEVICE TOKEN FAIL: %s", error.description);
 }
 
 - (BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation {
@@ -25,8 +78,7 @@
                                                 sourceApplication:sourceApplication
                                                        annotation:annotation
             ];
-} 
-
+}
 
 - (void)applicationWillResignActive:(UIApplication *)application {
     // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
