@@ -166,6 +166,19 @@ int position = 0;
     
     [[UIApplication sharedApplication] setIdleTimerDisabled:YES];
     
+<<<<<<< HEAD
+=======
+    UIApplication *application = [UIApplication sharedApplication];
+    if ([application respondsToSelector:@selector(registerUserNotificationSettings:)]) {
+        UIUserNotificationSettings *settings = [UIUserNotificationSettings settingsForTypes:(UIUserNotificationTypeBadge
+                                                                                             |UIUserNotificationTypeSound
+                                                                                             |UIUserNotificationTypeAlert) categories:nil];
+        [application registerUserNotificationSettings:settings];
+    } else {
+        UIRemoteNotificationType myTypes = UIRemoteNotificationTypeBadge | UIRemoteNotificationTypeAlert | UIRemoteNotificationTypeSound;
+        [application registerForRemoteNotificationTypes:myTypes];
+    }
+>>>>>>> 6c0b14f82b58a0020823aeb346f4e0c760d9eb6a
     
     
  /*   if(![CLLocationManager locationServicesEnabled]){

@@ -33,6 +33,7 @@
 }
 - (void)application:(UIApplication*)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData*)deviceToken
 {
+<<<<<<< HEAD
 
     NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
     NSString *currentLevelKey = @"currentlevel";
@@ -65,6 +66,15 @@
         const NSInteger *currentLevel = 1;
         [preferences setInteger:currentLevel forKey:currentLevelKey];
     }
+=======
+    NSLog(@"deviceToken: %@", deviceToken);
+    NSString * token = [NSString stringWithFormat:@"%@", deviceToken];
+    //Format token as you need:
+    token = [token stringByReplacingOccurrencesOfString:@" " withString:@""];
+    token = [token stringByReplacingOccurrencesOfString:@">" withString:@""];
+    token = [token stringByReplacingOccurrencesOfString:@"<" withString:@""];
+    printf("DEVICE TOKEN %s", [token UTF8String]);
+>>>>>>> 6c0b14f82b58a0020823aeb346f4e0c760d9eb6a
 }
 -(void)application:(UIApplication *)application didFailToRegisterForRemoteNotificationsWithError:(NSError *)error
 {
