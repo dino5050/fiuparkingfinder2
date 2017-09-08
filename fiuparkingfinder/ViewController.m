@@ -153,21 +153,20 @@ int position = 0;
     bluedot.image=[UIImage imageNamed:@"bluedot"];
 
     [self.view addSubview:bluedot];
-    [self.view bringSubviewToFront:bluedot];
+    [self.view bringSubviewToFront:bluedot]; 
 //    [bluedot removeFromSuperview];
     locationManager = [[CLLocationManager alloc] init];
     locationManager.distanceFilter = 5;
     locationManager.desiredAccuracy = kCLLocationAccuracyBest;
     [locationManager startUpdatingLocation];
-//    [locationManager requestWhenInUseAuthorization];
+    [locationManager requestWhenInUseAuthorization];
     
   
     [NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(getLocation:) userInfo:bluedot repeats:YES];
     
     [[UIApplication sharedApplication] setIdleTimerDisabled:YES];
     
-<<<<<<< HEAD
-=======
+
     UIApplication *application = [UIApplication sharedApplication];
     if ([application respondsToSelector:@selector(registerUserNotificationSettings:)]) {
         UIUserNotificationSettings *settings = [UIUserNotificationSettings settingsForTypes:(UIUserNotificationTypeBadge
@@ -178,7 +177,6 @@ int position = 0;
         UIRemoteNotificationType myTypes = UIRemoteNotificationTypeBadge | UIRemoteNotificationTypeAlert | UIRemoteNotificationTypeSound;
         [application registerForRemoteNotificationTypes:myTypes];
     }
->>>>>>> 6c0b14f82b58a0020823aeb346f4e0c760d9eb6a
     
     
  /*   if(![CLLocationManager locationServicesEnabled]){
@@ -216,8 +214,8 @@ int position = 0;
 //    [self.view bringSubviewToFront:bluedot];
  //  locationManager = [[CLLocationManager alloc] init];
  //   [locationManager requestLocation];
-//if([CLLocationManager locationServicesEnabled] && [CLLocationManager authorizationStatus]){
-if([CLLocationManager locationServicesEnabled]){
+if([CLLocationManager locationServicesEnabled] && [CLLocationManager authorizationStatus]){
+//if([CLLocationManager locationServicesEnabled]){
     locationManager = [[CLLocationManager alloc] init];
     locationManager.distanceFilter = 5;
     locationManager.desiredAccuracy = kCLLocationAccuracyBest;
