@@ -1,8 +1,12 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10117" systemVersion="15G1217" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="BYZ-38-t0r">
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13196" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13174"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
         <!--View Controller-->
@@ -14,31 +18,26 @@
                         <viewControllerLayoutGuide type="bottom" id="ro2-hK-9hV"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView opaque="NO" multipleTouchEnabled="YES" tag="1" contentMode="scaleAspectFill" misplaced="YES" image="mapFIU2" translatesAutoresizingMaskIntoConstraints="NO" id="eKX-vv-Dez">
                                 <rect key="frame" x="-85" y="-184" width="450" height="683"/>
                             </imageView>
-                            <view contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="99P-jG-dLq" customClass="GADBannerView">
-                                <rect key="frame" x="0.0" y="430" width="320" height="50"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                            </view>
                             <imageView opaque="NO" multipleTouchEnabled="YES" contentMode="center" image="parking_gradient4" translatesAutoresizingMaskIntoConstraints="NO" id="SuD-j2-0ZJ">
-                                <rect key="frame" x="-1" y="-385" width="18" height="1250"/>
+                                <rect key="frame" x="-1" y="-291.5" width="18" height="1250"/>
                             </imageView>
                             <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="5fd-Pz-t52" customClass="GADBannerView">
                                 <rect key="frame" x="0.0" y="430" width="320" height="50"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="320" id="KSL-Xo-WGG"/>
                                     <constraint firstAttribute="height" constant="50" id="RDY-eN-s9h"/>
                                 </constraints>
                             </view>
                         </subviews>
-                        <color key="backgroundColor" red="0.46193298363676771" green="0.88235294117647056" blue="0.54051156452647031" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="backgroundColor" red="0.46193298363676771" green="0.88235294117647056" blue="0.54051156452647031" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
-                            <constraint firstAttribute="bottom" secondItem="99P-jG-dLq" secondAttribute="bottom" id="5he-k8-R9U"/>
                             <constraint firstItem="SuD-j2-0ZJ" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" constant="-1" id="6dD-w9-k1T"/>
                             <constraint firstItem="ro2-hK-9hV" firstAttribute="top" secondItem="5fd-Pz-t52" secondAttribute="bottom" id="DxY-16-iye"/>
                             <constraint firstAttribute="trailing" secondItem="eKX-vv-Dez" secondAttribute="trailing" constant="-10" id="EGm-XG-qo7"/>
@@ -46,8 +45,10 @@
                             <constraint firstItem="eKX-vv-Dez" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" id="FSC-K2-D02"/>
                             <constraint firstItem="eKX-vv-Dez" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" constant="10" id="K7K-uV-yhd"/>
                             <constraint firstAttribute="centerX" secondItem="5fd-Pz-t52" secondAttribute="centerX" id="Qz5-8P-CBp"/>
+                            <constraint firstItem="ro2-hK-9hV" firstAttribute="top" secondItem="5fd-Pz-t52" secondAttribute="bottom" id="UfK-kB-XzK"/>
                             <constraint firstAttribute="bottom" secondItem="eKX-vv-Dez" secondAttribute="bottom" constant="-10" id="Vk2-ju-eHG"/>
-                            <constraint firstAttribute="bottom" secondItem="99P-jG-dLq" secondAttribute="bottom" id="c6p-Ac-mhc"/>
+                            <constraint firstItem="ro2-hK-9hV" firstAttribute="top" secondItem="5fd-Pz-t52" secondAttribute="bottom" id="hVG-rc-MD4"/>
+                            <constraint firstItem="ro2-hK-9hV" firstAttribute="top" secondItem="5fd-Pz-t52" secondAttribute="bottom" id="jQp-DT-Zic"/>
                             <constraint firstItem="SuD-j2-0ZJ" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="oPx-Q9-qbX"/>
                             <constraint firstItem="ro2-hK-9hV" firstAttribute="top" secondItem="5fd-Pz-t52" secondAttribute="bottom" constant="50" id="utI-Nz-x9u"/>
                         </constraints>
@@ -65,9 +66,4 @@
         <image name="mapFIU2" width="450" height="683"/>
         <image name="parking_gradient4" width="18" height="1250"/>
     </resources>
-    <simulatedMetricsContainer key="defaultSimulatedMetrics">
-        <simulatedStatusBarMetrics key="statusBar"/>
-        <simulatedOrientationMetrics key="orientation"/>
-        <simulatedScreenMetrics key="destination"/>
-    </simulatedMetricsContainer>
 </document>

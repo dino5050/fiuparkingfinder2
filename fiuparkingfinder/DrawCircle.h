@@ -18,6 +18,7 @@
 -(UIView *)fbshare: (NSString *)appName;
 -(UIImageView *)openview: (UIImage*)openstreet;
 -(void)ipad:(UIImageView*)map;
+-(void)iphoneX:(UIImageView*)map;
 -(void)drawRect:(CGRect)rect;
 -(UIImageView *)donateButton: (UIImage *) button;
 -(void)tapDetected;

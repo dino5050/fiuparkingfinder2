@@ -53,18 +53,18 @@ int position = 0;
                                                object:nil];
 
     
-    
+    CGRect screenBound = [[UIScreen mainScreen] bounds];
+    CGSize screenSize = screenBound.size;
     map = (UIImageView *)[self.view viewWithTag:1];
-    sandlot = (UIImageView *)[self.view viewWithTag:2];
+    
     if (IDIOM==IPAD) self.circle = [[DrawCircle alloc] initWithFrame:CGRectMake(0.0, 0.0, map.frame.size.width*2.2, map.frame.size.height*2.2)];
     else self.circle = [[DrawCircle alloc] initWithFrame:CGRectMake(0.0, 0.0, map.frame.size.width, map.frame.size.height)];
     self.circle.backgroundColor = [UIColor clearColor];
     [map addSubview:self.circle];
     [map addSubview:sandlot];
     
-    CGRect screenBound = [[UIScreen mainScreen] bounds];
-    CGSize screenSize = screenBound.size;
-    printf("%f %f\n%f %f", map.frame.size.width, map.frame.size.height, screenSize.width, screenSize.height);
+    
+    printf("HEIGHT: %f %f %f %f", map.frame.size.width, map.frame.size.height, screenSize.width, screenSize.height);
     
  //   [self.view bringSubviewToFront:bluedot];
     
@@ -87,11 +87,12 @@ int position = 0;
     UIImage *notification = [UIImage imageNamed:@"notification"];
     [self.view addSubview:[circle notify: notification]];
     UIImage *gesture = [UIImage imageNamed:@"Gestures_Pan"];
-    [self.view addSubview:[circle gesture:gesture]];
+//    [self.view addSubview:[circle gesture:gesture]];
     
   
     if (IDIOM == IPAD) [sandlot removeFromSuperview];
     if (IDIOM == IPAD) [circle ipad:map];
+    if(screenSize.height == 812) [circle iphoneX:map];
     
     
 //    UIPanGestureRecognizer *recognizer = [[UIPanGestureRecognizer alloc] initWithTarget:self
@@ -214,8 +215,8 @@ int position = 0;
 //    [self.view bringSubviewToFront:bluedot];
  //  locationManager = [[CLLocationManager alloc] init];
  //   [locationManager requestLocation];
-if([CLLocationManager locationServicesEnabled] && [CLLocationManager authorizationStatus]){
-//if([CLLocationManager locationServicesEnabled]){
+//if([CLLocationManager locationServicesEnabled] && [CLLocationManager authorizationStatus]){
+if([CLLocationManager locationServicesEnabled]){
     locationManager = [[CLLocationManager alloc] init];
     locationManager.distanceFilter = 5;
     locationManager.desiredAccuracy = kCLLocationAccuracyBest;
@@ -229,10 +230,13 @@ if([CLLocationManager locationServicesEnabled] && [CLLocationManager authorizati
         float yCalibration = screenSize.height/683;
         double gpsCoor[2][4] = {{25.760544,25.760544,25.751753,25.751753},{-80.384068,-80.367813,-80.367813,-80.384068}};
     //    double gpsCoor[2][4] = {{25.778804,25.778804,25.776121,25.776121},{-80.413167,-80.411821,-80.411821,-80.413167}};
+    
         double mX =  screenSize.width/(gpsCoor[0][0]-gpsCoor[0][2]);
         double mY =  screenSize.height/(gpsCoor[1][1]-gpsCoor[1][0]);
         double gpsCoor00 = gpsCoor[0][0]; double gpsCoor10 = gpsCoor[1][0];
         double gpsCoor02 = gpsCoor[0][2]; double gpsCoor11 = gpsCoor[1][1];
+      //  printf("COOR: %f %f", gpsCoor10, gpsCoor11);
+    
         double x = 0;
         double y = 0;
         double latitude = [self latitude];
@@ -240,7 +244,7 @@ if([CLLocationManager locationServicesEnabled] && [CLLocationManager authorizati
     
  //   check if gps is on
     
-/*       if(location == 0){
+ /*      if(location == 0){
                 x = mX*(gpsCoor00-25.759585);  //25.77804972
                 y = screenSize.height-mY*(-80.370178-gpsCoor10); //-80.41314309
                 location = 1;
@@ -252,6 +256,7 @@ if([CLLocationManager locationServicesEnabled] && [CLLocationManager authorizati
  */
         x = mX*(gpsCoor00-latitude);  //25.77804972
         y = screenSize.height-mY*(longitude-gpsCoor10);
+        if(screenSize.height == 812){gpsCoor10 = -80.389289; gpsCoor11 = -80.363901;}
         if(IDIOM==IPAD){
             xAdjust = 55;
             yAdjust = 5;
@@ -269,13 +274,15 @@ if([CLLocationManager locationServicesEnabled] && [CLLocationManager authorizati
             YscaleAdjust = 0.97;
             if(screenSize.height == 480){xAdjust = 44; yAdjust = 31; XscaleAdjust = 0.88;}
             if(screenSize.height == 568){xAdjust = 23; yAdjust = 32;}
+            if(screenSize.height == 812){xAdjust = 58; yAdjust = 133; XscaleAdjust = 0.9; YscaleAdjust = 0.7;}
+
             
         }
                 double xF = 0+x*xCalibration*(pow(xCalibration,-1.0))*XscaleAdjust-0*xCalibration+xAdjust;
                 double yF = -28+y*yCalibration*(pow(yCalibration,-1.0 ))*YscaleAdjust+0*yCalibration+yAdjust; //IDIOM = IPAD adjustment
                 if (IDIOM == IPAD){ xF = xF +22*xCalibration; yF = yF - 26*yCalibration; }
   
-    //    [[theTimer userInfo] setFrame:CGRectMake(xF-28.7/2, yF-19/2, 30, 37) ];
+  //      [[theTimer userInfo] setFrame:CGRectMake(xF-28.7/2, yF-19/2, 30, 37) ];
     if(latitude > 25.761428){
         if(longitude < gpsCoor10){
             bluedot.image=[UIImage imageNamed:@"swArrow"];
@@ -315,13 +322,13 @@ if([CLLocationManager locationServicesEnabled] && [CLLocationManager authorizati
     }
     
 }else{ [[theTimer userInfo] setFrame:CGRectMake(0, 0, 0, 0)];}
-//    [theTimer userInfo];
+ 
    // [bluedot removeFromSuperview];
       //      }
     //    });
     //});
     
-    //[self performSelector:@selector(getLocation) withObject: bluedot afterDelay:10];
+  //  [self performSelector:@selector(getLocation) withObject: bluedot afterDelay:10];
     
 
 }
@@ -367,8 +374,9 @@ if([CLLocationManager locationServicesEnabled] && [CLLocationManager authorizati
     error = err;
     NSString * version = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
     // char check3 = [check2 characterAtIndex:0];
-    version1 = [version substringWithRange:NSMakeRange(2,2)];
-    
+    @try{
+        version1 = [version substringWithRange:NSMakeRange(2,2)];
+    }@catch(NSException *error){}
     NSString *version2 = [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleShortVersionString"];
     //printf("%s", [version1 UTF8String]);
     //printf("Hello");

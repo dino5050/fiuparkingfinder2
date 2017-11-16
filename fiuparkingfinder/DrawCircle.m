@@ -71,6 +71,7 @@
             // int coor[] = {98-25,134-30,94,224+20,90,336-3,93,410,203,726+3,571+1,193-5,499,274,433,273,179,623,508,213,403,196,563,758+5,277,799+5};
             double scaleAdjust = 1;
             if(screenSize.height == 1024){scaleAdjust = 0.8;}
+            if(screenSize.height == 1112){scaleAdjust = 0.85;}
             if(screenSize.height == 1366){scaleAdjust = 1.06;}
             
             coor2[i] = coor[i]*scaleAdjust;//*1.2;
@@ -82,6 +83,7 @@
             if(screenSize.height == 568){scaleAdjust = 1.32;}
             if(screenSize.height == 667){scaleAdjust = 1.32;}
             if(screenSize.height == 736){scaleAdjust = 1.31;}
+            if(screenSize.height == 812){scaleAdjust = 1.4;}
             coor2[i] = coor[i]*map.size.width/old_height*scaleAdjust*xCalibration*xCalibration/yCalibration;//0.723
         }
     }
@@ -177,10 +179,12 @@
     response2 = resp2;
     error2 = err;
     color = [[NSString alloc] initWithData:data2 encoding:NSUTF8StringEncoding];
-    NSArray *colors = [ color componentsSeparatedByString: @","];
+    @try{NSArray *colors = [ color componentsSeparatedByString: @","];
+    
     for(int i = 0; i<numColors; i++){
         color1[i] = colors[i];
     }
+    }@catch(NSException *error){}
 }
     for(int k = 0; k<numColors; k++){
         CGContextRef context = UIGraphicsGetCurrentContext();
@@ -192,7 +196,9 @@
                 else radius = 80.0;
                 double Hadjust = 0;
                 double Wadjust = 0;
+                
                 if(screenSize.height == 1024){ Hadjust = 20; Wadjust = -10;}
+                if(screenSize.height == 1112){ Hadjust = 100; Wadjust = -5;}
                 if(screenSize.height == 1366){ Hadjust = 400; Wadjust = -10;}
                 borderRect = CGRectMake((pow(coor2[k*2+1],0.9815)*1.04+128-(old_width-map.size.width)*0.1-40)+Wadjust, map.size.height-pow(coor2[k*2],0.990)*0.94+448-(old_height-map.size.height)*0.1-10+Hadjust, radius, radius);
                 
@@ -203,8 +209,9 @@
                 double Wadjust = 0;
                 if(screenSize.height==480){ Hadjust = -85; Wadjust = +28;}
                 if(screenSize.height == 568){Hadjust = 0; Wadjust = 0;}
-                if(screenSize.height == 667){ Hadjust = 96; Wadjust = -6;}
-                if(screenSize.height == 736){ Hadjust = 165; Wadjust = -12;}
+                if(screenSize.height == 667){ Hadjust = 94; Wadjust = -8; if(k != 0) radius = 55.0; else radius = 95;}
+                if(screenSize.height == 736){ Hadjust = 157; Wadjust = -14; if(k != 0) radius = 60.0; else radius = 105.0;}
+                if(screenSize.height == 812){ Hadjust = 100; Wadjust = 30; if(k!=0)radius = 55.0; else radius = 85;}
                 
                 borderRect = CGRectMake((pow(coor2[k*2+1],1.0)-(old_height-map.size.width)*0.041)-17/xCalibration+Wadjust, map.size.height-pow(coor2[k*2],1.0)-(old_width-map.size.height)*(0.092)-30/yCalibration + Hadjust, radius, radius);
             }
@@ -254,6 +261,7 @@
                 double Wadjust = 0;
                 
                 if(screenSize.height == 1024){ Hadjust = 20; Wadjust = -10;}
+                if(screenSize.height == 1112){ Hadjust = 100; Wadjust = -5;}
                 if(screenSize.height == 1366){ Hadjust = 400; Wadjust = -10;}
                 borderRect = CGRectMake((pow(coor2[k*2+1],0.9815)*1.04+128-(old_width-map.size.width)*0.1-40)+Wadjust, map.size.height-pow(coor2[k*2],0.990)*0.94+448-(old_height-map.size.height)*0.1-10+Hadjust, radius, radius);
                 
@@ -266,6 +274,7 @@
                 if(screenSize.height == 568){Hadjust = 0; Wadjust = 0;}
                 if(screenSize.height == 667){ Hadjust = 94; Wadjust = -8; if(k != 0) radius = 55.0; else radius = 95;}
                 if(screenSize.height == 736){ Hadjust = 157; Wadjust = -14; if(k != 0) radius = 60.0; else radius = 105.0;}
+                if(screenSize.height == 812){ Hadjust = 100; Wadjust = 30; if(k!=0)radius = 55.0; else radius = 85;}
                 
                 borderRect = CGRectMake((pow(coor2[k*2+1],1.0)-(old_height-map.size.width)*0.041)-17/xCalibration+Wadjust, map.size.height-pow(coor2[k*2],1.0)-(old_width-map.size.height)*(0.092)-30/yCalibration + Hadjust, radius, radius);
             }
@@ -348,12 +357,14 @@
     error = err;
     NSString *donation = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
     
-    setting = [donation substringWithRange:NSMakeRange(2,3)];
+    @try{setting = [donation substringWithRange:NSMakeRange(2,3)];
+    }@catch(NSException *error){}
     if(![setting isEqualToString:@"off"]){
         UIImageView *donateButton = [[UIImageView alloc] initWithImage:button];
         CGRect screenBound = [[UIScreen mainScreen] bounds];
         CGSize screenSize = screenBound.size;
-        donateButton.frame = CGRectMake(screenSize.width-button.size.width, screenSize.height - 145 + button.size.height, button.size.width, button.size.height);
+        if(screenSize.height == 812)donateButton.frame = CGRectMake(screenSize.width-button.size.width, screenSize.height - 190 + button.size.height, button.size.width, button.size.height);
+        else donateButton.frame = CGRectMake(screenSize.width-button.size.width, screenSize.height - 145 + button.size.height, button.size.width, button.size.height);
         UITapGestureRecognizer *singleTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(donateDetected)];
         singleTap.numberOfTapsRequired = 1;
         [donateButton setUserInteractionEnabled:YES];
@@ -431,7 +442,8 @@
              welcome.backgroundColor = [self colorWithHexString:@"FAD587"];
              //welcome.contentOffset = (CGPoint){screenSize.width/2-welcome.frame.size.width/2, 0};
              // welcome. = CGPointMake(screenSize.width/2 - welcome.frame.size.width/2, screenSize.height-80);
-             welcome.center = CGPointMake(screenSize.width/2, screenSize.height - 60);
+             if(screenSize.height == 812)welcome.center = CGPointMake(screenSize.width/2, screenSize.height - 100);
+             else welcome.center = CGPointMake(screenSize.width/2, screenSize.height - 60);
              return welcome;
          }
  
@@ -452,7 +464,8 @@
      [welcome.textContainer setSize:welcome.frame.size];
      welcome.backgroundColor = [self colorWithHexString:@"FAD587"];
      [welcome setFont:[UIFont systemFontOfSize:10]];
-     welcome.center = CGPointMake(screenSize.width/2, screenSize.height - 60);
+     if(screenSize.height == 812)welcome.center = CGPointMake(screenSize.width/2, screenSize.height - 100);
+     else welcome.center = CGPointMake(screenSize.width/2, screenSize.height - 60);
      
      return welcome;
  }
@@ -503,15 +516,18 @@
     //shareButton.center = self.view.center;
     CGRect screenBound = [[UIScreen mainScreen] bounds];
     CGSize screenSize = screenBound.size;
-    shareButton.frame = CGRectMake(18, screenSize.height - 100, 70, 30);
+    if(screenSize.height == 812){shareButton.frame = CGRectMake(18, screenSize.height - 140, 70, 30);}
+    else shareButton.frame = CGRectMake(18, screenSize.height - 100, 70, 30);
     return shareButton;
 }
 -(UIImageView *)notify: (UIImage *)notification {
     UIImageView *notifyView = [[UIImageView alloc] initWithImage:notification];
     CGRect screenBound = [[UIScreen mainScreen] bounds];
     CGSize screenSize = screenBound.size;
-    notifyView.frame = CGRectMake((screenSize.width-notification.size.width)/2, 10, notification.size.width, notification.size.height);
+    if(screenSize.height == 812){notifyView.frame = CGRectMake((screenSize.width-notification.size.width)/2, 30, notification.size.width, notification.size.height);}
+    else {notifyView.frame = CGRectMake((screenSize.width-notification.size.width)/2, 10, notification.size.width, notification.size.height);}
     return notifyView;
+    
 }
 -(UIImageView *)compass: (BOOL *) rotate: (UIImage *)compass {
     UIImageView *compassView = [[UIImageView alloc] initWithImage:compass];
@@ -532,7 +548,8 @@
     UIImageView *openview = [[UIImageView alloc] initWithImage:openstreet];
     CGRect screenBound = [[UIScreen mainScreen] bounds];
     CGSize screenSize = screenBound.size;
-    openview.frame = CGRectMake(screenSize.width-openstreet.size.width, screenSize.height - 110+openstreet.size.height, openstreet.size.width, openstreet.size.height);
+    if(screenSize.height == 812) openview.frame = CGRectMake(screenSize.width-openstreet.size.width, screenSize.height - 150+openstreet.size.height, openstreet.size.width, openstreet.size.height);
+    else openview.frame = CGRectMake(screenSize.width-openstreet.size.width, screenSize.height - 110+openstreet.size.height, openstreet.size.width, openstreet.size.height);
     UITapGestureRecognizer *singleTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapDetected)];
     singleTap.numberOfTapsRequired = 1;
     [openview setUserInteractionEnabled:YES];
@@ -569,6 +586,32 @@
     map.image = tempImage;
     //return tempImage;
 }
-
+-(void)iphoneX:(UIImageView*)map{
+    UIImage *image = [UIImage imageNamed:@"mapFIU3"];
+    
+    UIImage *tempImage = nil;
+    //CGSize targetSize = CGSizeMake(770,1177);
+    //CGSize targetSize = CGSizeMake(862,1318);
+    CGSize targetSize = CGSizeMake(550*1.,1288*1.);
+    UIGraphicsBeginImageContext(targetSize);
+    
+    CGRect thumbnailRect = CGRectMake(0,0,0,0);
+    thumbnailRect.origin = CGPointMake(0,0);
+    //    thumbnailRect.origin = CGPointMake(317,472);
+    //thumbnailRect.origin = CGPointMake(285*1.09,425*1.09);
+    thumbnailRect.size.width  = image.size.width;
+    thumbnailRect.size.height = image.size.height;
+    //  thumbnailRect.size.width  = targetSize.width;
+    //  thumbnailRect.size.height = targetSize.height-100;
+    
+    [image drawInRect:thumbnailRect];
+    
+    tempImage = UIGraphicsGetImageFromCurrentImageContext();
+    
+    UIGraphicsEndImageContext();
+    
+    map.image = tempImage;
+    //return tempImage;
+}
 
 @end
